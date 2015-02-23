@@ -110,16 +110,16 @@ pre {
  * Wrapper
  */
 .wrapper {
-  max-width: -webkit-calc(800px - (30px * 2));
-  max-width: calc(800px - (30px * 2));
+  max-width: -webkit-calc(70% - (30px * 2));
+  max-width: calc(70% - (30px * 2));
   margin-right: auto;
   margin-left: auto;
   padding-right: 30px;
   padding-left: 30px; }
   @media screen and (max-width: 800px) {
     .wrapper {
-      max-width: -webkit-calc(800px - (30px));
-      max-width: calc(800px - (30px));
+      max-width: -webkit-calc(70% - (30px));
+      max-width: calc(70% - (30px));
       padding-right: 15px;
       padding-left: 15px; } }
 
@@ -271,7 +271,8 @@ pre {
 
 .post-meta {
   font-size: 14px;
-  color: #828282; }
+  color: #828282;
+  text-align: right; }
 
 .post-link {
   display: block;
@@ -286,13 +287,16 @@ pre {
 .post-title {
   font-size: 42px;
   letter-spacing: -1px;
-  line-height: 1; }
+  line-height: 1;
+  text-align: center; }
   @media screen and (max-width: 800px) {
     .post-title {
       font-size: 36px; } }
 
 .post-content {
-  margin-bottom: 30px; }
+  margin-bottom: 30px;
+  background-color: white;
+  padding: 10px 5% 20px; }
   .post-content h2 {
     font-size: 32px; }
     @media screen and (max-width: 800px) {
@@ -308,6 +312,11 @@ pre {
     @media screen and (max-width: 800px) {
       .post-content h4 {
         font-size: 18px; } }
+
+/** Added by myself*/
+body {
+  background-color: #e9e9e9;
+  margin: auto; }
 
 /**
  * Syntax highlighting styles

@@ -1,53 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Your awesome title</title>
-    <description>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+    <title>blog.fujianjin6471.com</title>
+    <description>Write something really helpful to me, hope the same to others.
 </description>
-    <link>http://yourdomain.com/</link>
-    <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 17 Feb 2015 19:04:41 +0800</pubDate>
-    <lastBuildDate>Tue, 17 Feb 2015 19:04:41 +0800</lastBuildDate>
+    <link>http://127.0.0.1:4000/</link>
+    <atom:link href="http://127.0.0.1:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Mon, 23 Feb 2015 15:58:36 +0800</pubDate>
+    <lastBuildDate>Mon, 23 Feb 2015 15:58:36 +0800</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
-        <title>my first post</title>
-        <description>&lt;h1&gt;利用github-pages建立个人博客&lt;/h1&gt;
-&lt;p&gt;This is my first post.Click the link below to go back to index:&lt;/p&gt;
-&lt;a href=&quot;/index.html&quot;&gt;Go back&lt;/a&gt;
+        <title>How to use UIScrollView in storyboard</title>
+        <description>&lt;p&gt;Let’s make it from scratch. Choose a &lt;strong&gt;Single View Application&lt;/strong&gt; template, name it anything as you like, in my case, &lt;strong&gt;UIScrollViewAndUIPageControl&lt;/strong&gt; is used.&lt;/p&gt;
+
+&lt;p&gt;Drag a &lt;strong&gt;Scroll View&lt;/strong&gt; on top of View Controller&#39;s default &lt;strong&gt;View&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Set constraints for &lt;strong&gt;Scroll View&lt;/strong&gt; using the second icon at bottom right corner (assuming AutoLayout is allowed) as below:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/ConstraintsForScrollView.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;As you see, &lt;strong&gt;Scroll View&lt;/strong&gt; is the same size as &lt;strong&gt;View&lt;/strong&gt;. Shouldn&#39;t &lt;strong&gt;Scroll View&lt;/strong&gt; be bigger than &lt;strong&gt;View&lt;/strong&gt;? In fact, the size of &lt;strong&gt;Scroll View&lt;/strong&gt; and the size of its content are two different concepts. You can view &lt;strong&gt;Scroll View&lt;/strong&gt; as a window, the scope you can see through it is often greater than itself. More on this later.&lt;/p&gt;
+
+&lt;p&gt;Drag a View on top of &lt;strong&gt;Scroll View&lt;/strong&gt;. I prefer to rename it &lt;strong&gt;contentView&lt;/strong&gt;, the name just suggests its usage. &lt;/p&gt;
+
+&lt;p&gt;Next step is to set constraints for &lt;strong&gt;contentView&lt;/strong&gt;. But this time, it’s not that straightforward. &lt;/p&gt;
+
+&lt;p&gt;Firstly, add four constraints as we do for &lt;strong&gt;Scroll View&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/ConstraintsForContentView.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;What happened? Xcode gave us two warnings. &lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/WarningsAfterFourContentConstraints.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I think information lies in &lt;strong&gt;Document Outline&lt;/strong&gt; gives better prompts than in &lt;strong&gt;Navigator&lt;/strong&gt;, so let’s go there to have a look.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/WarningsInDocumentOutline.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The four constraints we added for &lt;strong&gt;contentView&lt;/strong&gt; just means &lt;strong&gt;contentView&lt;/strong&gt; (the view we added manually) has the same size with &lt;strong&gt;Scroll View&lt;/strong&gt;&#39;s contentSize (a property of UIScrollView defined in UIKit). Actually we haven&#39;t specified &lt;strong&gt;Scroll View&lt;/strong&gt;&#39;s contentSize yet, this is the reason why the first two warnings came out. The default size of contentSize is CGSizeZero, this explains the third warnings in &lt;strong&gt;Document Outline&lt;/strong&gt;. &lt;/p&gt;
+
+&lt;p&gt;In order to fix the problem, we should add more constraints to make the scrollable content width and height clear. One way is to specify the &lt;strong&gt;contentView&lt;/strong&gt;&#39;s width and height. &lt;/p&gt;
+
+&lt;p&gt;Assume that I want to scroll horizontally and the content is three times of the screen. So the &lt;strong&gt;contentView&lt;/strong&gt; should be equal height to screen and three times width of screen.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Ctrl-drag&lt;/strong&gt; from &lt;strong&gt;contentView&lt;/strong&gt; to &lt;strong&gt;Scroll View&lt;/strong&gt; in &lt;strong&gt;Document Outline&lt;/strong&gt; and choose &lt;strong&gt;Equal Heights&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/EqualHeights.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Next, &lt;strong&gt;Equal Widths&lt;/strong&gt;. &lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/EqualWidths.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;We will set &lt;strong&gt;contentView&lt;/strong&gt;&#39;s width three times of the screen, but not now.&lt;/p&gt;
+
+&lt;p&gt;Now let&#39;s decorate &lt;strong&gt;contentView&lt;/strong&gt; with some images for final effect. Drag three &lt;strong&gt;Image View&lt;/strong&gt;s onto the contentView and set constraints for them in turn.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/ThreeImages.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Set constraints for them. Take the leftmost &lt;strong&gt;Image View&lt;/strong&gt; for example.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/Leftmost3Edges.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Then &lt;strong&gt;ctrl-drag&lt;/strong&gt; from &lt;strong&gt;First&lt;/strong&gt; (Image View) to &lt;strong&gt;contentView&lt;/strong&gt; in &lt;strong&gt;Document Outline&lt;/strong&gt; and choose &lt;strong&gt;Equal Widths&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/LeftmostWidth.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;But this time, equal isn&#39;t what we really want. Let&#39;s open &lt;strong&gt;Size inspector&lt;/strong&gt; of &lt;strong&gt;First&lt;/strong&gt; (Image View) and double-click &lt;strong&gt;Equal Width&lt;/strong&gt; constraint. &lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/DoubleClickEqualWidth.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/AfterDoubleClick.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Adjust it like below:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/AfterAdjustment.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The rule underneath the hood is:&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;attribute1 == multiplier × attribute2 + constant&lt;/em&gt; (&lt;a href=&quot;https://developer.apple.com/library/ios/documentation/AppKit/Reference/NSLayoutConstraint_Class/index.html#//apple_ref/doc/uid/TP40010628&quot;&gt;NSLayoutConstraint Class Reference&lt;/a&gt;)&lt;/p&gt;
+
+&lt;p&gt;So what we set means the first &lt;strong&gt;Image View&#39;s width&lt;/strong&gt; equals one third of &lt;strong&gt;contentView&#39;s width&lt;/strong&gt;. Then do the same for the next two &lt;strong&gt;Image View&lt;/strong&gt;s.&lt;/p&gt;
+
+&lt;p&gt;One last step, set &lt;strong&gt;contentView&lt;/strong&gt;&#39;s width to be three times of its superview (&lt;strong&gt;Scroll View&lt;/strong&gt;).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/ThreeTimesWidth.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You can only one image now, that is the reason why we put the step as the last one.&lt;/p&gt;
+
+&lt;p&gt;Now run the program, the effect is just what you want.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/ScrollEffect.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The demo project is &lt;a href=&quot;https://github.com/fujianjin6471/UIScrollViewInStoryboard&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 </description>
-        <pubDate>Tue, 17 Feb 2015 00:00:00 +0800</pubDate>
-        <link>http://yourdomain.com/2015/02/17/first-post.html</link>
-        <guid isPermaLink="true">http://yourdomain.com/2015/02/17/first-post.html</guid>
+        <pubDate>Sat, 21 Feb 2015 00:00:00 +0800</pubDate>
+        <link>http://127.0.0.1:4000/2015/02/21/how-to-use-UIScrollView-in-storyboard.html</link>
+        <guid isPermaLink="true">http://127.0.0.1:4000/2015/02/21/how-to-use-UIScrollView-in-storyboard.html</guid>
         
-        
-      </item>
-    
-      <item>
-        <title>Welcome to Jekyll!</title>
-        <description>&lt;p&gt;You’ll find this post in your &lt;code&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
-
-&lt;p&gt;To add new posts, simply add a file in the &lt;code&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
-
-&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;Tom&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints &amp;#39;Hi, Tom&amp;#39; to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;Check out the &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://github.com/jekyll/jekyll-help&quot;&gt;Jekyll’s dedicated Help repository&lt;/a&gt;.&lt;/p&gt;
-
-</description>
-        <pubDate>Mon, 16 Feb 2015 19:13:29 +0800</pubDate>
-        <link>http://yourdomain.com/jekyll/update/2015/02/16/welcome-to-jekyll.html</link>
-        <guid isPermaLink="true">http://yourdomain.com/jekyll/update/2015/02/16/welcome-to-jekyll.html</guid>
-        
-        
-        <category>jekyll</category>
-        
-        <category>update</category>
         
       </item>
     

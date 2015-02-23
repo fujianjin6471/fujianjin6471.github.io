@@ -181,6 +181,7 @@
 .post-meta {
     font-size: $small-font-size;
     color: $grey-color;
+    text-align: right;
 }
 
 .post-link {
@@ -201,6 +202,7 @@
     font-size: 42px;
     letter-spacing: -1px;
     line-height: 1;
+    text-align: center;
 
     @include media-query($on-laptop) {
         font-size: 36px;
@@ -210,6 +212,8 @@
 .post-content {
     margin-bottom: $spacing-unit;
 
+    background-color: white;
+    padding: 10px 5% 20px;
     h2 {
         font-size: 32px;
 
@@ -234,3 +238,10 @@
         }
     }
 }
+
+/** Added by myself*/
+body {
+        background-color: rgb(233, 233, 233);
+         
+        margin: auto;
+    }
