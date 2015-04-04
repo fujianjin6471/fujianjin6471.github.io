@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>How to use UIScrollView in storyboard</title>
+  <meta name="description" content="Let’s make it from scratch. Choose a Single View Application template, name it anything as you like, in my case, UIScrollViewAndUIPageControl is used.">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://blog.fujianjin6471.com/2015/02/21/how-to-use-UIScrollView-in-storyboard.html">
+  <link rel="alternate" type="application/rss+xml" title="blog.fujianjin6471.com" href="http://blog.fujianjin6471.com/feed.xml" />
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">blog.fujianjin6471.com</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">How to use UIScrollView in storyboard</h1>
+    <p class="post-meta">Feb 21, 2015</p>
+  </header>
+
+  <article class="post-content">
+    <p>Let’s make it from scratch. Choose a <strong>Single View Application</strong> template, name it anything as you like, in my case, <strong>UIScrollViewAndUIPageControl</strong> is used.</p>
+
+<p>Drag a <strong>Scroll View</strong> on top of View Controller's default <strong>View</strong>.</p>
+
+<p>Set constraints for <strong>Scroll View</strong> using the second icon at bottom right corner (assuming AutoLayout is allowed) as below:</p>
+
+<p><img src="http://blog.fujianjin6471.com/images/2015-2-21/ConstraintsForScrollView.png" alt="image" /></p>
+
+<p>As you see, <strong>Scroll View</strong> is the same size as <strong>View</strong>. Shouldn't <strong>Scroll View</strong> be bigger than <strong>View</strong>? In fact, the size of <strong>Scroll View</strong> and the size of its content are two different concepts. You can view <strong>Scroll View</strong> as a window, the scope you can see through it is often greater than itself. More on this later.</p>
+
+<p>Drag a View on top of <strong>Scroll View</strong>. I prefer to rename it <strong>contentView</strong>, the name just suggests its usage. </p>
+
+<p>Next step is to set constraints for <strong>contentView</strong>. But this time, it’s not that straightforward. </p>
+
+<p>Firstly, add four constraints as we do for <strong>Scroll View</strong>.</p>
+
+<p><img src="http://blog.fujianjin6471.com/images/2015-2-21/ConstraintsForContentView.png" alt="image" /></p>
+
+<p>What happened? Xcode gave us two warnings. </p>
+
+<p><img src="http://blog.fujianjin6471.com/images/2015-2-21/WarningsAfterFourContentConstraints.png" alt="image" /></p>
+
+<p>I think information lies in <strong>Document Outline</strong> gives better prompts than in <strong>Navigator</strong>, so let’s go there to have a look.</p>
+
+<p><img src="http://blog.fujianjin6471.com/images/2015-2-21/WarningsInDocumentOutline.png" alt="image" /></p>
+
+<p>The four constraints we added for <strong>contentView</strong> just means <strong>contentView</strong> (the view we added manually) has the same size with <strong>Scroll View</strong>'s contentSize (a property of UIScrollView defined in UIKit). Actually we haven't specified <strong>Scroll View</strong>'s contentSize yet, this is the reason why the first two warnings came out. The default size of contentSize is CGSizeZero, this explains the third warnings in <strong>Document Outline</strong>. </p>
+
+<p>In order to fix the problem, we should add more constraints to make the scrollable content width and height clear. One way is to specify the <strong>contentView</strong>'s width and height. </p>
+
+<p>Assume that I want to scroll horizontally and the content is three times of the screen. So the <strong>contentView</strong> should be equal height to screen and three times width of screen.</p>
+
+<p><strong>Ctrl-drag</strong> from <strong>contentView</strong> to <strong>Scroll View</strong> in <strong>Document Outline</strong> and choose <strong>Equal Heights</strong>.</p>
+
+<p><img src="http://blog.fujianjin6471.com/images/2015-2-21/EqualHeights.png" alt="image" /></p>
+
+<p>Next, <strong>Equal Widths</strong>. </p>
+
+<p><img src="http://blog.fujianjin6471.com/images/2015-2-21/EqualWidths.png" alt="image" /></p>
+
+<p>We will set <strong>contentView</strong>'s width three times of the screen, but not now.</p>
+
+<p>Now let's decorate <strong>contentView</strong> with some images for final effect. Drag three <strong>Image View</strong>s onto the contentView and set constraints for them in turn.</p>
+
+<p><img src="http://blog.fujianjin6471.com/images/2015-2-21/ThreeImages.png" alt="image" /></p>
+
+<p>Set constraints for them. Take the leftmost <strong>Image View</strong> for example.</p>
+
+<p><img src="http://blog.fujianjin6471.com/images/2015-2-21/Leftmost3Edges.png" alt="image" /></p>
+
+<p>Then <strong>ctrl-drag</strong> from <strong>First</strong> (Image View) to <strong>contentView</strong> in <strong>Document Outline</strong> and choose <strong>Equal Widths</strong>.</p>
+
+<p><img src="http://blog.fujianjin6471.com/images/2015-2-21/LeftmostWidth.png" alt="image" /></p>
+
+<p>But this time, equal isn't what we really want. Let's open <strong>Size inspector</strong> of <strong>First</strong> (Image View) and double-click <strong>Equal Width</strong> constraint. </p>
+
+<p><img src="http://blog.fujianjin6471.com/images/2015-2-21/DoubleClickEqualWidth.png" alt="image" /></p>
+
+<p><img src="http://blog.fujianjin6471.com/images/2015-2-21/AfterDoubleClick.png" alt="image" /></p>
+
+<p>Adjust it like below:</p>
+
+<p><img src="http://blog.fujianjin6471.com/images/2015-2-21/AfterAdjustment.png" alt="image" /></p>
+
+<p>The rule underneath the hood is:</p>
+
+<p><em>attribute1 == multiplier × attribute2 + constant</em> (<a href="https://developer.apple.com/library/ios/documentation/AppKit/Reference/NSLayoutConstraint_Class/index.html#//apple_ref/doc/uid/TP40010628">NSLayoutConstraint Class Reference</a>)</p>
+
+<p>So what we set means the first <strong>Image View's width</strong> equals one third of <strong>contentView's width</strong>. Then do the same for the next two <strong>Image View</strong>s.</p>
+
+<p>One last step, set <strong>contentView</strong>'s width to be three times of its superview (<strong>Scroll View</strong>).</p>
+
+<p><img src="http://blog.fujianjin6471.com/images/2015-2-21/ThreeTimesWidth.png" alt="image" /></p>
+
+<p>You can only one image now, that is the reason why we put the step as the last one.</p>
+
+<p>Now run the program, the effect is just what you want.</p>
+
+<p><img src="http://blog.fujianjin6471.com/images/2015-2-21/ScrollEffect.gif" alt="image" /></p>
+
+<p>The demo project is <a href="https://github.com/fujianjin6471/UIScrollViewInStoryboard">here</a>.</p>
+
+  </article>
+
+   <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'fujianjin6471'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Contact Information</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <!--<li>blog.fujianjin6471.com</li>-->
+          <li><a href="mailto:fujianjin6471@yeah.net">fujianjin6471@yeah.net</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/fujianjin6471">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">fujianjin6471</span>
+            </a>
+          </li>
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">Write something really helpful to me, hope the same to others.
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

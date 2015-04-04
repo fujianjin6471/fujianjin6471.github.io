@@ -4,50 +4,11 @@
     <title>blog.fujianjin6471.com</title>
     <description>Write something really helpful to me, hope the same to others.
 </description>
-    <link>http://127.0.0.1:4000/</link>
-    <atom:link href="http://127.0.0.1:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 04 Apr 2015 13:40:34 +0800</pubDate>
-    <lastBuildDate>Sat, 04 Apr 2015 13:40:34 +0800</lastBuildDate>
+    <link>http://blog.fujianjin6471.com/</link>
+    <atom:link href="http://blog.fujianjin6471.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Mon, 23 Mar 2015 23:35:18 +0800</pubDate>
+    <lastBuildDate>Mon, 23 Mar 2015 23:35:18 +0800</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
-    
-      <item>
-        <title>Ways to add a Tap Gesture Recognizer</title>
-        <description>&lt;p&gt;Say you are using a &lt;strong&gt;UITextField&lt;/strong&gt;, you want to tap another place to hide the keyboard. This article provides two methods to implement the simple functionality.&lt;/p&gt;
-
-&lt;p&gt;First, let’s realize it mainly through IB:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-4/DragATapGestureRecognizer.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-4/CtrlDragRecognizer.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Make it an action, add only one line of code as follow:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-4/OnlyOneLine.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;All done, so easy, right?&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-4/EffectOne.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Then, let’s realize it through pure code:&lt;/p&gt;
-
-&lt;p&gt;You just need to add two piece of code:&lt;/p&gt;
-
-&lt;p&gt;Add &lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-4/CreateGestureRecognizer.png&quot; alt=&quot;image&quot; /&gt; in &lt;em&gt;viewDidLoad:&lt;/em&gt; &lt;/p&gt;
-
-&lt;p&gt;and add a method &lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-4/HideKeyboard.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The effect is exactly the same as before. While there are of course other ways to hide keyboard, but that’s not the point in this article.&lt;/p&gt;
-
-&lt;p&gt;IB or pure code, which one do you prefer?&lt;/p&gt;
-
-&lt;p&gt;The demo project is &lt;a href=&quot;https://github.com/fujianjin6471/GestureRecognizer&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
-</description>
-        <pubDate>Sat, 04 Apr 2015 00:00:00 +0800</pubDate>
-        <link>http://127.0.0.1:4000/2015/04/04/Ways%20to%20add%20a%20Tap%20Gesture%20Recognizer.html</link>
-        <guid isPermaLink="true">http://127.0.0.1:4000/2015/04/04/Ways%20to%20add%20a%20Tap%20Gesture%20Recognizer.html</guid>
-        
-        
-      </item>
     
       <item>
         <title>How to use UIScrollView in storyboard</title>
@@ -57,7 +18,7 @@
 
 &lt;p&gt;Set constraints for &lt;strong&gt;Scroll View&lt;/strong&gt; using the second icon at bottom right corner (assuming AutoLayout is allowed) as below:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/ConstraintsForScrollView.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/ConstraintsForScrollView.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;As you see, &lt;strong&gt;Scroll View&lt;/strong&gt; is the same size as &lt;strong&gt;View&lt;/strong&gt;. Shouldn&#39;t &lt;strong&gt;Scroll View&lt;/strong&gt; be bigger than &lt;strong&gt;View&lt;/strong&gt;? In fact, the size of &lt;strong&gt;Scroll View&lt;/strong&gt; and the size of its content are two different concepts. You can view &lt;strong&gt;Scroll View&lt;/strong&gt; as a window, the scope you can see through it is often greater than itself. More on this later.&lt;/p&gt;
 
@@ -67,15 +28,15 @@
 
 &lt;p&gt;Firstly, add four constraints as we do for &lt;strong&gt;Scroll View&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/ConstraintsForContentView.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/ConstraintsForContentView.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;What happened? Xcode gave us two warnings. &lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/WarningsAfterFourContentConstraints.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/WarningsAfterFourContentConstraints.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;I think information lies in &lt;strong&gt;Document Outline&lt;/strong&gt; gives better prompts than in &lt;strong&gt;Navigator&lt;/strong&gt;, so let’s go there to have a look.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/WarningsInDocumentOutline.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/WarningsInDocumentOutline.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The four constraints we added for &lt;strong&gt;contentView&lt;/strong&gt; just means &lt;strong&gt;contentView&lt;/strong&gt; (the view we added manually) has the same size with &lt;strong&gt;Scroll View&lt;/strong&gt;&#39;s contentSize (a property of UIScrollView defined in UIKit). Actually we haven&#39;t specified &lt;strong&gt;Scroll View&lt;/strong&gt;&#39;s contentSize yet, this is the reason why the first two warnings came out. The default size of contentSize is CGSizeZero, this explains the third warnings in &lt;strong&gt;Document Outline&lt;/strong&gt;. &lt;/p&gt;
 
@@ -85,35 +46,35 @@
 
 &lt;p&gt;&lt;strong&gt;Ctrl-drag&lt;/strong&gt; from &lt;strong&gt;contentView&lt;/strong&gt; to &lt;strong&gt;Scroll View&lt;/strong&gt; in &lt;strong&gt;Document Outline&lt;/strong&gt; and choose &lt;strong&gt;Equal Heights&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/EqualHeights.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/EqualHeights.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Next, &lt;strong&gt;Equal Widths&lt;/strong&gt;. &lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/EqualWidths.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/EqualWidths.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;We will set &lt;strong&gt;contentView&lt;/strong&gt;&#39;s width three times of the screen, but not now.&lt;/p&gt;
 
 &lt;p&gt;Now let&#39;s decorate &lt;strong&gt;contentView&lt;/strong&gt; with some images for final effect. Drag three &lt;strong&gt;Image View&lt;/strong&gt;s onto the contentView and set constraints for them in turn.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/ThreeImages.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/ThreeImages.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Set constraints for them. Take the leftmost &lt;strong&gt;Image View&lt;/strong&gt; for example.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/Leftmost3Edges.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/Leftmost3Edges.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Then &lt;strong&gt;ctrl-drag&lt;/strong&gt; from &lt;strong&gt;First&lt;/strong&gt; (Image View) to &lt;strong&gt;contentView&lt;/strong&gt; in &lt;strong&gt;Document Outline&lt;/strong&gt; and choose &lt;strong&gt;Equal Widths&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/LeftmostWidth.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/LeftmostWidth.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;But this time, equal isn&#39;t what we really want. Let&#39;s open &lt;strong&gt;Size inspector&lt;/strong&gt; of &lt;strong&gt;First&lt;/strong&gt; (Image View) and double-click &lt;strong&gt;Equal Width&lt;/strong&gt; constraint. &lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/DoubleClickEqualWidth.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/DoubleClickEqualWidth.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/AfterDoubleClick.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/AfterDoubleClick.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Adjust it like below:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/AfterAdjustment.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/AfterAdjustment.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The rule underneath the hood is:&lt;/p&gt;
 
@@ -123,19 +84,19 @@
 
 &lt;p&gt;One last step, set &lt;strong&gt;contentView&lt;/strong&gt;&#39;s width to be three times of its superview (&lt;strong&gt;Scroll View&lt;/strong&gt;).&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/ThreeTimesWidth.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/ThreeTimesWidth.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;You can only one image now, that is the reason why we put the step as the last one.&lt;/p&gt;
 
 &lt;p&gt;Now run the program, the effect is just what you want.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/ScrollEffect.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/ScrollEffect.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The demo project is &lt;a href=&quot;https://github.com/fujianjin6471/UIScrollViewInStoryboard&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 </description>
         <pubDate>Sat, 21 Feb 2015 00:00:00 +0800</pubDate>
-        <link>http://127.0.0.1:4000/2015/02/21/how-to-use-UIScrollView-in-storyboard.html</link>
-        <guid isPermaLink="true">http://127.0.0.1:4000/2015/02/21/how-to-use-UIScrollView-in-storyboard.html</guid>
+        <link>http://blog.fujianjin6471.com/2015/02/21/how-to-use-UIScrollView-in-storyboard.html</link>
+        <guid isPermaLink="true">http://blog.fujianjin6471.com/2015/02/21/how-to-use-UIScrollView-in-storyboard.html</guid>
         
         
       </item>
