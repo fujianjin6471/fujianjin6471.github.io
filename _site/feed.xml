@@ -6,9 +6,97 @@
 </description>
     <link>http://127.0.0.1:4000/</link>
     <atom:link href="http://127.0.0.1:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 04 Apr 2015 13:40:34 +0800</pubDate>
-    <lastBuildDate>Sat, 04 Apr 2015 13:40:34 +0800</lastBuildDate>
+    <pubDate>Thu, 23 Apr 2015 20:00:52 +0800</pubDate>
+    <lastBuildDate>Thu, 23 Apr 2015 20:00:52 +0800</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>How to add UIPageControl to a scroll view in storyboard</title>
+        <description>&lt;p&gt;The starting point is a view controller with a scroll view, you can download it &lt;a href=&quot;https://github.com/fujianjin6471/UIScrollViewInStoryboard/archive/4ddbebfbbcfbcd213eaf393eebd772a1c3bfaddb.zip&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;At the very beginning, drag a &lt;strong&gt;Page Control&lt;/strong&gt; on top the root view, the hierarchy in the Document Outline should look like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-23/HierarchyInDO.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Then, set the constraints of the page control as below:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-23/ConstraintsOfPageControl.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Next, add two properties to your &lt;strong&gt;ViewController&lt;/strong&gt; class and connect them to scroll view and page control respectively.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-swift&quot; data-lang=&quot;swift&quot;&gt;&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;IBOutlet&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;weak&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;scrollView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;UIScrollView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;IBOutlet&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;weak&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;pageControl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;UIPageControl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Run the app.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-23/InitialEffect.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You will see when you tap at the right part of the page control, the shiny dot move towards the right, vice versa, but nothing happen to the scroll view. And when you sweep the scroll view, the shiny dot of page control keeps quiet. These are the two tasks we are going to finish.&lt;/p&gt;
+
+&lt;p&gt;Firstly, let’s make scroll view respond to taps on page control.&lt;/p&gt;
+
+&lt;p&gt;Ctrl-drag from &lt;strong&gt;Page Control&lt;/strong&gt; to the code editor to make an action:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-23/ActionOfPageControl.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;code here:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-swift&quot; data-lang=&quot;swift&quot;&gt;&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;IBAction&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pageTurn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;sender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;UIPageControl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;viewSize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scrollView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rect&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CGRectMake&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CGFloat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;currentPage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;viewSize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;viewSize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;viewSize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;scrollView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;scrollRectToVisible&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;animated&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The code inside the action is very straightforward. Every time when we tap the page control, this action is triggered. Then we ask the scroll view to slide to the part which correspond to the current page (the shiny dot, remember?) of the page control.&lt;/p&gt;
+
+&lt;p&gt;Run the app.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-23/PageTurnEffect.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This time when you tap at the right part of the page control, the scroll view moves!&lt;/p&gt;
+
+&lt;p&gt;Then comes the reverse part. When we sweep the scroll view, the view controller will be notified and asks the page control to synchronize with the scroll view’s position (in fact, its contentView’s position). How to implement this? Delegate is a good choice. &lt;/p&gt;
+
+&lt;p&gt;Make &lt;strong&gt;Scroll View&lt;/strong&gt; be &lt;strong&gt;View Controller&lt;/strong&gt;’s delegate in the IB and add a method in the class&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-swift&quot; data-lang=&quot;swift&quot;&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;scrollViewDidEndDecelerating&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;scrollView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;UIScrollView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;offset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scrollView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;contentOffset&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bounds&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scrollView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;frame&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;pageControl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;currentPage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;offset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bounds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;em&gt;- scrollViewDidEndDecelerating:&lt;/em&gt; will be called when the scroll view has ended decelerating the scrolling movement. Inside of it, we get the contentView’s offset to calculate the corresponding page of page control and set the latter to be &lt;strong&gt;Page Control&lt;/strong&gt;’s current page.&lt;/p&gt;
+
+&lt;p&gt;Run the app.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-23/TwoEffects.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;When you sweep the scroll view, the page control synchronizes with it, great!&lt;/p&gt;
+
+&lt;p&gt;Play with it for a moment, you will notice there’s improvement being able to take place.&lt;/p&gt;
+
+&lt;p&gt;Just add another method like this and call it in &lt;em&gt;viewDidLoad&lt;/em&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-swift&quot; data-lang=&quot;swift&quot;&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;someImprovement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;scrollView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pagingEnabled&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;scrollView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bounces&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;scrollView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;showsHorizontalScrollIndicator&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Run the app for the last time.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-23/FinalEffect.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;That’s just what you want, right?&lt;/p&gt;
+
+&lt;p&gt;The demo project is &lt;a href=&quot;https://github.com/fujianjin6471/UIScrollViewInStoryboard&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 23 Apr 2015 00:00:00 +0800</pubDate>
+        <link>http://127.0.0.1:4000/2015/04/23/How-to-add-UIPageControl-to-a-scroll-view-in-storyboard.html</link>
+        <guid isPermaLink="true">http://127.0.0.1:4000/2015/04/23/How-to-add-UIPageControl-to-a-scroll-view-in-storyboard.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>Ways to add a Tap Gesture Recognizer</title>
@@ -43,15 +131,15 @@
 &lt;p&gt;The demo project is &lt;a href=&quot;https://github.com/fujianjin6471/GestureRecognizer&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 </description>
         <pubDate>Sat, 04 Apr 2015 00:00:00 +0800</pubDate>
-        <link>http://127.0.0.1:4000/2015/04/04/Ways%20to%20add%20a%20Tap%20Gesture%20Recognizer.html</link>
-        <guid isPermaLink="true">http://127.0.0.1:4000/2015/04/04/Ways%20to%20add%20a%20Tap%20Gesture%20Recognizer.html</guid>
+        <link>http://127.0.0.1:4000/2015/04/04/Ways-to-add-a-Tap-Gesture-Recognizer.html</link>
+        <guid isPermaLink="true">http://127.0.0.1:4000/2015/04/04/Ways-to-add-a-Tap-Gesture-Recognizer.html</guid>
         
         
       </item>
     
       <item>
         <title>How to use UIScrollView in storyboard</title>
-        <description>&lt;p&gt;Let’s make it from scratch. Choose a &lt;strong&gt;Single View Application&lt;/strong&gt; template, name it anything as you like, in my case, &lt;strong&gt;UIScrollViewAndUIPageControl&lt;/strong&gt; is used.&lt;/p&gt;
+        <description>&lt;p&gt;Let’s make it from scratch. Choose a &lt;strong&gt;Single View Application&lt;/strong&gt; template, name it anything as you like, in my case, &lt;strong&gt;UIScrollViewInStoryboard&lt;/strong&gt; is used.&lt;/p&gt;
 
 &lt;p&gt;Drag a &lt;strong&gt;Scroll View&lt;/strong&gt; on top of View Controller&#39;s default &lt;strong&gt;View&lt;/strong&gt;.&lt;/p&gt;
 

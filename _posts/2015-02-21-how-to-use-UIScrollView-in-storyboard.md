@@ -4,7 +4,7 @@ title:  "How to use UIScrollView in storyboard"
 
 ---
 
-Let's make it from scratch. Choose a **Single View Application** template, name it anything as you like, in my case, **UIScrollViewAndUIPageControl** is used.
+Let's make it from scratch. Choose a **Single View Application** template, name it anything as you like, in my case, **UIScrollViewInStoryboard** is used.
 
 Drag a **Scroll View** on top of View Controller\'s default **View**.
 

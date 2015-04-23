@@ -1,0 +1,29 @@
+<p>Say you are using a <strong>UITextField</strong>, you want to tap another place to hide the keyboard. This article provides two methods to implement the simple functionality.</p>
+
+<p>First, let’s realize it mainly through IB:</p>
+
+<p><img src="/images/2015-4-4/DragATapGestureRecognizer.png" alt="image" /></p>
+
+<p><img src="/images/2015-4-4/CtrlDragRecognizer.png" alt="image" /></p>
+
+<p>Make it an action, add only one line of code as follow:</p>
+
+<p><img src="/images/2015-4-4/OnlyOneLine.png" alt="image" /></p>
+
+<p>All done, so easy, right?</p>
+
+<p><img src="/images/2015-4-4/EffectOne.gif" alt="image" /></p>
+
+<p>Then, let’s realize it through pure code:</p>
+
+<p>You just need to add two piece of code:</p>
+
+<p>Add <img src="/images/2015-4-4/CreateGestureRecognizer.png" alt="image" /> in <em>viewDidLoad:</em> </p>
+
+<p>and add a method <img src="/images/2015-4-4/HideKeyboard.png" alt="image" /></p>
+
+<p>The effect is exactly the same as before. While there are of course other ways to hide keyboard, but that’s not the point in this article.</p>
+
+<p>IB or pure code, which one do you prefer?</p>
+
+<p>The demo project is <a href="https://github.com/fujianjin6471/GestureRecognizer">here</a>.</p>
