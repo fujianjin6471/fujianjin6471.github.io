@@ -4,11 +4,85 @@
     <title>blog.fujianjin6471.com</title>
     <description>Write something really helpful to me, hope the same to others.
 </description>
-    <link>http://127.0.0.1:4000/</link>
-    <atom:link href="http://127.0.0.1:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 23 Apr 2015 20:00:52 +0800</pubDate>
-    <lastBuildDate>Thu, 23 Apr 2015 20:00:52 +0800</lastBuildDate>
+    <link>http://blog.fujianjin6471.com/</link>
+    <atom:link href="http://blog.fujianjin6471.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sat, 09 May 2015 19:13:54 +0800</pubDate>
+    <lastBuildDate>Sat, 09 May 2015 19:13:54 +0800</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>How to use UIRefreshControl</title>
+        <description>&lt;p&gt;There are some third-party libraries being able to provide pull-down-refresh effect, Apple introduces its own in iOS 6.0. It’s UIRefreshControl, our topic today.&lt;/p&gt;
+
+&lt;p&gt;We can use UIRefreshControl either in UITableViewController or just in UITableView. &lt;/p&gt;
+
+&lt;p&gt;The former is more straightforward because a table view controller has a property called refreshControl. Let’s begin with this situation.&lt;/p&gt;
+
+&lt;p&gt;Drag a table view controller from the object library and make it the initial view controller. Then add a new file through ⌘N -&amp;gt; iOS -&amp;gt; Source -&amp;gt; Cocoa Touch Class -&amp;gt; Subclass of UITableViewController, name it anything as you like, in my case, just TableViewController. After creating the new file, don’t forget to relate it to the table view controller. &lt;/p&gt;
+
+&lt;p&gt;Time for some code now, in TableViewController.swift&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-swift&quot; data-lang=&quot;swift&quot;&gt;&lt;span class=&quot;kr&quot;&gt;override&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;viewDidLoad&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;viewDidLoad&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;refreshControl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;UIRefreshControl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;configureRefreshControl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    
+&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;configureRefreshControl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;refreshControl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;addTarget&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;action&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;refreshEffect&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;forControlEvents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ValueChanged&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    
+&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;refreshEffect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Refresh!&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;refreshControl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;endRefreshing&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Two warnings exist, just ignore them, they have nothing to do with topic today.&lt;/p&gt;
+
+&lt;p&gt;Run the app.&lt;/p&gt;
+
+&lt;p&gt;Pull down the table view, string “Refresh!” appear in console as we expect.&lt;/p&gt;
+
+&lt;p&gt;What if I want to use refresh control just in a table view, not in a table view controller? Just a little more. Let’s go back to the very first view controller we have forgotten╮(╯▽╰)╭&lt;/p&gt;
+
+&lt;p&gt;Make View Controller the initial view controller. Drag a table view onto View Controller, then ctrl-drag it to the code part to create an IBOutlet, just name it tableView. After that, add a property below IBOutlet.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-swift&quot; data-lang=&quot;swift&quot;&gt;&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;IBOutlet&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;weak&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;tableView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;UITableView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;refreshControl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;UIRefreshControl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The rest is almost the same as before.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-swift&quot; data-lang=&quot;swift&quot;&gt;&lt;span class=&quot;kr&quot;&gt;override&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;viewDidLoad&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;viewDidLoad&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;configureRefreshControl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;configureRefreshControl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;refreshControl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;addTarget&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;action&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;refreshEffect&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;forControlEvents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ValueChanged&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;tableView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;insertSubview&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;refreshControl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;atIndex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    
+&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;refreshEffect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Refresh!&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;refreshControl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;endRefreshing&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Don’t forget to set constraints for table view to make it the same size as its super view, or you will see the activity indicator not in the center of the screen after you pull down the table view.&lt;/p&gt;
+
+&lt;p&gt;Run the app, the effect is like below:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-5-9/PullDownEffect.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Of course what we have done is simple, but you can do whatever you want to after pulling down the table view.&lt;/p&gt;
+
+&lt;p&gt;The demo project is &lt;a href=&quot;https://github.com/fujianjin6471/UIRefreshControl&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 09 May 2015 00:00:00 +0800</pubDate>
+        <link>http://blog.fujianjin6471.com/2015/05/09/How-to-use-UIRefreshControl.html</link>
+        <guid isPermaLink="true">http://blog.fujianjin6471.com/2015/05/09/How-to-use-UIRefreshControl.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>How to add UIPageControl to a scroll view in storyboard</title>
@@ -16,11 +90,11 @@
 
 &lt;p&gt;At the very beginning, drag a &lt;strong&gt;Page Control&lt;/strong&gt; on top the root view, the hierarchy in the Document Outline should look like this:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-23/HierarchyInDO.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-4-23/HierarchyInDO.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Then, set the constraints of the page control as below:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-23/ConstraintsOfPageControl.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-4-23/ConstraintsOfPageControl.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Next, add two properties to your &lt;strong&gt;ViewController&lt;/strong&gt; class and connect them to scroll view and page control respectively.&lt;/p&gt;
 
@@ -29,7 +103,7 @@
 
 &lt;p&gt;Run the app.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-23/InitialEffect.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-4-23/InitialEffect.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;You will see when you tap at the right part of the page control, the shiny dot move towards the right, vice versa, but nothing happen to the scroll view. And when you sweep the scroll view, the shiny dot of page control keeps quiet. These are the two tasks we are going to finish.&lt;/p&gt;
 
@@ -37,7 +111,7 @@
 
 &lt;p&gt;Ctrl-drag from &lt;strong&gt;Page Control&lt;/strong&gt; to the code editor to make an action:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-23/ActionOfPageControl.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-4-23/ActionOfPageControl.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;code here:&lt;/p&gt;
 
@@ -51,7 +125,7 @@
 
 &lt;p&gt;Run the app.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-23/PageTurnEffect.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-4-23/PageTurnEffect.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;This time when you tap at the right part of the page control, the scroll view moves!&lt;/p&gt;
 
@@ -69,7 +143,7 @@
 
 &lt;p&gt;Run the app.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-23/TwoEffects.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-4-23/TwoEffects.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;When you sweep the scroll view, the page control synchronizes with it, great!&lt;/p&gt;
 
@@ -85,15 +159,15 @@
 
 &lt;p&gt;Run the app for the last time.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-23/FinalEffect.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-4-23/FinalEffect.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;That’s just what you want, right?&lt;/p&gt;
 
 &lt;p&gt;The demo project is &lt;a href=&quot;https://github.com/fujianjin6471/UIScrollViewInStoryboard&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 </description>
         <pubDate>Thu, 23 Apr 2015 00:00:00 +0800</pubDate>
-        <link>http://127.0.0.1:4000/2015/04/23/How-to-add-UIPageControl-to-a-scroll-view-in-storyboard.html</link>
-        <guid isPermaLink="true">http://127.0.0.1:4000/2015/04/23/How-to-add-UIPageControl-to-a-scroll-view-in-storyboard.html</guid>
+        <link>http://blog.fujianjin6471.com/2015/04/23/How-to-add-UIPageControl-to-a-scroll-view-in-storyboard.html</link>
+        <guid isPermaLink="true">http://blog.fujianjin6471.com/2015/04/23/How-to-add-UIPageControl-to-a-scroll-view-in-storyboard.html</guid>
         
         
       </item>
@@ -104,25 +178,25 @@
 
 &lt;p&gt;First, let’s realize it mainly through IB:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-4/DragATapGestureRecognizer.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-4-4/DragATapGestureRecognizer.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-4/CtrlDragRecognizer.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-4-4/CtrlDragRecognizer.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Make it an action, add only one line of code as follow:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-4/OnlyOneLine.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-4-4/OnlyOneLine.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;All done, so easy, right?&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-4/EffectOne.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-4-4/EffectOne.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Then, let’s realize it through pure code:&lt;/p&gt;
 
 &lt;p&gt;You just need to add two piece of code:&lt;/p&gt;
 
-&lt;p&gt;Add &lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-4/CreateGestureRecognizer.png&quot; alt=&quot;image&quot; /&gt; in &lt;em&gt;viewDidLoad:&lt;/em&gt; &lt;/p&gt;
+&lt;p&gt;Add &lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-4-4/CreateGestureRecognizer.png&quot; alt=&quot;image&quot; /&gt; in &lt;em&gt;viewDidLoad:&lt;/em&gt; &lt;/p&gt;
 
-&lt;p&gt;and add a method &lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-4/HideKeyboard.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;and add a method &lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-4-4/HideKeyboard.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The effect is exactly the same as before. While there are of course other ways to hide keyboard, but that’s not the point in this article.&lt;/p&gt;
 
@@ -131,8 +205,8 @@
 &lt;p&gt;The demo project is &lt;a href=&quot;https://github.com/fujianjin6471/GestureRecognizer&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 </description>
         <pubDate>Sat, 04 Apr 2015 00:00:00 +0800</pubDate>
-        <link>http://127.0.0.1:4000/2015/04/04/Ways-to-add-a-Tap-Gesture-Recognizer.html</link>
-        <guid isPermaLink="true">http://127.0.0.1:4000/2015/04/04/Ways-to-add-a-Tap-Gesture-Recognizer.html</guid>
+        <link>http://blog.fujianjin6471.com/2015/04/04/Ways-to-add-a-Tap-Gesture-Recognizer.html</link>
+        <guid isPermaLink="true">http://blog.fujianjin6471.com/2015/04/04/Ways-to-add-a-Tap-Gesture-Recognizer.html</guid>
         
         
       </item>
@@ -145,7 +219,7 @@
 
 &lt;p&gt;Set constraints for &lt;strong&gt;Scroll View&lt;/strong&gt; using the second icon at bottom right corner (assuming AutoLayout is allowed) as below:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/ConstraintsForScrollView.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/ConstraintsForScrollView.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;As you see, &lt;strong&gt;Scroll View&lt;/strong&gt; is the same size as &lt;strong&gt;View&lt;/strong&gt;. Shouldn&#39;t &lt;strong&gt;Scroll View&lt;/strong&gt; be bigger than &lt;strong&gt;View&lt;/strong&gt;? In fact, the size of &lt;strong&gt;Scroll View&lt;/strong&gt; and the size of its content are two different concepts. You can view &lt;strong&gt;Scroll View&lt;/strong&gt; as a window, the scope you can see through it is often greater than itself. More on this later.&lt;/p&gt;
 
@@ -155,15 +229,15 @@
 
 &lt;p&gt;Firstly, add four constraints as we do for &lt;strong&gt;Scroll View&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/ConstraintsForContentView.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/ConstraintsForContentView.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;What happened? Xcode gave us two warnings. &lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/WarningsAfterFourContentConstraints.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/WarningsAfterFourContentConstraints.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;I think information lies in &lt;strong&gt;Document Outline&lt;/strong&gt; gives better prompts than in &lt;strong&gt;Navigator&lt;/strong&gt;, so let’s go there to have a look.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/WarningsInDocumentOutline.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/WarningsInDocumentOutline.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The four constraints we added for &lt;strong&gt;contentView&lt;/strong&gt; just means &lt;strong&gt;contentView&lt;/strong&gt; (the view we added manually) has the same size with &lt;strong&gt;Scroll View&lt;/strong&gt;&#39;s contentSize (a property of UIScrollView defined in UIKit). Actually we haven&#39;t specified &lt;strong&gt;Scroll View&lt;/strong&gt;&#39;s contentSize yet, this is the reason why the first two warnings came out. The default size of contentSize is CGSizeZero, this explains the third warnings in &lt;strong&gt;Document Outline&lt;/strong&gt;. &lt;/p&gt;
 
@@ -173,35 +247,35 @@
 
 &lt;p&gt;&lt;strong&gt;Ctrl-drag&lt;/strong&gt; from &lt;strong&gt;contentView&lt;/strong&gt; to &lt;strong&gt;Scroll View&lt;/strong&gt; in &lt;strong&gt;Document Outline&lt;/strong&gt; and choose &lt;strong&gt;Equal Heights&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/EqualHeights.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/EqualHeights.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Next, &lt;strong&gt;Equal Widths&lt;/strong&gt;. &lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/EqualWidths.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/EqualWidths.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;We will set &lt;strong&gt;contentView&lt;/strong&gt;&#39;s width three times of the screen, but not now.&lt;/p&gt;
 
 &lt;p&gt;Now let&#39;s decorate &lt;strong&gt;contentView&lt;/strong&gt; with some images for final effect. Drag three &lt;strong&gt;Image View&lt;/strong&gt;s onto the contentView and set constraints for them in turn.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/ThreeImages.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/ThreeImages.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Set constraints for them. Take the leftmost &lt;strong&gt;Image View&lt;/strong&gt; for example.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/Leftmost3Edges.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/Leftmost3Edges.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Then &lt;strong&gt;ctrl-drag&lt;/strong&gt; from &lt;strong&gt;First&lt;/strong&gt; (Image View) to &lt;strong&gt;contentView&lt;/strong&gt; in &lt;strong&gt;Document Outline&lt;/strong&gt; and choose &lt;strong&gt;Equal Widths&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/LeftmostWidth.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/LeftmostWidth.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;But this time, equal isn&#39;t what we really want. Let&#39;s open &lt;strong&gt;Size inspector&lt;/strong&gt; of &lt;strong&gt;First&lt;/strong&gt; (Image View) and double-click &lt;strong&gt;Equal Width&lt;/strong&gt; constraint. &lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/DoubleClickEqualWidth.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/DoubleClickEqualWidth.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/AfterDoubleClick.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/AfterDoubleClick.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Adjust it like below:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/AfterAdjustment.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/AfterAdjustment.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The rule underneath the hood is:&lt;/p&gt;
 
@@ -211,19 +285,19 @@
 
 &lt;p&gt;One last step, set &lt;strong&gt;contentView&lt;/strong&gt;&#39;s width to be three times of its superview (&lt;strong&gt;Scroll View&lt;/strong&gt;).&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/ThreeTimesWidth.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/ThreeTimesWidth.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;You can only one image now, that is the reason why we put the step as the last one.&lt;/p&gt;
 
 &lt;p&gt;Now run the program, the effect is just what you want.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/ScrollEffect.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/ScrollEffect.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The demo project is &lt;a href=&quot;https://github.com/fujianjin6471/UIScrollViewInStoryboard&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 </description>
         <pubDate>Sat, 21 Feb 2015 00:00:00 +0800</pubDate>
-        <link>http://127.0.0.1:4000/2015/02/21/how-to-use-UIScrollView-in-storyboard.html</link>
-        <guid isPermaLink="true">http://127.0.0.1:4000/2015/02/21/how-to-use-UIScrollView-in-storyboard.html</guid>
+        <link>http://blog.fujianjin6471.com/2015/02/21/how-to-use-UIScrollView-in-storyboard.html</link>
+        <guid isPermaLink="true">http://blog.fujianjin6471.com/2015/02/21/how-to-use-UIScrollView-in-storyboard.html</guid>
         
         
       </item>
