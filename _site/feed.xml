@@ -6,9 +6,106 @@
 </description>
     <link>http://blog.fujianjin6471.com/</link>
     <atom:link href="http://blog.fujianjin6471.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 09 May 2015 19:13:54 +0800</pubDate>
-    <lastBuildDate>Sat, 09 May 2015 19:13:54 +0800</lastBuildDate>
+    <pubDate>Fri, 05 Jun 2015 22:34:07 +0800</pubDate>
+    <lastBuildDate>Fri, 05 Jun 2015 22:34:07 +0800</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>Which view&#39;s layoutSubviews will be called when changing constraints</title>
+        <description>&lt;p&gt;Under &lt;em&gt;Auto Layout&lt;/em&gt;, we are told to forget the &lt;strong&gt;frame&lt;/strong&gt; and keep &lt;strong&gt;constraints&lt;/strong&gt; in mind. When we change a constraint directly, the &lt;code&gt;layoutSubviews&lt;/code&gt; will be called. &lt;/p&gt;
+
+&lt;p&gt;The documentation of &lt;code&gt;layoutSubviews&lt;/code&gt; says:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;the default implementation uses any constraints you have set to determine the size and position of any subviews.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;But, which view’s &lt;code&gt;layoutSubviews&lt;/code&gt; will be called? Let’s have a look. (The demo project is &lt;a href=&quot;https://github.com/fujianjin6471/&quot;&gt;here&lt;/a&gt;, it’s necessary because what follows depend on the constraints set in the project)&lt;/p&gt;
+
+&lt;p&gt;First view is the root view of viewController, second view is the subview of first view, third view is the subview of second view.&lt;/p&gt;
+
+&lt;p&gt;Firstly, change the width constraint of third view:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-swift&quot; data-lang=&quot;swift&quot;&gt;&lt;span class=&quot;n&quot;&gt;thirdWidthConstraint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;constant&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;In the console, we see&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;second layoutSubviews&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;third layoutSubviews&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Since this step will change the width of third view, so &lt;code&gt;layoutSubviews&lt;/code&gt; of third view’s super view (second view) will be called. More about this condition later.&lt;/p&gt;
+
+&lt;p&gt;Secondly, change the constraint between the bottom of second view and the bottom of third view:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-swift&quot; data-lang=&quot;swift&quot;&gt;&lt;span class=&quot;n&quot;&gt;secondThirdBottomConstraint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;constant&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;In the console, we see&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;first layoutSubviews&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Since this step will only change second view’s height, so only &lt;code&gt;layoutSubviews&lt;/code&gt; of second view’s super view (first view) will be called.&lt;/p&gt;
+
+&lt;p&gt;Thirdly, change the constraint between the top of second view and the top of third view:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-swift&quot; data-lang=&quot;swift&quot;&gt;&lt;span class=&quot;n&quot;&gt;secondThirdTopConstraint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;constant&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;In the console, we see&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;first layoutSubviews&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;second layoutSubviews&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This time, the height of second view and the relevant position between second and third view have changed, so both first and second view’s &lt;code&gt;layoutSubviews&lt;/code&gt; are called.&lt;/p&gt;
+
+&lt;p&gt;Lastly, change the constraint between the left of first view and the left of second view:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-swift&quot; data-lang=&quot;swift&quot;&gt;&lt;span class=&quot;n&quot;&gt;secondLeftConstraint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;constant&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;In the console, we see&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;first layoutSubviews&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;second layoutSubviews&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This time, the relevant position between first and second view changes, along with third view’s position in the screen, so both first and second view’s &lt;code&gt;layoutSubviews&lt;/code&gt; are called.&lt;/p&gt;
+
+&lt;p&gt;What can we conclude from above? &lt;strong&gt;When we change a constraint, a view’s &lt;code&gt;layoutSubviews&lt;/code&gt; will be called if any of its subview whose frame is influenced by the constraint&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;However, there is still a doubt in the way, which is reflected by the first condition we considered before. When we change the width constraint of the third view, only the the third view’s width is changed, so as we expect, only &lt;code&gt;layoutSubviews&lt;/code&gt; of third view’s super view (second view) will be called. But the third view’s &lt;code&gt;layoutSubviews&lt;/code&gt; is also called! I have done some more experiments, I’m not sure I get the answer, but I make a guess: &lt;strong&gt;When we change a constraint and it influences a  view which doesn’t have any subviews, both the view and its super view’s &lt;code&gt;layoutSubviews&lt;/code&gt; will be called&lt;/strong&gt;. If someone know why, please tell me, thanks in advance.&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 05 Jun 2015 00:00:00 +0800</pubDate>
+        <link>http://blog.fujianjin6471.com/2015/06/05/Changing-constraints-and-layoutSubviews.html</link>
+        <guid isPermaLink="true">http://blog.fujianjin6471.com/2015/06/05/Changing-constraints-and-layoutSubviews.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>setNeedsUpdateConstraints, setNeedsLayout and setNeedsDisplay</title>
+        <description>&lt;p&gt;Create a Cocoa Touch class subclass of UIView, I name it &lt;em&gt;CustomView&lt;/em&gt;. Drag a View onto the only scene and make &lt;em&gt;CustomView&lt;/em&gt; be its custom class. Then set constraints for Custom View. &lt;/p&gt;
+
+&lt;p&gt;The demo project is &lt;a href=&quot;https://github.com/fujianjin6471/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;In my experience, &lt;strong&gt;if you don’t write your own class, none of these methods will you need to use&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;When should you use &lt;code&gt;setNeedsUpdateConstraints&lt;/code&gt;? When you want change the frame of a view directly. As you know, under &lt;em&gt;Auto Layout&lt;/em&gt;, just changing the frame is extremely unreliable. It may take effect for some time, but as long as &lt;code&gt;layoutSubviews&lt;/code&gt; is called at some point you don’t expect, all relevant changes you make to frame will disappear. &lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;setNeedsUpdateConstraints&lt;/code&gt; gives you the power &lt;/p&gt;
+
+</description>
+        <pubDate>Mon, 25 May 2015 00:00:00 +0800</pubDate>
+        <link>http://blog.fujianjin6471.com/2015/05/25/setNeedsUpdateConstraints-setNeedsLayout-and-setNeedsDisplay.html</link>
+        <guid isPermaLink="true">http://blog.fujianjin6471.com/2015/05/25/setNeedsUpdateConstraints-setNeedsLayout-and-setNeedsDisplay.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>How to use UIRefreshControl</title>
@@ -37,7 +134,7 @@
     &lt;span class=&quot;n&quot;&gt;refreshControl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;endRefreshing&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;Two warnings exist, just ignore them, they have nothing to do with topic today.&lt;/p&gt;
+&lt;p&gt;Two warnings exist, just ignore them, they have nothing to do with our topic today.&lt;/p&gt;
 
 &lt;p&gt;Run the app.&lt;/p&gt;
 
