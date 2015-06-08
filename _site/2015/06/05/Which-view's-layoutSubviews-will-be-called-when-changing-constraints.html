@@ -10,8 +10,8 @@
   <meta name="description" content="Under Auto Layout, we are told to forget the frame and keep constraints in mind. When we change a constraint directly, the layoutSubviews will be called. ">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://blog.fujianjin6471.com/2015/06/05/Changing-constraints-and-layoutSubviews.html">
-  <link rel="alternate" type="application/rss+xml" title="blog.fujianjin6471.com" href="http://blog.fujianjin6471.com/feed.xml" />
+  <link rel="canonical" href="http://127.0.0.1:4000/2015/06/05/Which-view's-layoutSubviews-will-be-called-when-changing-constraints.html">
+  <link rel="alternate" type="application/rss+xml" title="blog.fujianjin6471.com" href="http://127.0.0.1:4000/feed.xml" />
 </head>
 
 
@@ -68,7 +68,7 @@
   <p>the default implementation uses any constraints you have set to determine the size and position of any subviews.</p>
 </blockquote>
 
-<p>But, which view’s <code>layoutSubviews</code> will be called? Let’s have a look. (The demo project is <a href="https://github.com/fujianjin6471/">here</a>, it’s necessary because what follows depend on the constraints set in the project)</p>
+<p>But, which view’s <code>layoutSubviews</code> will be called? Let’s have a look. (The demo project is <a href="https://github.com/fujianjin6471/WhichLayoutSubviews">here</a>, it’s necessary because what follows depend on the constraints set in the project)</p>
 
 <p>First view is the root view of viewController, second view is the subview of first view, third view is the subview of second view.</p>
 

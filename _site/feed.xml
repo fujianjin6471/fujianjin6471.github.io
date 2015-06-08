@@ -4,11 +4,65 @@
     <title>blog.fujianjin6471.com</title>
     <description>Write something really helpful to me, hope the same to others.
 </description>
-    <link>http://blog.fujianjin6471.com/</link>
-    <atom:link href="http://blog.fujianjin6471.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 05 Jun 2015 22:34:07 +0800</pubDate>
-    <lastBuildDate>Fri, 05 Jun 2015 22:34:07 +0800</lastBuildDate>
+    <link>http://127.0.0.1:4000/</link>
+    <atom:link href="http://127.0.0.1:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Mon, 08 Jun 2015 21:12:41 +0800</pubDate>
+    <lastBuildDate>Mon, 08 Jun 2015 21:12:41 +0800</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>setNeedsUpdateConstraints and updateConstraints, setNeedsLayout and layoutSubviews</title>
+        <description>&lt;p&gt;This topic is under &lt;em&gt;Auto Layout&lt;/em&gt;. &lt;/p&gt;
+
+&lt;p&gt;When should you use &lt;code&gt;setNeedsUpdateConstraints&lt;/code&gt;? One aspect is when you want to change the frame of a view directly. As we know, under &lt;em&gt;Auto Layout&lt;/em&gt;, just changing the frame is extremely unreliable. It may take effect for some time, but as long as &lt;code&gt;setNeedsLayout&lt;/code&gt; or another method which has the same effect is called at some point you don’t expect, all relevant changes you have made to frame will disappear. &lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;setNeedsUpdateConstraints&lt;/code&gt; gives you the power to make constraints change after frame change. What you need to do is to override &lt;code&gt;updateConstraints&lt;/code&gt; of the root view. In &lt;code&gt;updateConstraints&lt;/code&gt;, set constraints following the frame of the view. After you change the frame of a view, call &lt;code&gt;rootView.setNeedsUpdateConstraints()&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;When should you call a view’s &lt;code&gt;setNeedsLayout&lt;/code&gt;? When you want to layout the view’s subviews. If you don’t override the view’s &lt;code&gt;layoutSubviews&lt;/code&gt;, the default behavior is to make its subviews follow the relevant constraints.&lt;/p&gt;
+
+&lt;p&gt;The demo project is &lt;a href=&quot;https://github.com/fujianjin6471/SetNeedsSomething&quot;&gt;here&lt;/a&gt;, let’s play with it.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-6-8/WhetherBack.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Press &lt;strong&gt;Button1&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-swift&quot; data-lang=&quot;swift&quot;&gt;&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;IBAction&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;setFrameOnly&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;sender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;UIButton&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;orangeSquare&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;origin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The orange square was moved, but at this very moment, its left constraint hasn’t been changed, so if I press &lt;strong&gt;Button3&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-swift&quot; data-lang=&quot;swift&quot;&gt;&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;IBAction&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;setNeedsLayout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;sender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;UIButton&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;rootView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setNeedsLayout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The orange square went back.&lt;/p&gt;
+
+&lt;p&gt;Press &lt;strong&gt;Button2&lt;/strong&gt; &lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-swift&quot; data-lang=&quot;swift&quot;&gt;&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;IBAction&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;setFrameWithUpdatingConstraints&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;sender&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;UIButton&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;orangeSquare&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;origin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;rootView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setNeedsUpdateConstraints&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This time, not only did we change the orange square’s position, but also called &lt;code&gt;setNeedsUpdateConstraints&lt;/code&gt;. So after the position change of the orange square, &lt;code&gt;updateConstraints&lt;/code&gt; was called.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-swift&quot; data-lang=&quot;swift&quot;&gt;&lt;span class=&quot;kr&quot;&gt;override&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;updateConstraints&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;leftConstraint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;constant&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;orangeSquare&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;origin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;updateConstraints&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Now, the constraint was also changed and coincided with the frame again. Press &lt;strong&gt;Button3&lt;/strong&gt;, nothing happened, that’s just what we want.&lt;/p&gt;
+
+&lt;p&gt;When should you call a view’s &lt;code&gt;setNeedsDisplay&lt;/code&gt;? When you want to redraw.&lt;/p&gt;
+
+</description>
+        <pubDate>Sat, 06 Jun 2015 00:00:00 +0800</pubDate>
+        <link>http://127.0.0.1:4000/2015/06/06/setNeedsUpdateConstraints-setNeedsLayout-and-setNeedsDisplay.html</link>
+        <guid isPermaLink="true">http://127.0.0.1:4000/2015/06/06/setNeedsUpdateConstraints-setNeedsLayout-and-setNeedsDisplay.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>Which view&#39;s layoutSubviews will be called when changing constraints</title>
@@ -20,7 +74,7 @@
   &lt;p&gt;the default implementation uses any constraints you have set to determine the size and position of any subviews.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;But, which view’s &lt;code&gt;layoutSubviews&lt;/code&gt; will be called? Let’s have a look. (The demo project is &lt;a href=&quot;https://github.com/fujianjin6471/&quot;&gt;here&lt;/a&gt;, it’s necessary because what follows depend on the constraints set in the project)&lt;/p&gt;
+&lt;p&gt;But, which view’s &lt;code&gt;layoutSubviews&lt;/code&gt; will be called? Let’s have a look. (The demo project is &lt;a href=&quot;https://github.com/fujianjin6471/WhichLayoutSubviews&quot;&gt;here&lt;/a&gt;, it’s necessary because what follows depend on the constraints set in the project)&lt;/p&gt;
 
 &lt;p&gt;First view is the root view of viewController, second view is the subview of first view, third view is the subview of second view.&lt;/p&gt;
 
@@ -81,28 +135,8 @@
 
 </description>
         <pubDate>Fri, 05 Jun 2015 00:00:00 +0800</pubDate>
-        <link>http://blog.fujianjin6471.com/2015/06/05/Changing-constraints-and-layoutSubviews.html</link>
-        <guid isPermaLink="true">http://blog.fujianjin6471.com/2015/06/05/Changing-constraints-and-layoutSubviews.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>setNeedsUpdateConstraints, setNeedsLayout and setNeedsDisplay</title>
-        <description>&lt;p&gt;Create a Cocoa Touch class subclass of UIView, I name it &lt;em&gt;CustomView&lt;/em&gt;. Drag a View onto the only scene and make &lt;em&gt;CustomView&lt;/em&gt; be its custom class. Then set constraints for Custom View. &lt;/p&gt;
-
-&lt;p&gt;The demo project is &lt;a href=&quot;https://github.com/fujianjin6471/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;In my experience, &lt;strong&gt;if you don’t write your own class, none of these methods will you need to use&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;When should you use &lt;code&gt;setNeedsUpdateConstraints&lt;/code&gt;? When you want change the frame of a view directly. As you know, under &lt;em&gt;Auto Layout&lt;/em&gt;, just changing the frame is extremely unreliable. It may take effect for some time, but as long as &lt;code&gt;layoutSubviews&lt;/code&gt; is called at some point you don’t expect, all relevant changes you make to frame will disappear. &lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;setNeedsUpdateConstraints&lt;/code&gt; gives you the power &lt;/p&gt;
-
-</description>
-        <pubDate>Mon, 25 May 2015 00:00:00 +0800</pubDate>
-        <link>http://blog.fujianjin6471.com/2015/05/25/setNeedsUpdateConstraints-setNeedsLayout-and-setNeedsDisplay.html</link>
-        <guid isPermaLink="true">http://blog.fujianjin6471.com/2015/05/25/setNeedsUpdateConstraints-setNeedsLayout-and-setNeedsDisplay.html</guid>
+        <link>http://127.0.0.1:4000/2015/06/05/Which-view's-layoutSubviews-will-be-called-when-changing-constraints.html</link>
+        <guid isPermaLink="true">http://127.0.0.1:4000/2015/06/05/Which-view's-layoutSubviews-will-be-called-when-changing-constraints.html</guid>
         
         
       </item>
@@ -168,15 +202,15 @@
 
 &lt;p&gt;Run the app, the effect is like below:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-5-9/PullDownEffect.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-5-9/PullDownEffect.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Of course what we have done is simple, but you can do whatever you want to after pulling down the table view.&lt;/p&gt;
 
 &lt;p&gt;The demo project is &lt;a href=&quot;https://github.com/fujianjin6471/UIRefreshControl&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 </description>
         <pubDate>Sat, 09 May 2015 00:00:00 +0800</pubDate>
-        <link>http://blog.fujianjin6471.com/2015/05/09/How-to-use-UIRefreshControl.html</link>
-        <guid isPermaLink="true">http://blog.fujianjin6471.com/2015/05/09/How-to-use-UIRefreshControl.html</guid>
+        <link>http://127.0.0.1:4000/2015/05/09/How-to-use-UIRefreshControl.html</link>
+        <guid isPermaLink="true">http://127.0.0.1:4000/2015/05/09/How-to-use-UIRefreshControl.html</guid>
         
         
       </item>
@@ -187,11 +221,11 @@
 
 &lt;p&gt;At the very beginning, drag a &lt;strong&gt;Page Control&lt;/strong&gt; on top the root view, the hierarchy in the Document Outline should look like this:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-4-23/HierarchyInDO.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-23/HierarchyInDO.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Then, set the constraints of the page control as below:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-4-23/ConstraintsOfPageControl.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-23/ConstraintsOfPageControl.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Next, add two properties to your &lt;strong&gt;ViewController&lt;/strong&gt; class and connect them to scroll view and page control respectively.&lt;/p&gt;
 
@@ -200,7 +234,7 @@
 
 &lt;p&gt;Run the app.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-4-23/InitialEffect.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-23/InitialEffect.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;You will see when you tap at the right part of the page control, the shiny dot move towards the right, vice versa, but nothing happen to the scroll view. And when you sweep the scroll view, the shiny dot of page control keeps quiet. These are the two tasks we are going to finish.&lt;/p&gt;
 
@@ -208,7 +242,7 @@
 
 &lt;p&gt;Ctrl-drag from &lt;strong&gt;Page Control&lt;/strong&gt; to the code editor to make an action:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-4-23/ActionOfPageControl.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-23/ActionOfPageControl.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;code here:&lt;/p&gt;
 
@@ -222,7 +256,7 @@
 
 &lt;p&gt;Run the app.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-4-23/PageTurnEffect.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-23/PageTurnEffect.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;This time when you tap at the right part of the page control, the scroll view moves!&lt;/p&gt;
 
@@ -240,7 +274,7 @@
 
 &lt;p&gt;Run the app.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-4-23/TwoEffects.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-23/TwoEffects.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;When you sweep the scroll view, the page control synchronizes with it, great!&lt;/p&gt;
 
@@ -256,15 +290,15 @@
 
 &lt;p&gt;Run the app for the last time.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-4-23/FinalEffect.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-23/FinalEffect.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;That’s just what you want, right?&lt;/p&gt;
 
 &lt;p&gt;The demo project is &lt;a href=&quot;https://github.com/fujianjin6471/UIScrollViewInStoryboard&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 </description>
         <pubDate>Thu, 23 Apr 2015 00:00:00 +0800</pubDate>
-        <link>http://blog.fujianjin6471.com/2015/04/23/How-to-add-UIPageControl-to-a-scroll-view-in-storyboard.html</link>
-        <guid isPermaLink="true">http://blog.fujianjin6471.com/2015/04/23/How-to-add-UIPageControl-to-a-scroll-view-in-storyboard.html</guid>
+        <link>http://127.0.0.1:4000/2015/04/23/How-to-add-UIPageControl-to-a-scroll-view-in-storyboard.html</link>
+        <guid isPermaLink="true">http://127.0.0.1:4000/2015/04/23/How-to-add-UIPageControl-to-a-scroll-view-in-storyboard.html</guid>
         
         
       </item>
@@ -275,25 +309,25 @@
 
 &lt;p&gt;First, let’s realize it mainly through IB:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-4-4/DragATapGestureRecognizer.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-4/DragATapGestureRecognizer.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-4-4/CtrlDragRecognizer.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-4/CtrlDragRecognizer.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Make it an action, add only one line of code as follow:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-4-4/OnlyOneLine.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-4/OnlyOneLine.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;All done, so easy, right?&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-4-4/EffectOne.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-4/EffectOne.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Then, let’s realize it through pure code:&lt;/p&gt;
 
 &lt;p&gt;You just need to add two piece of code:&lt;/p&gt;
 
-&lt;p&gt;Add &lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-4-4/CreateGestureRecognizer.png&quot; alt=&quot;image&quot; /&gt; in &lt;em&gt;viewDidLoad:&lt;/em&gt; &lt;/p&gt;
+&lt;p&gt;Add &lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-4/CreateGestureRecognizer.png&quot; alt=&quot;image&quot; /&gt; in &lt;em&gt;viewDidLoad:&lt;/em&gt; &lt;/p&gt;
 
-&lt;p&gt;and add a method &lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-4-4/HideKeyboard.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;and add a method &lt;img src=&quot;http://127.0.0.1:4000/images/2015-4-4/HideKeyboard.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The effect is exactly the same as before. While there are of course other ways to hide keyboard, but that’s not the point in this article.&lt;/p&gt;
 
@@ -302,8 +336,8 @@
 &lt;p&gt;The demo project is &lt;a href=&quot;https://github.com/fujianjin6471/GestureRecognizer&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 </description>
         <pubDate>Sat, 04 Apr 2015 00:00:00 +0800</pubDate>
-        <link>http://blog.fujianjin6471.com/2015/04/04/Ways-to-add-a-Tap-Gesture-Recognizer.html</link>
-        <guid isPermaLink="true">http://blog.fujianjin6471.com/2015/04/04/Ways-to-add-a-Tap-Gesture-Recognizer.html</guid>
+        <link>http://127.0.0.1:4000/2015/04/04/Ways-to-add-a-Tap-Gesture-Recognizer.html</link>
+        <guid isPermaLink="true">http://127.0.0.1:4000/2015/04/04/Ways-to-add-a-Tap-Gesture-Recognizer.html</guid>
         
         
       </item>
@@ -316,7 +350,7 @@
 
 &lt;p&gt;Set constraints for &lt;strong&gt;Scroll View&lt;/strong&gt; using the second icon at bottom right corner (assuming AutoLayout is allowed) as below:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/ConstraintsForScrollView.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/ConstraintsForScrollView.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;As you see, &lt;strong&gt;Scroll View&lt;/strong&gt; is the same size as &lt;strong&gt;View&lt;/strong&gt;. Shouldn&#39;t &lt;strong&gt;Scroll View&lt;/strong&gt; be bigger than &lt;strong&gt;View&lt;/strong&gt;? In fact, the size of &lt;strong&gt;Scroll View&lt;/strong&gt; and the size of its content are two different concepts. You can view &lt;strong&gt;Scroll View&lt;/strong&gt; as a window, the scope you can see through it is often greater than itself. More on this later.&lt;/p&gt;
 
@@ -326,15 +360,15 @@
 
 &lt;p&gt;Firstly, add four constraints as we do for &lt;strong&gt;Scroll View&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/ConstraintsForContentView.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/ConstraintsForContentView.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;What happened? Xcode gave us two warnings. &lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/WarningsAfterFourContentConstraints.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/WarningsAfterFourContentConstraints.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;I think information lies in &lt;strong&gt;Document Outline&lt;/strong&gt; gives better prompts than in &lt;strong&gt;Navigator&lt;/strong&gt;, so let’s go there to have a look.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/WarningsInDocumentOutline.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/WarningsInDocumentOutline.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The four constraints we added for &lt;strong&gt;contentView&lt;/strong&gt; just means &lt;strong&gt;contentView&lt;/strong&gt; (the view we added manually) has the same size with &lt;strong&gt;Scroll View&lt;/strong&gt;&#39;s contentSize (a property of UIScrollView defined in UIKit). Actually we haven&#39;t specified &lt;strong&gt;Scroll View&lt;/strong&gt;&#39;s contentSize yet, this is the reason why the first two warnings came out. The default size of contentSize is CGSizeZero, this explains the third warnings in &lt;strong&gt;Document Outline&lt;/strong&gt;. &lt;/p&gt;
 
@@ -344,35 +378,35 @@
 
 &lt;p&gt;&lt;strong&gt;Ctrl-drag&lt;/strong&gt; from &lt;strong&gt;contentView&lt;/strong&gt; to &lt;strong&gt;Scroll View&lt;/strong&gt; in &lt;strong&gt;Document Outline&lt;/strong&gt; and choose &lt;strong&gt;Equal Heights&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/EqualHeights.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/EqualHeights.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Next, &lt;strong&gt;Equal Widths&lt;/strong&gt;. &lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/EqualWidths.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/EqualWidths.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;We will set &lt;strong&gt;contentView&lt;/strong&gt;&#39;s width three times of the screen, but not now.&lt;/p&gt;
 
 &lt;p&gt;Now let&#39;s decorate &lt;strong&gt;contentView&lt;/strong&gt; with some images for final effect. Drag three &lt;strong&gt;Image View&lt;/strong&gt;s onto the contentView and set constraints for them in turn.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/ThreeImages.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/ThreeImages.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Set constraints for them. Take the leftmost &lt;strong&gt;Image View&lt;/strong&gt; for example.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/Leftmost3Edges.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/Leftmost3Edges.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Then &lt;strong&gt;ctrl-drag&lt;/strong&gt; from &lt;strong&gt;First&lt;/strong&gt; (Image View) to &lt;strong&gt;contentView&lt;/strong&gt; in &lt;strong&gt;Document Outline&lt;/strong&gt; and choose &lt;strong&gt;Equal Widths&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/LeftmostWidth.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/LeftmostWidth.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;But this time, equal isn&#39;t what we really want. Let&#39;s open &lt;strong&gt;Size inspector&lt;/strong&gt; of &lt;strong&gt;First&lt;/strong&gt; (Image View) and double-click &lt;strong&gt;Equal Width&lt;/strong&gt; constraint. &lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/DoubleClickEqualWidth.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/DoubleClickEqualWidth.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/AfterDoubleClick.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/AfterDoubleClick.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Adjust it like below:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/AfterAdjustment.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/AfterAdjustment.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The rule underneath the hood is:&lt;/p&gt;
 
@@ -382,19 +416,19 @@
 
 &lt;p&gt;One last step, set &lt;strong&gt;contentView&lt;/strong&gt;&#39;s width to be three times of its superview (&lt;strong&gt;Scroll View&lt;/strong&gt;).&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/ThreeTimesWidth.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/ThreeTimesWidth.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;You can only one image now, that is the reason why we put the step as the last one.&lt;/p&gt;
 
 &lt;p&gt;Now run the program, the effect is just what you want.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://blog.fujianjin6471.com/images/2015-2-21/ScrollEffect.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/ScrollEffect.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The demo project is &lt;a href=&quot;https://github.com/fujianjin6471/UIScrollViewInStoryboard&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 </description>
         <pubDate>Sat, 21 Feb 2015 00:00:00 +0800</pubDate>
-        <link>http://blog.fujianjin6471.com/2015/02/21/how-to-use-UIScrollView-in-storyboard.html</link>
-        <guid isPermaLink="true">http://blog.fujianjin6471.com/2015/02/21/how-to-use-UIScrollView-in-storyboard.html</guid>
+        <link>http://127.0.0.1:4000/2015/02/21/how-to-use-UIScrollView-in-storyboard.html</link>
+        <guid isPermaLink="true">http://127.0.0.1:4000/2015/02/21/how-to-use-UIScrollView-in-storyboard.html</guid>
         
         
       </item>

@@ -10,8 +10,8 @@
   <meta name="description" content="Let’s make it from scratch. Choose a Single View Application template, name it anything as you like, in my case, UIScrollViewInStoryboard is used.">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://blog.fujianjin6471.com/2015/02/21/how-to-use-UIScrollView-in-storyboard.html">
-  <link rel="alternate" type="application/rss+xml" title="blog.fujianjin6471.com" href="http://blog.fujianjin6471.com/feed.xml" />
+  <link rel="canonical" href="http://127.0.0.1:4000/2015/02/21/how-to-use-UIScrollView-in-storyboard.html">
+  <link rel="alternate" type="application/rss+xml" title="blog.fujianjin6471.com" href="http://127.0.0.1:4000/feed.xml" />
 </head>
 
 
@@ -66,7 +66,7 @@
 
 <p>Set constraints for <strong>Scroll View</strong> using the second icon at bottom right corner (assuming AutoLayout is allowed) as below:</p>
 
-<p><img src="http://blog.fujianjin6471.com/images/2015-2-21/ConstraintsForScrollView.png" alt="image" /></p>
+<p><img src="http://127.0.0.1:4000/images/2015-2-21/ConstraintsForScrollView.png" alt="image" /></p>
 
 <p>As you see, <strong>Scroll View</strong> is the same size as <strong>View</strong>. Shouldn't <strong>Scroll View</strong> be bigger than <strong>View</strong>? In fact, the size of <strong>Scroll View</strong> and the size of its content are two different concepts. You can view <strong>Scroll View</strong> as a window, the scope you can see through it is often greater than itself. More on this later.</p>
 
@@ -76,15 +76,15 @@
 
 <p>Firstly, add four constraints as we do for <strong>Scroll View</strong>.</p>
 
-<p><img src="http://blog.fujianjin6471.com/images/2015-2-21/ConstraintsForContentView.png" alt="image" /></p>
+<p><img src="http://127.0.0.1:4000/images/2015-2-21/ConstraintsForContentView.png" alt="image" /></p>
 
 <p>What happened? Xcode gave us two warnings. </p>
 
-<p><img src="http://blog.fujianjin6471.com/images/2015-2-21/WarningsAfterFourContentConstraints.png" alt="image" /></p>
+<p><img src="http://127.0.0.1:4000/images/2015-2-21/WarningsAfterFourContentConstraints.png" alt="image" /></p>
 
 <p>I think information lies in <strong>Document Outline</strong> gives better prompts than in <strong>Navigator</strong>, so let’s go there to have a look.</p>
 
-<p><img src="http://blog.fujianjin6471.com/images/2015-2-21/WarningsInDocumentOutline.png" alt="image" /></p>
+<p><img src="http://127.0.0.1:4000/images/2015-2-21/WarningsInDocumentOutline.png" alt="image" /></p>
 
 <p>The four constraints we added for <strong>contentView</strong> just means <strong>contentView</strong> (the view we added manually) has the same size with <strong>Scroll View</strong>'s contentSize (a property of UIScrollView defined in UIKit). Actually we haven't specified <strong>Scroll View</strong>'s contentSize yet, this is the reason why the first two warnings came out. The default size of contentSize is CGSizeZero, this explains the third warnings in <strong>Document Outline</strong>. </p>
 
@@ -94,35 +94,35 @@
 
 <p><strong>Ctrl-drag</strong> from <strong>contentView</strong> to <strong>Scroll View</strong> in <strong>Document Outline</strong> and choose <strong>Equal Heights</strong>.</p>
 
-<p><img src="http://blog.fujianjin6471.com/images/2015-2-21/EqualHeights.png" alt="image" /></p>
+<p><img src="http://127.0.0.1:4000/images/2015-2-21/EqualHeights.png" alt="image" /></p>
 
 <p>Next, <strong>Equal Widths</strong>. </p>
 
-<p><img src="http://blog.fujianjin6471.com/images/2015-2-21/EqualWidths.png" alt="image" /></p>
+<p><img src="http://127.0.0.1:4000/images/2015-2-21/EqualWidths.png" alt="image" /></p>
 
 <p>We will set <strong>contentView</strong>'s width three times of the screen, but not now.</p>
 
 <p>Now let's decorate <strong>contentView</strong> with some images for final effect. Drag three <strong>Image View</strong>s onto the contentView and set constraints for them in turn.</p>
 
-<p><img src="http://blog.fujianjin6471.com/images/2015-2-21/ThreeImages.png" alt="image" /></p>
+<p><img src="http://127.0.0.1:4000/images/2015-2-21/ThreeImages.png" alt="image" /></p>
 
 <p>Set constraints for them. Take the leftmost <strong>Image View</strong> for example.</p>
 
-<p><img src="http://blog.fujianjin6471.com/images/2015-2-21/Leftmost3Edges.png" alt="image" /></p>
+<p><img src="http://127.0.0.1:4000/images/2015-2-21/Leftmost3Edges.png" alt="image" /></p>
 
 <p>Then <strong>ctrl-drag</strong> from <strong>First</strong> (Image View) to <strong>contentView</strong> in <strong>Document Outline</strong> and choose <strong>Equal Widths</strong>.</p>
 
-<p><img src="http://blog.fujianjin6471.com/images/2015-2-21/LeftmostWidth.png" alt="image" /></p>
+<p><img src="http://127.0.0.1:4000/images/2015-2-21/LeftmostWidth.png" alt="image" /></p>
 
 <p>But this time, equal isn't what we really want. Let's open <strong>Size inspector</strong> of <strong>First</strong> (Image View) and double-click <strong>Equal Width</strong> constraint. </p>
 
-<p><img src="http://blog.fujianjin6471.com/images/2015-2-21/DoubleClickEqualWidth.png" alt="image" /></p>
+<p><img src="http://127.0.0.1:4000/images/2015-2-21/DoubleClickEqualWidth.png" alt="image" /></p>
 
-<p><img src="http://blog.fujianjin6471.com/images/2015-2-21/AfterDoubleClick.png" alt="image" /></p>
+<p><img src="http://127.0.0.1:4000/images/2015-2-21/AfterDoubleClick.png" alt="image" /></p>
 
 <p>Adjust it like below:</p>
 
-<p><img src="http://blog.fujianjin6471.com/images/2015-2-21/AfterAdjustment.png" alt="image" /></p>
+<p><img src="http://127.0.0.1:4000/images/2015-2-21/AfterAdjustment.png" alt="image" /></p>
 
 <p>The rule underneath the hood is:</p>
 
@@ -132,13 +132,13 @@
 
 <p>One last step, set <strong>contentView</strong>'s width to be three times of its superview (<strong>Scroll View</strong>).</p>
 
-<p><img src="http://blog.fujianjin6471.com/images/2015-2-21/ThreeTimesWidth.png" alt="image" /></p>
+<p><img src="http://127.0.0.1:4000/images/2015-2-21/ThreeTimesWidth.png" alt="image" /></p>
 
 <p>You can only one image now, that is the reason why we put the step as the last one.</p>
 
 <p>Now run the program, the effect is just what you want.</p>
 
-<p><img src="http://blog.fujianjin6471.com/images/2015-2-21/ScrollEffect.gif" alt="image" /></p>
+<p><img src="http://127.0.0.1:4000/images/2015-2-21/ScrollEffect.gif" alt="image" /></p>
 
 <p>The demo project is <a href="https://github.com/fujianjin6471/UIScrollViewInStoryboard">here</a>.</p>
 
