@@ -3,7 +3,7 @@ layout: post
 title:  "Which view's layoutSubviews will be called when changing constraints"
 
 ---
-Under *Auto Layout*, we are told to forget the **frame** and keep **constraints** in mind. When we change a constraint directly, the `layoutSubviews` will be called. 
+Under *Auto Layout*, we are told to forget the **frame** and keep **constraints** in mind. When we change a constraint and it doesn't coincide with the frame influenced by it, the `layoutSubviews` will be called. 
 
 The documentation of `layoutSubviews` says:
 
