@@ -7,10 +7,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Which view's layoutSubviews will be called when changing constraints</title>
-  <meta name="description" content="Under Auto Layout, we are told to forget the frame and keep constraints in mind. When we change a constraint directly, the layoutSubviews will be called. ">
+  <meta name="description" content="Under Auto Layout, we are told to forget the frame and keep constraints in mind. When we change a constraint and it doesn’t coincide with the frame influence...">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://127.0.0.1:4000/2015/06/05/Which-view's-layoutSubviews-will-be-called-when-changing-constraints.html">
+  <link rel="canonical" href="http://127.0.0.1:4000/2015/06/05/which-view's-layoutsubviews-will-be-called-when-changing-constraints.html">
   <link rel="alternate" type="application/rss+xml" title="blog.fujianjin6471.com" href="http://127.0.0.1:4000/feed.xml" />
 </head>
 
@@ -60,7 +60,7 @@
   </header>
 
   <article class="post-content">
-    <p>Under <em>Auto Layout</em>, we are told to forget the <strong>frame</strong> and keep <strong>constraints</strong> in mind. When we change a constraint directly, the <code>layoutSubviews</code> will be called. </p>
+    <p>Under <em>Auto Layout</em>, we are told to forget the <strong>frame</strong> and keep <strong>constraints</strong> in mind. When we change a constraint and it doesn’t coincide with the frame influenced by it, the <code>layoutSubviews</code> will be called. </p>
 
 <p>The documentation of <code>layoutSubviews</code> says:</p>
 
