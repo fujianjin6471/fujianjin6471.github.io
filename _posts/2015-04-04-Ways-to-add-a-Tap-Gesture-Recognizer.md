@@ -31,4 +31,4 @@ The effect is exactly the same as before. While there are of course other ways t
 
 IB or pure code, which one do you prefer?
 
-The demo project is [here](https://github.com/fujianjin6471/GestureRecognizer).
+The demo project is [here](https://github.com/fujianjin6471/DemosForBlog/tree/master/GestureRecognizer).

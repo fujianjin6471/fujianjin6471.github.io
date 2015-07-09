@@ -11,7 +11,7 @@ When should you use `setNeedsUpdateConstraints`? One aspect is when you want to 
 
 When should you call a view's `setNeedsLayout`? When you want to layout the view's subviews. If you don't override the view's `layoutSubviews`, the default behavior is to make its subviews follow the relevant constraints.
 
-The demo project is [here](https://github.com/fujianjin6471/SetNeedsSomething), let's play with it.
+The demo project is [here](https://github.com/fujianjin6471/DemosForBlog/tree/master/SetNeedsSomething), let's play with it.
 
 ![image]({{ site.url }}/images/2015-6-8/WhetherBack.gif)
 

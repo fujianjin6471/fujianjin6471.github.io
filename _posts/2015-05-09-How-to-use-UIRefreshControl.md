@@ -31,15 +31,13 @@ func refreshEffect() {
 }
 {% endhighlight %}
 
-Two warnings exist, just ignore them, they have nothing to do with our topic today.
-
 Run the app.
 
 Pull down the table view, string "Refresh!" appear in console as we expect.
 
 What if I want to use refresh control just in a table view, not in a table view controller? Just a little more. Let's go back to the very first view controller we have forgotten╮(╯▽╰)╭
 
-Make View Controller the initial view controller. Drag a table view onto View Controller, then ctrl-drag it to the code part to create an IBOutlet, just name it tableView. After that, add a property below IBOutlet.
+Embed View Controller into a tab view controller. Drag a table view onto View Controller, then ctrl-drag it to the code part to create an IBOutlet, just name it tableView. After that, add a property below IBOutlet.
 
 {% highlight swift %}
 
@@ -75,4 +73,4 @@ Run the app, the effect is like below:
 
 Of course what we have done is simple, but you can do whatever you want to after pulling down the table view.
 
-The demo project is [here](https://github.com/fujianjin6471/UIRefreshControl).
+The demo project is [here](https://github.com/fujianjin6471/DemosForBlog/tree/master/UIRefreshControl).

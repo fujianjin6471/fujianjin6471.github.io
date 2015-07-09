@@ -3,7 +3,7 @@ layout: post
 title:  "How to add UIPageControl to a scroll view in storyboard"
 
 ---
-The starting point is a view controller with a scroll view, you can download it [here](https://github.com/fujianjin6471/UIScrollViewInStoryboard/archive/4ddbebfbbcfbcd213eaf393eebd772a1c3bfaddb.zip).
+The starting point is a view controller with a scroll view, you can access it [here](https://github.com/fujianjin6471/DemosForBlog/tree/master/UIScrollViewInStoryboard).
 
 At the very beginning, drag a **Page Control** on top the root view, the hierarchy in the Document Outline should look like this:
 
@@ -89,4 +89,4 @@ Run the app for the last time.
 
 That's just what you want, right?
 
-The demo project is [here](https://github.com/fujianjin6471/UIScrollViewInStoryboard).
+The demo project is [here](https://github.com/fujianjin6471/DemosForBlog/tree/master/ScrollViewAndPageControl).

@@ -84,4 +84,4 @@ Now run the program, the effect is just what you want.
 
 ![image]({{ site.url }}/images/2015-2-21/ScrollEffect.gif)
 
-The demo project is [here](https://github.com/fujianjin6471/UIScrollViewInStoryboard).
+The demo project is [here](https://github.com/fujianjin6471/DemosForBlog/tree/master/UIScrollViewInStoryboard).

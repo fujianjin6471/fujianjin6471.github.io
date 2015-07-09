@@ -3,7 +3,7 @@ layout: post
 title:  "An example of when should setNeedsDisplay be called"
 
 ---
-`setNeedsDisplay` is meant to ask the system to call `drawRect:`, and there are great answers on StackOverflow like [this](http://stackoverflow.com/questions/14506968/setneedslayout-and-setneedsdisplay). But an [example](https://github.com/fujianjin6471/SetNeedsDisplay) may be helpful.
+`setNeedsDisplay` is meant to ask the system to call `drawRect:`, and there are great answers on StackOverflow like [this](http://stackoverflow.com/questions/14506968/setneedslayout-and-setneedsdisplay). But an [example](https://github.com/fujianjin6471/DemosForBlog/tree/master/SetNeedsDisplay) may be helpful.
 
 Code in `drawRect:` just draw a line between two points.
 
