@@ -6,9 +6,81 @@
 </description>
     <link>http://127.0.0.1:4000/</link>
     <atom:link href="http://127.0.0.1:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 07 Jul 2015 14:02:11 +0800</pubDate>
-    <lastBuildDate>Tue, 07 Jul 2015 14:02:11 +0800</lastBuildDate>
+    <pubDate>Mon, 27 Jul 2015 16:27:48 +0800</pubDate>
+    <lastBuildDate>Mon, 27 Jul 2015 16:27:48 +0800</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>Gain an insight into contentInset of scroll view</title>
+        <description>&lt;p&gt;The &lt;strong&gt;contentInset&lt;/strong&gt; property bring some perplexity to developers new to scroll view. This article visualizes the effect of &lt;strong&gt;contentInset&lt;/strong&gt; under different circumstances to help understand the concept.&lt;/p&gt;
+
+&lt;p&gt;Imagine a scroll view as a photo frame and its content view (maybe not an UIView object but just the range of content) a photo. If the photo is bigger than the frame, we can only see part of the photo at a moment. &lt;/p&gt;
+
+&lt;p&gt;Say we have a scroll view of 100 point both in width and height. Now let’s go see effect of &lt;strong&gt;contentInset&lt;/strong&gt; under different circumstances one by one.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Circumstance 1:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-swift&quot; data-lang=&quot;swift&quot;&gt;&lt;span class=&quot;n&quot;&gt;scrollView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;contentSize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CGSizeMake&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;scrollView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;contentInset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;UIEdgeInsets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;top&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;bottom&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;40&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-7-27/1.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Positive component (top, left, bottom or right) of &lt;strong&gt;contentInset&lt;/strong&gt; generates &lt;u&gt;a specified range stretching from the edge of content view&lt;/u&gt;.  The positive component of &lt;strong&gt;contentInset&lt;/strong&gt; is marked white and can be dragged into scroll view.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Circumstance 2:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-swift&quot; data-lang=&quot;swift&quot;&gt;&lt;span class=&quot;n&quot;&gt;scrollView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;contentSize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CGSizeMake&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;160&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;140&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-7-27/2.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;If we don’t specify &lt;strong&gt;contentInset&lt;/strong&gt;, the default value is &lt;em&gt;UIEdgeInsetsZero&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Circumstance 3:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-swift&quot; data-lang=&quot;swift&quot;&gt;&lt;span class=&quot;n&quot;&gt;scrollView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;contentSize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CGSizeMake&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;160&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;140&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;scrollView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;contentInset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;UIEdgeInsets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;top&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;bottom&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-7-27/3.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Circumstance 4:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-swift&quot; data-lang=&quot;swift&quot;&gt;&lt;span class=&quot;n&quot;&gt;scrollView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;contentSize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CGSizeMake&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;scrollView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;contentInset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;UIEdgeInsets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;top&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;bottom&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;40&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-7-27/4.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Negative component (top, left, bottom or right) of &lt;strong&gt;contentInset&lt;/strong&gt; generates &lt;u&gt;a specified range shrink from the edge of content view&lt;/u&gt;. The negative component of &lt;strong&gt;contentInset&lt;/strong&gt; is marked gray and cannot be dragged into scroll view, indicating that some part of content view will be sheltered.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Circumstance 5:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-swift&quot; data-lang=&quot;swift&quot;&gt;&lt;span class=&quot;n&quot;&gt;scrollView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;contentSize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CGSizeMake&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;150&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;150&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;scrollView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;contentInset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;UIEdgeInsets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;top&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;bottom&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-7-27/5.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Circumstance 6:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-swift&quot; data-lang=&quot;swift&quot;&gt;&lt;span class=&quot;n&quot;&gt;scrollView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;contentSize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CGSizeMake&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;150&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;150&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;scrollView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;contentInset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;UIEdgeInsets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;top&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;bottom&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-7-27/6.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In summary, we can seperate the process of setting &lt;strong&gt;contentInset&lt;/strong&gt; into two parts:&lt;/p&gt;
+
+&lt;p&gt;First, decorate the content view with something like a band:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-7-27/7.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;If a component of &lt;strong&gt;contentInset&lt;/strong&gt; is positive, then the relative side is legal, that is to say it can be dragged into scroll view. If a component of &lt;strong&gt;contentInset&lt;/strong&gt; is negative, then the relative side is illegal, in other words, it cannot be dragged into scroll view.&lt;/p&gt;
+
+&lt;p&gt;Second, the top left corner of the rectangle inside the band overlaps the origin of scroll view .&lt;/p&gt;
+</description>
+        <pubDate>Mon, 27 Jul 2015 00:00:00 +0800</pubDate>
+        <link>http://127.0.0.1:4000/2015/07/27/gain-an-insight-into-contentInset-of-scroll-view.html</link>
+        <guid isPermaLink="true">http://127.0.0.1:4000/2015/07/27/gain-an-insight-into-contentInset-of-scroll-view.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>How to save data using NSCoder</title>
@@ -23,7 +95,7 @@
 &lt;p&gt;Firstly, we should know where to put the data we will create. Add this method to &lt;strong&gt;ViewController.swift&lt;/strong&gt;:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-swift&quot; data-lang=&quot;swift&quot;&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dataFilePath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;paths&lt;/span&gt;   &lt;span class=&quot;n&quot;&gt;NSSearchPathForDirectoriesInDomains&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DocumentDirectory&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UserDomainMask&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;as&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;paths&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NSSearchPathForDirectoriesInDomains&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DocumentDirectory&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UserDomainMask&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;as&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;paths&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stringByAppendingPathComponent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;TextField.plist&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
@@ -69,10 +141,12 @@
 
 &lt;p&gt;Call it at the bottom in &lt;em&gt;viewDidLoad()&lt;/em&gt;.&lt;/p&gt;
 
-&lt;p&gt;What if you want to save and load an object of your own? For consistency, we create a class containing only a &lt;strong&gt;String&lt;/strong&gt; property as below:&lt;/p&gt;
+&lt;p&gt;Run the app, type some characters into the text field and tap the button to save the text. Then restart the app, what you typed before reappear in the text field, that’s what we want.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;String&lt;/strong&gt; is one of the built-in types of Swift, we save and load it using the aforementioned method. What if you want to save and load an object of your own? For consistency, we create a class containing only a &lt;strong&gt;String&lt;/strong&gt; property as below:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-swift&quot; data-lang=&quot;swift&quot;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;CustomClass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;NSObject&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Then embed the view controller in a tab bar controller and create another view controller called &lt;strong&gt;ViewController2&lt;/strong&gt;, as the second scene of the tab bar controller. &lt;strong&gt;ViewController2&lt;/strong&gt; is almost the same as &lt;strong&gt;ViewController&lt;/strong&gt;.&lt;/p&gt;
@@ -131,7 +205,7 @@
 
 &lt;p&gt;Run the app, type something and press &lt;strong&gt;Save&lt;/strong&gt; button, it crashes! But we don’t know the reason from the default prompt of Xcode, let’s do it manually. Add Exception Breakpoint and repeat behavior before, you will get this:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-7-5/Crash.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-7-8/Crash.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;This line of code cause the crash:&lt;/p&gt;
 
@@ -152,17 +226,19 @@
 
 &lt;p&gt;Run the app again, it works just as you expect.&lt;/p&gt;
 
+&lt;p&gt;The final project is &lt;a href=&quot;https://github.com/fujianjin6471/DemosForBlog/tree/master/UsingNSCoder&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
 </description>
-        <pubDate>Sun, 05 Jul 2015 00:00:00 +0800</pubDate>
-        <link>http://127.0.0.1:4000/2015/07/05/How-to-save-data-using-NSCoder.html</link>
-        <guid isPermaLink="true">http://127.0.0.1:4000/2015/07/05/How-to-save-data-using-NSCoder.html</guid>
+        <pubDate>Wed, 08 Jul 2015 00:00:00 +0800</pubDate>
+        <link>http://127.0.0.1:4000/2015/07/08/How-to-save-data-using-NSCoder.html</link>
+        <guid isPermaLink="true">http://127.0.0.1:4000/2015/07/08/How-to-save-data-using-NSCoder.html</guid>
         
         
       </item>
     
       <item>
         <title>An example of when should setNeedsDisplay be called</title>
-        <description>&lt;p&gt;&lt;code&gt;setNeedsDisplay&lt;/code&gt; is meant to ask the system to call &lt;code&gt;drawRect:&lt;/code&gt;, and there are great answers on StackOverflow like &lt;a href=&quot;http://stackoverflow.com/questions/14506968/setneedslayout-and-setneedsdisplay&quot;&gt;this&lt;/a&gt;. But an &lt;a href=&quot;https://github.com/fujianjin6471/SetNeedsDisplay&quot;&gt;example&lt;/a&gt; may be helpful.&lt;/p&gt;
+        <description>&lt;p&gt;&lt;code&gt;setNeedsDisplay&lt;/code&gt; is meant to ask the system to call &lt;code&gt;drawRect:&lt;/code&gt;, and there are great answers on StackOverflow like &lt;a href=&quot;http://stackoverflow.com/questions/14506968/setneedslayout-and-setneedsdisplay&quot;&gt;this&lt;/a&gt;. But an &lt;a href=&quot;https://github.com/fujianjin6471/DemosForBlog/tree/master/SetNeedsDisplay&quot;&gt;example&lt;/a&gt; may be helpful.&lt;/p&gt;
 
 &lt;p&gt;Code in &lt;code&gt;drawRect:&lt;/code&gt; just draw a line between two points.&lt;/p&gt;
 
@@ -191,7 +267,7 @@
 
 &lt;p&gt;When should you call a view’s &lt;code&gt;setNeedsLayout&lt;/code&gt;? When you want to layout the view’s subviews. If you don’t override the view’s &lt;code&gt;layoutSubviews&lt;/code&gt;, the default behavior is to make its subviews follow the relevant constraints.&lt;/p&gt;
 
-&lt;p&gt;The demo project is &lt;a href=&quot;https://github.com/fujianjin6471/SetNeedsSomething&quot;&gt;here&lt;/a&gt;, let’s play with it.&lt;/p&gt;
+&lt;p&gt;The demo project is &lt;a href=&quot;https://github.com/fujianjin6471/DemosForBlog/tree/master/SetNeedsSomething&quot;&gt;here&lt;/a&gt;, let’s play with it.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-6-8/WhetherBack.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
@@ -243,7 +319,7 @@
   &lt;p&gt;the default implementation uses any constraints you have set to determine the size and position of any subviews.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;But, which view’s &lt;code&gt;layoutSubviews&lt;/code&gt; will be called? Let’s have a look. (The demo project is &lt;a href=&quot;https://github.com/fujianjin6471/WhichLayoutSubviews&quot;&gt;here&lt;/a&gt;, it’s necessary because what follows depend on the constraints set in the project)&lt;/p&gt;
+&lt;p&gt;But, which view’s &lt;code&gt;layoutSubviews&lt;/code&gt; will be called? Let’s have a look. (The demo project is &lt;a href=&quot;https://github.com/fujianjin6471/DemosForBlog/tree/master/WhichLayoutSubviews&quot;&gt;here&lt;/a&gt;, it’s necessary because what follows depend on the constraints set in the project)&lt;/p&gt;
 
 &lt;p&gt;First view is the root view of viewController, second view is the subview of first view, third view is the subview of second view.&lt;/p&gt;
 
@@ -337,15 +413,13 @@
     &lt;span class=&quot;n&quot;&gt;refreshControl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;endRefreshing&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;Two warnings exist, just ignore them, they have nothing to do with our topic today.&lt;/p&gt;
-
 &lt;p&gt;Run the app.&lt;/p&gt;
 
 &lt;p&gt;Pull down the table view, string “Refresh!” appear in console as we expect.&lt;/p&gt;
 
 &lt;p&gt;What if I want to use refresh control just in a table view, not in a table view controller? Just a little more. Let’s go back to the very first view controller we have forgotten╮(╯▽╰)╭&lt;/p&gt;
 
-&lt;p&gt;Make View Controller the initial view controller. Drag a table view onto View Controller, then ctrl-drag it to the code part to create an IBOutlet, just name it tableView. After that, add a property below IBOutlet.&lt;/p&gt;
+&lt;p&gt;Embed View Controller into a tab view controller. Drag a table view onto View Controller, then ctrl-drag it to the code part to create an IBOutlet, just name it tableView. After that, add a property below IBOutlet.&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-swift&quot; data-lang=&quot;swift&quot;&gt;&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;IBOutlet&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;weak&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;tableView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;UITableView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;refreshControl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;UIRefreshControl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -375,7 +449,7 @@
 
 &lt;p&gt;Of course what we have done is simple, but you can do whatever you want to after pulling down the table view.&lt;/p&gt;
 
-&lt;p&gt;The demo project is &lt;a href=&quot;https://github.com/fujianjin6471/UIRefreshControl&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The demo project is &lt;a href=&quot;https://github.com/fujianjin6471/DemosForBlog/tree/master/UIRefreshControl&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 </description>
         <pubDate>Sat, 09 May 2015 00:00:00 +0800</pubDate>
         <link>http://127.0.0.1:4000/2015/05/09/how-to-use-uirefreshcontrol.html</link>
@@ -386,7 +460,7 @@
     
       <item>
         <title>How to add UIPageControl to a scroll view in storyboard</title>
-        <description>&lt;p&gt;The starting point is a view controller with a scroll view, you can download it &lt;a href=&quot;https://github.com/fujianjin6471/UIScrollViewInStoryboard/archive/4ddbebfbbcfbcd213eaf393eebd772a1c3bfaddb.zip&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+        <description>&lt;p&gt;The starting point is a view controller with a scroll view, you can access it &lt;a href=&quot;https://github.com/fujianjin6471/DemosForBlog/tree/master/UIScrollViewInStoryboard&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;At the very beginning, drag a &lt;strong&gt;Page Control&lt;/strong&gt; on top the root view, the hierarchy in the Document Outline should look like this:&lt;/p&gt;
 
@@ -463,7 +537,7 @@
 
 &lt;p&gt;That’s just what you want, right?&lt;/p&gt;
 
-&lt;p&gt;The demo project is &lt;a href=&quot;https://github.com/fujianjin6471/UIScrollViewInStoryboard&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The demo project is &lt;a href=&quot;https://github.com/fujianjin6471/DemosForBlog/tree/master/ScrollViewAndPageControl&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 </description>
         <pubDate>Thu, 23 Apr 2015 00:00:00 +0800</pubDate>
         <link>http://127.0.0.1:4000/2015/04/23/how-to-add-uipagecontrol-to-a-scroll-view-in-storyboard.html</link>
@@ -502,7 +576,7 @@
 
 &lt;p&gt;IB or pure code, which one do you prefer?&lt;/p&gt;
 
-&lt;p&gt;The demo project is &lt;a href=&quot;https://github.com/fujianjin6471/GestureRecognizer&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The demo project is &lt;a href=&quot;https://github.com/fujianjin6471/DemosForBlog/tree/master/GestureRecognizer&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 </description>
         <pubDate>Sat, 04 Apr 2015 00:00:00 +0800</pubDate>
         <link>http://127.0.0.1:4000/2015/04/04/ways-to-add-a-tap-gesture-recognizer.html</link>
@@ -593,7 +667,7 @@
 
 &lt;p&gt;&lt;img src=&quot;http://127.0.0.1:4000/images/2015-2-21/ScrollEffect.gif&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;The demo project is &lt;a href=&quot;https://github.com/fujianjin6471/UIScrollViewInStoryboard&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The demo project is &lt;a href=&quot;https://github.com/fujianjin6471/DemosForBlog/tree/master/UIScrollViewInStoryboard&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 </description>
         <pubDate>Sat, 21 Feb 2015 00:00:00 +0800</pubDate>
         <link>http://127.0.0.1:4000/2015/02/21/how-to-use-uiscrollview-in-storyboard.html</link>

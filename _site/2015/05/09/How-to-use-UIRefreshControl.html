@@ -85,15 +85,13 @@
     <span class="n">refreshControl</span><span class="o">?</span><span class="p">.</span><span class="n">endRefreshing</span><span class="p">()</span>
 <span class="p">}</span></code></pre></div>
 
-<p>Two warnings exist, just ignore them, they have nothing to do with our topic today.</p>
-
 <p>Run the app.</p>
 
 <p>Pull down the table view, string “Refresh!” appear in console as we expect.</p>
 
 <p>What if I want to use refresh control just in a table view, not in a table view controller? Just a little more. Let’s go back to the very first view controller we have forgotten╮(╯▽╰)╭</p>
 
-<p>Make View Controller the initial view controller. Drag a table view onto View Controller, then ctrl-drag it to the code part to create an IBOutlet, just name it tableView. After that, add a property below IBOutlet.</p>
+<p>Embed View Controller into a tab view controller. Drag a table view onto View Controller, then ctrl-drag it to the code part to create an IBOutlet, just name it tableView. After that, add a property below IBOutlet.</p>
 
 <div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="p">@</span><span class="kt">IBOutlet</span> <span class="k">weak</span> <span class="k">var</span> <span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="o">!</span>
 <span class="k">let</span> <span class="n">refreshControl</span> <span class="o">=</span> <span class="bp">UIRefreshControl</span><span class="p">()</span></code></pre></div>
@@ -123,7 +121,7 @@
 
 <p>Of course what we have done is simple, but you can do whatever you want to after pulling down the table view.</p>
 
-<p>The demo project is <a href="https://github.com/fujianjin6471/UIRefreshControl">here</a>.</p>
+<p>The demo project is <a href="https://github.com/fujianjin6471/DemosForBlog/tree/master/UIRefreshControl">here</a>.</p>
 
   </article>
 
