@@ -10,8 +10,8 @@
   <meta name="description" content="The starting point is a view controller with a scroll view, you can access it here.">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://127.0.0.1:4000/2015/04/23/how-to-add-uipagecontrol-to-a-scroll-view-in-storyboard.html">
-  <link rel="alternate" type="application/rss+xml" title="blog.fujianjin6471.com" href="http://127.0.0.1:4000/feed.xml" />
+  <link rel="canonical" href="http://blog.fujianjin6471.com/2015/04/23/how-to-add-uipagecontrol-to-a-scroll-view-in-storyboard.html">
+  <link rel="alternate" type="application/rss+xml" title="blog.fujianjin6471.com" href="http://blog.fujianjin6471.com/feed.xml" />
 </head>
 
 
@@ -64,11 +64,11 @@
 
 <p>At the very beginning, drag a <strong>Page Control</strong> on top the root view, the hierarchy in the Document Outline should look like this:</p>
 
-<p><img src="http://127.0.0.1:4000/images/2015-4-23/HierarchyInDO.png" alt="image" /></p>
+<p><img src="http://blog.fujianjin6471.com/images/2015-4-23/HierarchyInDO.png" alt="image" /></p>
 
 <p>Then, set the constraints of the page control as below:</p>
 
-<p><img src="http://127.0.0.1:4000/images/2015-4-23/ConstraintsOfPageControl.png" alt="image" /></p>
+<p><img src="http://blog.fujianjin6471.com/images/2015-4-23/ConstraintsOfPageControl.png" alt="image" /></p>
 
 <p>Next, add two properties to your <strong>ViewController</strong> class and connect them to scroll view and page control respectively.</p>
 
@@ -77,7 +77,7 @@
 
 <p>Run the app.</p>
 
-<p><img src="http://127.0.0.1:4000/images/2015-4-23/InitialEffect.gif" alt="image" /></p>
+<p><img src="http://blog.fujianjin6471.com/images/2015-4-23/InitialEffect.gif" alt="image" /></p>
 
 <p>You will see when you tap at the right part of the page control, the shiny dot move towards the right, vice versa, but nothing happen to the scroll view. And when you sweep the scroll view, the shiny dot of page control keeps quiet. These are the two tasks we are going to finish.</p>
 
@@ -85,7 +85,7 @@
 
 <p>Ctrl-drag from <strong>Page Control</strong> to the code editor to make an action:</p>
 
-<p><img src="http://127.0.0.1:4000/images/2015-4-23/ActionOfPageControl.png" alt="image" /></p>
+<p><img src="http://blog.fujianjin6471.com/images/2015-4-23/ActionOfPageControl.png" alt="image" /></p>
 
 <p>code here:</p>
 
@@ -99,7 +99,7 @@
 
 <p>Run the app.</p>
 
-<p><img src="http://127.0.0.1:4000/images/2015-4-23/PageTurnEffect.gif" alt="image" /></p>
+<p><img src="http://blog.fujianjin6471.com/images/2015-4-23/PageTurnEffect.gif" alt="image" /></p>
 
 <p>This time when you tap at the right part of the page control, the scroll view moves!</p>
 
@@ -117,7 +117,7 @@
 
 <p>Run the app.</p>
 
-<p><img src="http://127.0.0.1:4000/images/2015-4-23/TwoEffects.gif" alt="image" /></p>
+<p><img src="http://blog.fujianjin6471.com/images/2015-4-23/TwoEffects.gif" alt="image" /></p>
 
 <p>When you sweep the scroll view, the page control synchronizes with it, great!</p>
 
@@ -133,7 +133,7 @@
 
 <p>Run the app for the last time.</p>
 
-<p><img src="http://127.0.0.1:4000/images/2015-4-23/FinalEffect.gif" alt="image" /></p>
+<p><img src="http://blog.fujianjin6471.com/images/2015-4-23/FinalEffect.gif" alt="image" /></p>
 
 <p>That’s just what you want, right?</p>
 

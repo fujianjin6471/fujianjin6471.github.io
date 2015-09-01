@@ -10,8 +10,8 @@
   <meta name="description" content="The contentInset property bring some perplexity to developers new to scroll view. This article visualizes the effect of contentInset under different circumst...">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://127.0.0.1:4000/2015/07/27/gain-an-insight-into-contentInset-of-scroll-view.html">
-  <link rel="alternate" type="application/rss+xml" title="blog.fujianjin6471.com" href="http://127.0.0.1:4000/feed.xml" />
+  <link rel="canonical" href="http://blog.fujianjin6471.com/2015/07/27/gain-an-insight-into-contentInset-of-scroll-view.html">
+  <link rel="alternate" type="application/rss+xml" title="blog.fujianjin6471.com" href="http://blog.fujianjin6471.com/feed.xml" />
 </head>
 
 
@@ -71,7 +71,7 @@
 <div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="n">scrollView</span><span class="p">.</span><span class="n">contentSize</span> <span class="o">=</span> <span class="n">CGSizeMake</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
 <span class="n">scrollView</span><span class="p">.</span><span class="n">contentInset</span> <span class="o">=</span> <span class="bp">UIEdgeInsets</span><span class="p">(</span><span class="nl">top</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="nl">left</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="nl">bottom</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span> <span class="nl">right</span><span class="p">:</span> <span class="mi">40</span><span class="p">)</span></code></pre></div>
 
-<p><img src="http://127.0.0.1:4000/images/2015-7-27/1.png" alt="image" /></p>
+<p><img src="http://blog.fujianjin6471.com/images/2015-7-27/1.png" alt="image" /></p>
 
 <p>Positive component (top, left, bottom or right) of <strong>contentInset</strong> generates <u>a specified range stretching from the edge of content view</u>.  The positive component of <strong>contentInset</strong> is marked white and can be dragged into scroll view.</p>
 
@@ -79,7 +79,7 @@
 
 <div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="n">scrollView</span><span class="p">.</span><span class="n">contentSize</span> <span class="o">=</span> <span class="n">CGSizeMake</span><span class="p">(</span><span class="mi">160</span><span class="p">,</span> <span class="mi">140</span><span class="p">)</span></code></pre></div>
 
-<p><img src="http://127.0.0.1:4000/images/2015-7-27/2.png" alt="image" /></p>
+<p><img src="http://blog.fujianjin6471.com/images/2015-7-27/2.png" alt="image" /></p>
 
 <p>If we don’t specify <strong>contentInset</strong>, the default value is <em>UIEdgeInsetsZero</em>.</p>
 
@@ -88,14 +88,14 @@
 <div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="n">scrollView</span><span class="p">.</span><span class="n">contentSize</span> <span class="o">=</span> <span class="n">CGSizeMake</span><span class="p">(</span><span class="mi">160</span><span class="p">,</span> <span class="mi">140</span><span class="p">)</span>
 <span class="n">scrollView</span><span class="p">.</span><span class="n">contentInset</span> <span class="o">=</span> <span class="bp">UIEdgeInsets</span><span class="p">(</span><span class="nl">top</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="nl">left</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="nl">bottom</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="nl">right</span><span class="p">:</span> <span class="mi">10</span><span class="p">)</span></code></pre></div>
 
-<p><img src="http://127.0.0.1:4000/images/2015-7-27/3.png" alt="image" /></p>
+<p><img src="http://blog.fujianjin6471.com/images/2015-7-27/3.png" alt="image" /></p>
 
 <p><strong>Circumstance 4:</strong></p>
 
 <div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="n">scrollView</span><span class="p">.</span><span class="n">contentSize</span> <span class="o">=</span> <span class="n">CGSizeMake</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
 <span class="n">scrollView</span><span class="p">.</span><span class="n">contentInset</span> <span class="o">=</span> <span class="bp">UIEdgeInsets</span><span class="p">(</span><span class="nl">top</span><span class="p">:</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="nl">left</span><span class="p">:</span> <span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="nl">bottom</span><span class="p">:</span> <span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="nl">right</span><span class="p">:</span> <span class="o">-</span><span class="mi">40</span><span class="p">)</span></code></pre></div>
 
-<p><img src="http://127.0.0.1:4000/images/2015-7-27/4.png" alt="image" /></p>
+<p><img src="http://blog.fujianjin6471.com/images/2015-7-27/4.png" alt="image" /></p>
 
 <p>Negative component (top, left, bottom or right) of <strong>contentInset</strong> generates <u>a specified range shrink from the edge of content view</u>. The negative component of <strong>contentInset</strong> is marked gray and cannot be dragged into scroll view, indicating that some part of content view will be sheltered.</p>
 
@@ -104,20 +104,20 @@
 <div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="n">scrollView</span><span class="p">.</span><span class="n">contentSize</span> <span class="o">=</span> <span class="n">CGSizeMake</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">150</span><span class="p">)</span>
 <span class="n">scrollView</span><span class="p">.</span><span class="n">contentInset</span> <span class="o">=</span> <span class="bp">UIEdgeInsets</span><span class="p">(</span><span class="nl">top</span><span class="p">:</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="nl">left</span><span class="p">:</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="nl">bottom</span><span class="p">:</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="nl">right</span><span class="p">:</span> <span class="o">-</span><span class="mi">10</span><span class="p">)</span></code></pre></div>
 
-<p><img src="http://127.0.0.1:4000/images/2015-7-27/5.png" alt="image" /></p>
+<p><img src="http://blog.fujianjin6471.com/images/2015-7-27/5.png" alt="image" /></p>
 
 <p><strong>Circumstance 6:</strong></p>
 
 <div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="n">scrollView</span><span class="p">.</span><span class="n">contentSize</span> <span class="o">=</span> <span class="n">CGSizeMake</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">150</span><span class="p">)</span>
 <span class="n">scrollView</span><span class="p">.</span><span class="n">contentInset</span> <span class="o">=</span> <span class="bp">UIEdgeInsets</span><span class="p">(</span><span class="nl">top</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="nl">left</span><span class="p">:</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="nl">bottom</span><span class="p">:</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="nl">right</span><span class="p">:</span> <span class="mi">10</span><span class="p">)</span></code></pre></div>
 
-<p><img src="http://127.0.0.1:4000/images/2015-7-27/6.png" alt="image" /></p>
+<p><img src="http://blog.fujianjin6471.com/images/2015-7-27/6.png" alt="image" /></p>
 
 <p>In summary, we can seperate the process of setting <strong>contentInset</strong> into two parts:</p>
 
 <p>First, decorate the content view with something like a band:</p>
 
-<p><img src="http://127.0.0.1:4000/images/2015-7-27/7.png" alt="image" /></p>
+<p><img src="http://blog.fujianjin6471.com/images/2015-7-27/7.png" alt="image" /></p>
 
 <p>If a component of <strong>contentInset</strong> is positive, then the relative side is legal, that is to say it can be dragged into scroll view. If a component of <strong>contentInset</strong> is negative, then the relative side is illegal, in other words, it cannot be dragged into scroll view.</p>
 
