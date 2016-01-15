@@ -60,28 +60,28 @@
   </header>
 
   <article class="post-content">
-    <p><code>UIActivityViewController</code> provides convenient access to various services such as sending items via email or SMS, copying items to the pasteboard, posting content to social media sites. Let’s make a demo to show how to use it.</p>
+    <p><code class="highlighter-rouge">UIActivityViewController</code> provides convenient access to various services such as sending items via email or SMS, copying items to the pasteboard, posting content to social media sites. Let’s make a demo to show how to use it.</p>
 
-<p>For simplicity, just use a button to trigger the services of <code>UIActivityViewController</code>.</p>
+<p>For simplicity, just use a button to trigger the services of <code class="highlighter-rouge">UIActivityViewController</code>.</p>
 
-<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="p">@</span><span class="kt">IBAction</span> <span class="k">func</span> <span class="n">services</span><span class="p">(</span><span class="nl">sender</span><span class="p">:</span> <span class="n">AnyObject</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">let</span> <span class="n">activityViewController</span> <span class="o">=</span> <span class="bp">UIActivityViewController</span><span class="p">(</span><span class="nl">activityItems</span><span class="p">:</span> <span class="p">[</span><span class="s">&quot;firstItem&quot;</span><span class="p">,</span><span class="s">&quot;secondItem&quot;</span><span class="p">],</span> <span class="nl">applicationActivities</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span>
-    <span class="n">presentViewController</span><span class="p">(</span><span class="n">activityViewController</span><span class="p">,</span> <span class="nl">animated</span><span class="p">:</span> <span class="nb">true</span><span class="p">,</span> <span class="nl">completion</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span>
-<span class="p">}</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">@IBAction</span> <span class="kd">func</span> <span class="nf">services</span><span class="p">(</span><span class="nv">sender</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">activityViewController</span> <span class="o">=</span> <span class="kt">UIActivityViewController</span><span class="p">(</span><span class="nv">activityItems</span><span class="p">:</span> <span class="p">[</span><span class="s">"firstItem"</span><span class="p">,</span><span class="s">"secondItem"</span><span class="p">],</span> <span class="nv">applicationActivities</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+    <span class="nf">presentViewController</span><span class="p">(</span><span class="n">activityViewController</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+<span class="p">}</span></code></pre></figure>
 
 <p>Run the app, tap the button</p>
 
 <p><img src="http://blog.fujianjin6471.com/images/2015-8-7/ServicesForString.png" alt="image" /></p>
 
-<p>Choose <strong>Mail</strong>, we can see the contents are just the two items we used to initialize the <code>UIActivityViewController</code>.</p>
+<p>Choose <strong>Mail</strong>, we can see the contents are just the two items we used to initialize the <code class="highlighter-rouge">UIActivityViewController</code>.</p>
 
 <p><img src="http://blog.fujianjin6471.com/images/2015-8-7/SendingViaMail.png" alt="image" /></p>
 
-<p>Well, above is the least we should know to use <code>UIActivityViewController</code>, and of course there’s much more about this topic.</p>
+<p>Well, above is the least we should know to use <code class="highlighter-rouge">UIActivityViewController</code>, and of course there’s much more about this topic.</p>
 
-<p>If you don’t want <strong>Mail</strong> to show up in the activity sheet, specify it by setting <code>UIActivityViewController</code>’s property <code>excludedActivityTypes</code>, like this:</p>
+<p>If you don’t want <strong>Mail</strong> to show up in the activity sheet, specify it by setting <code class="highlighter-rouge">UIActivityViewController</code>’s property <code class="highlighter-rouge">excludedActivityTypes</code>, like this:</p>
 
-<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="n">activityViewController</span><span class="p">.</span><span class="n">excludedActivityTypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIActivityTypeMail</span><span class="p">]</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="n">activityViewController</span><span class="o">.</span><span class="n">excludedActivityTypes</span> <span class="o">=</span> <span class="p">[</span><span class="kt">UIActivityTypeMail</span><span class="p">]</span></code></pre></figure>
 
 <p>Run the app to see the effect:</p>
 
@@ -89,47 +89,47 @@
 
 <p>If you want to forbid more, just seperate them with comma. You can see all built-in activity types <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIActivity_Class/index.html#//apple_ref/doc/constant_group/Built_in_Activity_Types">here</a>.</p>
 
-<p>It is evident that you want to use your own class as the item, then you should make it conform to <code>&lt;UIActivityItemSource&gt;</code>. An example is below:</p>
+<p>It is evident that you want to use your own class as the item, then you should make it conform to <code class="highlighter-rouge">&lt;UIActivityItemSource&gt;</code>. An example is below:</p>
 
-<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">import</span> <span class="n">UIKit</span>
-<span class="k">class</span> <span class="nl">CustomClass</span><span class="p">:</span> <span class="bp">NSObject</span><span class="p">,</span> <span class="bp">UIActivityItemSource</span> <span class="p">{</span>
-    <span class="k">func</span> <span class="n">activityViewControllerPlaceholderItem</span><span class="p">(</span><span class="nl">activityViewController</span><span class="p">:</span> <span class="bp">UIActivityViewController</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AnyObject</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="s">&quot;I am a String&quot;</span>
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">import</span> <span class="kt">UIKit</span>
+<span class="kd">class</span> <span class="kt">CustomClass</span><span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">UIActivityItemSource</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">activityViewControllerPlaceholderItem</span><span class="p">(</span><span class="nv">activityViewController</span><span class="p">:</span> <span class="kt">UIActivityViewController</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyObject</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s">"I am a String"</span>
     <span class="p">}</span>
     
-    <span class="k">func</span> <span class="n">activityViewController</span><span class="p">(</span><span class="nl">activityViewController</span><span class="p">:</span> <span class="bp">UIActivityViewController</span><span class="p">,</span> <span class="n">itemForActivityType</span> <span class="nl">activityType</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AnyObject</span><span class="o">?</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="n">activityType</span> <span class="o">==</span> <span class="n">UIActivityTypeMessage</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="s">&quot;message&quot;</span>
+    <span class="kd">func</span> <span class="nf">activityViewController</span><span class="p">(</span><span class="nv">activityViewController</span><span class="p">:</span> <span class="kt">UIActivityViewController</span><span class="p">,</span> <span class="n">itemForActivityType</span> <span class="nv">activityType</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyObject</span><span class="p">?</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="n">activityType</span> <span class="o">==</span> <span class="kt">UIActivityTypeMessage</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="s">"message"</span>
         <span class="p">}</span>
-        <span class="k">else</span> <span class="k">if</span> <span class="n">activityType</span> <span class="o">==</span> <span class="n">UIActivityTypeMail</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="s">&quot;mail&quot;</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="n">activityType</span> <span class="o">==</span> <span class="kt">UIActivityTypeMail</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="s">"mail"</span>
         <span class="p">}</span>
         <span class="k">else</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="s">&quot;others&quot;</span>
+            <span class="k">return</span> <span class="s">"others"</span>
         <span class="p">}</span>
     <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span></code></pre></figure>
 
-<p>Correspondingly, initialization of <code>UIActivityViewController</code> changes to</p>
+<p>Correspondingly, initialization of <code class="highlighter-rouge">UIActivityViewController</code> changes to</p>
 
-<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="n">activityViewController</span> <span class="o">=</span> <span class="bp">UIActivityViewController</span><span class="p">(</span><span class="nl">activityItems</span><span class="p">:</span> <span class="p">[</span><span class="n">CustomClass</span><span class="p">()],</span> <span class="nl">applicationActivities</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">activityViewController</span> <span class="o">=</span> <span class="kt">UIActivityViewController</span><span class="p">(</span><span class="nv">activityItems</span><span class="p">:</span> <span class="p">[</span><span class="kt">CustomClass</span><span class="p">()],</span> <span class="nv">applicationActivities</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span></code></pre></figure>
 
-<p>You may wonder what the method <code>activityViewControllerPlaceholderItem(_:)</code> is used for. </p>
+<p>You may wonder what the method <code class="highlighter-rouge">activityViewControllerPlaceholderItem(_:)</code> is used for. </p>
 
-<p>This method provides a “promise” to <code>UIActivityViewController</code> what the <code>itemForActivityType</code> will be . The class type of the return value is used to figure out what activities to offer in the activity sheet (<a href="https://devforums.apple.com/message/881829#881829">reference</a>). In the example above, I return a <code>String</code>, so the activity sheet is identical to the very first 
-screenshot. If I cheat <code>UIActivityViewController</code> like this:</p>
+<p>This method provides a “promise” to <code class="highlighter-rouge">UIActivityViewController</code> what the <code class="highlighter-rouge">itemForActivityType</code> will be . The class type of the return value is used to figure out what activities to offer in the activity sheet (<a href="https://devforums.apple.com/message/881829#881829">reference</a>). In the example above, I return a <code class="highlighter-rouge">String</code>, so the activity sheet is identical to the very first 
+screenshot. If I cheat <code class="highlighter-rouge">UIActivityViewController</code> like this:</p>
 
-<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">func</span> <span class="n">activityViewControllerPlaceholderItem</span><span class="p">(</span><span class="nl">activityViewController</span><span class="p">:</span> <span class="bp">UIActivityViewController</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AnyObject</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="bp">UIImage</span><span class="p">()</span>
-<span class="p">}</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">func</span> <span class="nf">activityViewControllerPlaceholderItem</span><span class="p">(</span><span class="nv">activityViewController</span><span class="p">:</span> <span class="kt">UIActivityViewController</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyObject</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kt">UIImage</span><span class="p">()</span>
+<span class="p">}</span></code></pre></figure>
 
 <p>The activity sheet will be as below:</p>
 
 <p><img src="http://blog.fujianjin6471.com/images/2015-8-7/ForImage.png" alt="image" /></p>
 
-<p>The control flow in <code>activityViewController(_:itemForActivityType:)</code> is not necessary, you can just return something directly if you don’t need to customize your item according to different activity type.</p>
+<p>The control flow in <code class="highlighter-rouge">activityViewController(_:itemForActivityType:)</code> is not necessary, you can just return something directly if you don’t need to customize your item according to different activity type.</p>
 
-<p>For deeper understanding and best practice of <code>UIActivityViewController</code>, I highly recommand <a href="http://nshipster.com/uiactivityviewcontroller/">this blog</a>.</p>
+<p>For deeper understanding and best practice of <code class="highlighter-rouge">UIActivityViewController</code>, I highly recommand <a href="http://nshipster.com/uiactivityviewcontroller/">this blog</a>.</p>
 
 <p>The demo project is <a href="https://github.com/fujianjin6471/DemosForBlog/tree/master/UIActivityViewController">here</a>.</p>
 

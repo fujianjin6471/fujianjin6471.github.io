@@ -62,11 +62,11 @@
   <article class="post-content">
     <p>This topic is under <em>Auto Layout</em>. </p>
 
-<p>When should you use <code>setNeedsUpdateConstraints</code>? One aspect is when you want to change the frame of a view directly. As we know, under <em>Auto Layout</em>, just changing the frame is extremely unreliable. It may take effect for some time, but as long as <code>setNeedsLayout</code> or another method which has the same effect is called at some point you don’t expect, all relevant changes you have made to frame will disappear. </p>
+<p>When should you use <code class="highlighter-rouge">setNeedsUpdateConstraints</code>? One aspect is when you want to change the frame of a view directly. As we know, under <em>Auto Layout</em>, just changing the frame is extremely unreliable. It may take effect for some time, but as long as <code class="highlighter-rouge">setNeedsLayout</code> or another method which has the same effect is called at some point you don’t expect, all relevant changes you have made to frame will disappear. </p>
 
-<p><code>setNeedsUpdateConstraints</code> gives you the power to make constraints change after frame change. What you need to do is to override <code>updateConstraints</code> of the root view. In <code>updateConstraints</code>, set constraints following the frame of the view. After you change the frame of a view, call <code>rootView.setNeedsUpdateConstraints()</code>.</p>
+<p><code class="highlighter-rouge">setNeedsUpdateConstraints</code> gives you the power to make constraints change after frame change. What you need to do is to override <code class="highlighter-rouge">updateConstraints</code> of the root view. In <code class="highlighter-rouge">updateConstraints</code>, set constraints following the frame of the view. After you change the frame of a view, call <code class="highlighter-rouge">rootView.setNeedsUpdateConstraints()</code>.</p>
 
-<p>When should you call a view’s <code>setNeedsLayout</code>? When you want to layout the view’s subviews. If you don’t override the view’s <code>layoutSubviews</code>, the default behavior is to make its subviews follow the relevant constraints.</p>
+<p>When should you call a view’s <code class="highlighter-rouge">setNeedsLayout</code>? When you want to layout the view’s subviews. If you don’t override the view’s <code class="highlighter-rouge">layoutSubviews</code>, the default behavior is to make its subviews follow the relevant constraints.</p>
 
 <p>The demo project is <a href="https://github.com/fujianjin6471/DemosForBlog/tree/master/SetNeedsSomething">here</a>, let’s play with it.</p>
 
@@ -74,31 +74,31 @@
 
 <p>Press <strong>Button1</strong></p>
 
-<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="p">@</span><span class="kt">IBAction</span> <span class="k">func</span> <span class="n">setFrameOnly</span><span class="p">(</span><span class="nl">sender</span><span class="p">:</span> <span class="bp">UIButton</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">orangeSquare</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">origin</span><span class="p">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">100</span>
-<span class="p">}</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">@IBAction</span> <span class="kd">func</span> <span class="nf">setFrameOnly</span><span class="p">(</span><span class="nv">sender</span><span class="p">:</span> <span class="kt">UIButton</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">orangeSquare</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">100</span>
+<span class="p">}</span></code></pre></figure>
 
 <p>The orange square was moved, but at this very moment, its left constraint hasn’t been changed, so if I press <strong>Button3</strong></p>
 
-<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="p">@</span><span class="kt">IBAction</span> <span class="k">func</span> <span class="n">setNeedsLayout</span><span class="p">(</span><span class="nl">sender</span><span class="p">:</span> <span class="bp">UIButton</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">rootView</span><span class="p">.</span><span class="n">setNeedsLayout</span><span class="p">()</span>
-<span class="p">}</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">@IBAction</span> <span class="kd">func</span> <span class="nf">setNeedsLayout</span><span class="p">(</span><span class="nv">sender</span><span class="p">:</span> <span class="kt">UIButton</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">rootView</span><span class="o">.</span><span class="nf">setNeedsLayout</span><span class="p">()</span>
+<span class="p">}</span></code></pre></figure>
 
 <p>The orange square went back.</p>
 
 <p>Press <strong>Button2</strong> </p>
 
-<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="p">@</span><span class="kt">IBAction</span> <span class="k">func</span> <span class="n">setFrameWithUpdatingConstraints</span><span class="p">(</span><span class="nl">sender</span><span class="p">:</span> <span class="bp">UIButton</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">orangeSquare</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">origin</span><span class="p">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">100</span>
-    <span class="n">rootView</span><span class="p">.</span><span class="n">setNeedsUpdateConstraints</span><span class="p">()</span>
-<span class="p">}</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">@IBAction</span> <span class="kd">func</span> <span class="nf">setFrameWithUpdatingConstraints</span><span class="p">(</span><span class="nv">sender</span><span class="p">:</span> <span class="kt">UIButton</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">orangeSquare</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">100</span>
+    <span class="n">rootView</span><span class="o">.</span><span class="nf">setNeedsUpdateConstraints</span><span class="p">()</span>
+<span class="p">}</span></code></pre></figure>
 
-<p>This time, not only did we change the orange square’s position, but also called <code>setNeedsUpdateConstraints</code>. So after the position change of the orange square, <code>updateConstraints</code> was called.</p>
+<p>This time, not only did we change the orange square’s position, but also called <code class="highlighter-rouge">setNeedsUpdateConstraints</code>. So after the position change of the orange square, <code class="highlighter-rouge">updateConstraints</code> was called.</p>
 
-<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kr">override</span> <span class="k">func</span> <span class="nf">updateConstraints</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">leftConstraint</span><span class="p">.</span><span class="n">constant</span> <span class="o">=</span> <span class="n">orangeSquare</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">origin</span><span class="p">.</span><span class="n">x</span>
-    <span class="nb">super</span><span class="p">.</span><span class="n">updateConstraints</span><span class="p">()</span>
-<span class="p">}</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">override</span> <span class="kd">func</span> <span class="nf">updateConstraints</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">leftConstraint</span><span class="o">.</span><span class="n">constant</span> <span class="o">=</span> <span class="n">orangeSquare</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">x</span>
+    <span class="k">super</span><span class="o">.</span><span class="nf">updateConstraints</span><span class="p">()</span>
+<span class="p">}</span></code></pre></figure>
 
 <p>Now, the constraint was also changed and coincided with the frame again. Press <strong>Button3</strong>, nothing happened, that’s just what we want.</p>
 

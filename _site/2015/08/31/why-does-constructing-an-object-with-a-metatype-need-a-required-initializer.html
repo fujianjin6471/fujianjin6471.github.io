@@ -62,62 +62,62 @@
   <article class="post-content">
     <p>Look at a simple class like this:</p>
 
-<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">class</span> <span class="n">SomeClass</span> <span class="p">{</span>
-    <span class="k">class</span> <span class="k">func</span> <span class="n">generate</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">SomeClass</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nb">self</span><span class="p">()</span>
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">SomeClass</span> <span class="p">{</span>
+    <span class="kd">class</span> <span class="kd">func</span> <span class="nf">generate</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">SomeClass</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nf">self</span><span class="p">()</span>
     <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span></code></pre></figure>
 
-<p><code>self</code> is different in instance method and class method, you can see it through the auto completion of Xcode. In instance method, <code>self</code>’s type is <code>SomeClass</code> while in class method, it’s type is <code>SomeClass.Type</code>.</p>
+<p><code class="highlighter-rouge">self</code> is different in instance method and class method, you can see it through the auto completion of Xcode. In instance method, <code class="highlighter-rouge">self</code>’s type is <code class="highlighter-rouge">SomeClass</code> while in class method, it’s type is <code class="highlighter-rouge">SomeClass.Type</code>.</p>
 
 <p>The compiler complains <strong>constructing an object of class type ‘SomeClass’ with a metatype value must use a ‘required’ initializer</strong></p>
 
 <p>How to understand this? If I write a subclass like this:</p>
 
-<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">class</span> <span class="nl">SubClass</span><span class="p">:</span> <span class="n">SomeClass</span> <span class="p">{</span>
-    <span class="k">let</span> <span class="nl">aNumber</span><span class="p">:</span> <span class="n">Int</span>
-    <span class="k">init</span><span class="p">(</span><span class="nl">aNumber</span><span class="p">:</span> <span class="n">Int</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nb">self</span><span class="p">.</span><span class="n">aNumber</span> <span class="o">=</span> <span class="n">aNumber</span>
-        <span class="nb">super</span><span class="p">.</span><span class="k">init</span><span class="p">()</span>
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">SubClass</span><span class="p">:</span> <span class="kt">SomeClass</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">aNumber</span><span class="p">:</span> <span class="kt">Int</span>
+    <span class="nf">init</span><span class="p">(</span><span class="nv">aNumber</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">aNumber</span> <span class="o">=</span> <span class="n">aNumber</span>
+        <span class="k">super</span><span class="o">.</span><span class="nf">init</span><span class="p">()</span>
     <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span></code></pre></figure>
 
-<p>It will inherit <code>SomeClass</code>’s class method <code>generate()</code> but won’t inherit its default initializer <code>init()</code>. So <code>SubClass.generate()</code> actually calls <code>SubClass()</code>, but <code>SubClass</code> doesn’t have an initializer <code>init()</code>! Of course this is what the compiler want to prevent.</p>
+<p>It will inherit <code class="highlighter-rouge">SomeClass</code>’s class method <code class="highlighter-rouge">generate()</code> but won’t inherit its default initializer <code class="highlighter-rouge">init()</code>. So <code class="highlighter-rouge">SubClass.generate()</code> actually calls <code class="highlighter-rouge">SubClass()</code>, but <code class="highlighter-rouge">SubClass</code> doesn’t have an initializer <code class="highlighter-rouge">init()</code>! Of course this is what the compiler want to prevent.</p>
 
 <p>Then let’s move to a similar problem, it really took me some time to understand it.</p>
 
-<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">class</span> <span class="n">someClass</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="n">someClass</span> <span class="p">{</span>
 <span class="p">}</span>
-<span class="k">var</span> <span class="n">anotherClass</span> <span class="o">=</span> <span class="n">someClass</span><span class="p">.</span><span class="nb">self</span>
-<span class="k">var</span> <span class="n">anotherObject</span> <span class="o">=</span> <span class="n">anotherClass</span><span class="p">()</span></code></pre></div>
+<span class="k">var</span> <span class="nv">anotherClass</span> <span class="o">=</span> <span class="n">someClass</span><span class="o">.</span><span class="k">self</span>
+<span class="k">var</span> <span class="nv">anotherObject</span> <span class="o">=</span> <span class="nf">anotherClass</span><span class="p">()</span></code></pre></figure>
 
 <p>The compiler still complains <strong>constructing an object of class type ‘SomeClass’ with a metatype value must use a ‘required’ initializer</strong>. </p>
 
-<p>It’s true that <code>anotherClass</code> is a <strong>metatype value</strong>, but what bad result will be caused?</p>
+<p>It’s true that <code class="highlighter-rouge">anotherClass</code> is a <strong>metatype value</strong>, but what bad result will be caused?</p>
 
 <p>Consider the case where we also have a subclass:</p>
 
-<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">class</span> <span class="n">SomeClass</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">SomeClass</span> <span class="p">{</span>
 <span class="p">}</span>
 
-<span class="k">class</span> <span class="nl">Subclass</span> <span class="p">:</span> <span class="n">SomeClass</span> <span class="p">{</span>
-<span class="p">}</span></code></pre></div>
+<span class="kd">class</span> <span class="kt">Subclass</span> <span class="p">:</span> <span class="kt">SomeClass</span> <span class="p">{</span>
+<span class="p">}</span></code></pre></figure>
 
 <p>If you store the class type in a variable:</p>
 
-<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">var</span> <span class="n">anotherClass</span> <span class="o">=</span> <span class="n">SomeClass</span><span class="p">.</span><span class="nb">self</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">var</span> <span class="nv">anotherClass</span> <span class="o">=</span> <span class="kt">SomeClass</span><span class="o">.</span><span class="k">self</span></code></pre></figure>
 
-<p>The variable <code>anotherClass</code> is of type <code>SomeClass.Type</code>.</p>
+<p>The variable <code class="highlighter-rouge">anotherClass</code> is of type <code class="highlighter-rouge">SomeClass.Type</code>.</p>
 
 <p>You can later assign this variable a subclass:</p>
 
-<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="n">anotherClass</span> <span class="o">=</span> <span class="n">SubClass</span><span class="p">.</span><span class="nb">self</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="n">anotherClass</span> <span class="o">=</span> <span class="kt">SubClass</span><span class="o">.</span><span class="k">self</span></code></pre></figure>
 
-<p>This is valid because <code>SubClass.Type</code> is a <code>SomeClass.Type</code>. At this point, <code>anotherClass()</code> would fail if the initializer is not implemented in the subclass. This is what the compiler is protecting against.</p>
+<p>This is valid because <code class="highlighter-rouge">SubClass.Type</code> is a <code class="highlighter-rouge">SomeClass.Type</code>. At this point, <code class="highlighter-rouge">anotherClass()</code> would fail if the initializer is not implemented in the subclass. This is what the compiler is protecting against.</p>
 
-<p>So, why does constructing an object of class type <code>SomeClass</code> with a metatype value must use a ‘required’ initializer?</p>
+<p>So, why does constructing an object of class type <code class="highlighter-rouge">SomeClass</code> with a metatype value must use a ‘required’ initializer?</p>
 
-<p>Let’s say <code>SubClass</code> is a subclass of <code>SomeClass</code>. Since <code>SubClass</code> is still a <code>SomeClass</code>, it’s legal for <code>SubClass</code> to construct an object of class type <code>SomeClass</code> like <code>SomeClass</code> do but there’s no guarantee that <code>SubClass</code> has implemented the initializer which is used by <code>SomeClass</code> to do so. And the guarantee is the required initializer.</p>
+<p>Let’s say <code class="highlighter-rouge">SubClass</code> is a subclass of <code class="highlighter-rouge">SomeClass</code>. Since <code class="highlighter-rouge">SubClass</code> is still a <code class="highlighter-rouge">SomeClass</code>, it’s legal for <code class="highlighter-rouge">SubClass</code> to construct an object of class type <code class="highlighter-rouge">SomeClass</code> like <code class="highlighter-rouge">SomeClass</code> do but there’s no guarantee that <code class="highlighter-rouge">SubClass</code> has implemented the initializer which is used by <code class="highlighter-rouge">SomeClass</code> to do so. And the guarantee is the required initializer.</p>
 
 <p>Thanks to <a href="http://stackoverflow.com/users/1445366/aaron-brager">Aaron Brager</a> who answered my <a href="http://stackoverflow.com/questions/32163124/why-must-constructing-an-object-of-class-type-someclass-with-a-metatype-value">question</a> on SOF and <a href="http://stackoverflow.com/questions/28144475/implementing-nscopying-in-swift-with-subclasses">this question</a> also helped a lot to understand this problem.</p>
 

@@ -6,12 +6,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>An example of when should setNeedsDisplay be called</title>
-  <meta name="description" content="setNeedsDisplay is meant to ask the system to call drawRect:, and there are great answers on StackOverflow like this. But an example may be helpful.">
+  <title>The least things to do to incorporate iCloud into a Core Data app</title>
+  <meta name="description" content="I’m just wondering the least steps needed to use iCloud with Core Data to sync data among different devices. So at the very beginning, I should build a rough...">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://blog.fujianjin6471.com/2015/06/11/an-example-of-when-should-setneedsdisplay-be-called.html">
-  <link rel="alternate" type="application/rss+xml" title="blog.fujianjin6471.com" href="http://blog.fujianjin6471.com/feed.xml" />
+  <link rel="canonical" href="http://127.0.0.1:4000/2016/01/15/the-least-things-to-do-to-incorporate-icloud-into-a-coredata-app.html">
+  <link rel="alternate" type="application/rss+xml" title="blog.fujianjin6471.com" href="http://127.0.0.1:4000/feed.xml" />
 </head>
 
 
@@ -55,22 +55,40 @@
         <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title">An example of when should setNeedsDisplay be called</h1>
-    <p class="post-meta">Jun 11, 2015</p>
+    <h1 class="post-title">The least things to do to incorporate iCloud into a Core Data app</h1>
+    <p class="post-meta">Jan 15, 2016</p>
   </header>
 
   <article class="post-content">
-    <p><code class="highlighter-rouge">setNeedsDisplay</code> is meant to ask the system to call <code class="highlighter-rouge">drawRect:</code>, and there are great answers on StackOverflow like <a href="http://stackoverflow.com/questions/14506968/setneedslayout-and-setneedsdisplay">this</a>. But an <a href="https://github.com/fujianjin6471/DemosForBlog/tree/master/SetNeedsDisplay">example</a> may be helpful.</p>
+    <p>I’m just wondering the least steps needed to use iCloud with Core Data to sync data among different devices. So at the very beginning, I should build a rough app using Core Data to store the data. For simplicity, I use the Core Data templete provided by Xcode, which is not recommended in many tutorials.</p>
 
-<p>Code in <code class="highlighter-rouge">drawRect:</code> just draw a line between two points.</p>
+<p>There are only two steps to achieve this:</p>
 
-<p>With <code class="highlighter-rouge">setNeedsDisplay</code>, the effect is </p>
+<p><strong>First</strong>, set the options when adding persistent store to a coordinator. </p>
 
-<p><img src="http://blog.fujianjin6471.com/images/2015-6-11/SetNeedsDisplay.gif" alt="image" /></p>
+<p>The code provided by the templete to add persistent store is:</p>
 
-<p>Without <code class="highlighter-rouge">setNeedsDisplay</code>, the effect is </p>
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">try</span> <span class="n">coordinator</span><span class="o">.</span><span class="nf">addPersistentStoreWithType</span><span class="p">(</span><span class="kt">NSSQLiteStoreType</span><span class="p">,</span> <span class="nv">configuration</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="kt">URL</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span></code></pre></figure>
 
-<p><img src="http://blog.fujianjin6471.com/images/2015-6-11/WithoutSetNeedsDisplay.gif" alt="image" /></p>
+<p>Replace it by:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">options</span> <span class="o">=</span> <span class="p">[</span><span class="kt">NSPersistentStoreUbiquitousContentNameKey</span><span class="p">:</span> <span class="s">"iCloudAndCoredata"</span><span class="p">]</span>
+<span class="k">try</span> <span class="n">coordinator</span><span class="o">.</span><span class="nf">addPersistentStoreWithType</span><span class="p">(</span><span class="kt">NSSQLiteStoreType</span><span class="p">,</span> <span class="nv">configuration</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="kt">URL</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="n">options</span><span class="p">)</span></code></pre></figure>
+
+<p>That’s all the code needed.</p>
+
+<p><strong>Second</strong>, turn on the iCloud, choose an account and check <em>iCloud Documents</em>:</p>
+
+<p><img src="http://127.0.0.1:4000/images/2016-1-15/TurnOnIcloud.png" alt="image" /></p>
+
+<p><img src="http://127.0.0.1:4000/images/2016-1-15/ChooseAccount.png" alt="image" /></p>
+
+<p><img src="http://127.0.0.1:4000/images/2016-1-15/CheckIcloudDocuments.png" alt="image" /></p>
+
+<p>All done. The demo project is <a href="https://github.com/fujianjin6471/DemosForBlog/tree/master/Easy_iCloud_CoreData">here</a>.</p>
+
+<p>This article just makes iCloud work with CoreData. There are still a lot of things to do to make a great iCloud-sync app. For example, in the demo, if you want to see the sycn effect, you should restart the app, which is not bearable in a real app.</p>
+
 
   </article>
 

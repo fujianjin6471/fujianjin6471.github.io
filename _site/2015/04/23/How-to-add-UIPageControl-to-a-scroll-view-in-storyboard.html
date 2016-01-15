@@ -72,8 +72,8 @@
 
 <p>Next, add two properties to your <strong>ViewController</strong> class and connect them to scroll view and page control respectively.</p>
 
-<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="p">@</span><span class="kt">IBOutlet</span> <span class="k">weak</span> <span class="k">var</span> <span class="nl">scrollView</span><span class="p">:</span> <span class="bp">UIScrollView</span><span class="o">!</span>
-<span class="p">@</span><span class="kt">IBOutlet</span> <span class="k">weak</span> <span class="k">var</span> <span class="nl">pageControl</span><span class="p">:</span> <span class="bp">UIPageControl</span><span class="o">!</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">@IBOutlet</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">scrollView</span><span class="p">:</span> <span class="kt">UIScrollView</span><span class="o">!</span>
+<span class="kd">@IBOutlet</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">pageControl</span><span class="p">:</span> <span class="kt">UIPageControl</span><span class="o">!</span></code></pre></figure>
 
 <p>Run the app.</p>
 
@@ -89,11 +89,11 @@
 
 <p>code here:</p>
 
-<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="p">@</span><span class="kt">IBAction</span> <span class="k">func</span> <span class="n">pageTurn</span><span class="p">(</span><span class="nl">sender</span><span class="p">:</span> <span class="bp">UIPageControl</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">let</span> <span class="n">viewSize</span> <span class="o">=</span> <span class="n">scrollView</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">size</span>
-    <span class="k">let</span> <span class="n">rect</span> <span class="o">=</span> <span class="n">CGRectMake</span><span class="p">(</span><span class="n">CGFloat</span><span class="p">(</span><span class="n">sender</span><span class="p">.</span><span class="n">currentPage</span><span class="p">)</span> <span class="o">*</span> <span class="n">viewSize</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">viewSize</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="n">viewSize</span><span class="p">.</span><span class="n">height</span><span class="p">)</span>
-    <span class="n">scrollView</span><span class="p">.</span><span class="n">scrollRectToVisible</span><span class="p">(</span><span class="n">rect</span><span class="p">,</span> <span class="nl">animated</span><span class="p">:</span> <span class="nb">true</span><span class="p">)</span>
-<span class="p">}</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">@IBAction</span> <span class="kd">func</span> <span class="nf">pageTurn</span><span class="p">(</span><span class="nv">sender</span><span class="p">:</span> <span class="kt">UIPageControl</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">viewSize</span> <span class="o">=</span> <span class="n">scrollView</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">size</span>
+    <span class="k">let</span> <span class="nv">rect</span> <span class="o">=</span> <span class="kt">CGRectMake</span><span class="p">(</span><span class="kt">CGFloat</span><span class="p">(</span><span class="n">sender</span><span class="o">.</span><span class="n">currentPage</span><span class="p">)</span> <span class="o">*</span> <span class="n">viewSize</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">viewSize</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">viewSize</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
+    <span class="n">scrollView</span><span class="o">.</span><span class="nf">scrollRectToVisible</span><span class="p">(</span><span class="n">rect</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span>
+<span class="p">}</span></code></pre></figure>
 
 <p>The code inside the action is very straightforward. Every time when we tap the page control, this action is triggered. Then we ask the scroll view to slide to the part which correspond to the current page (the shiny dot, remember?) of the page control.</p>
 
@@ -107,11 +107,11 @@
 
 <p>Make <strong>Scroll View</strong> be <strong>View Controller</strong>’s delegate in the IB and add a method in the class</p>
 
-<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">func</span> <span class="nf">scrollViewDidEndDecelerating</span><span class="p">(</span><span class="nl">scrollView</span><span class="p">:</span> <span class="bp">UIScrollView</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">let</span> <span class="n">offset</span> <span class="o">=</span> <span class="n">scrollView</span><span class="p">.</span><span class="n">contentOffset</span>
-    <span class="k">let</span> <span class="n">bounds</span> <span class="o">=</span> <span class="n">scrollView</span><span class="p">.</span><span class="n">frame</span>
-    <span class="n">pageControl</span><span class="p">.</span><span class="n">currentPage</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="n">offset</span><span class="p">.</span><span class="n">x</span> <span class="o">/</span> <span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span><span class="p">)</span>
-<span class="p">}</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">func</span> <span class="nf">scrollViewDidEndDecelerating</span><span class="p">(</span><span class="nv">scrollView</span><span class="p">:</span> <span class="kt">UIScrollView</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">offset</span> <span class="o">=</span> <span class="n">scrollView</span><span class="o">.</span><span class="n">contentOffset</span>
+    <span class="k">let</span> <span class="nv">bounds</span> <span class="o">=</span> <span class="n">scrollView</span><span class="o">.</span><span class="n">frame</span>
+    <span class="n">pageControl</span><span class="o">.</span><span class="n">currentPage</span> <span class="o">=</span> <span class="kt">Int</span><span class="p">(</span><span class="n">offset</span><span class="o">.</span><span class="n">x</span> <span class="o">/</span> <span class="n">bounds</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">width</span><span class="p">)</span>
+<span class="p">}</span></code></pre></figure>
 
 <p><em>- scrollViewDidEndDecelerating:</em> will be called when the scroll view has ended decelerating the scrolling movement. Inside of it, we get the contentView’s offset to calculate the corresponding page of page control and set the latter to be <strong>Page Control</strong>’s current page.</p>
 
@@ -125,11 +125,11 @@
 
 <p>Just add another method like this and call it in <em>viewDidLoad</em>:</p>
 
-<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">func</span> <span class="nf">someImprovement</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">scrollView</span><span class="p">.</span><span class="n">pagingEnabled</span> <span class="o">=</span> <span class="nb">true</span>
-    <span class="n">scrollView</span><span class="p">.</span><span class="n">bounces</span> <span class="o">=</span> <span class="nb">false</span>
-    <span class="n">scrollView</span><span class="p">.</span><span class="n">showsHorizontalScrollIndicator</span> <span class="o">=</span> <span class="nb">false</span>
-<span class="p">}</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">func</span> <span class="nf">someImprovement</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">scrollView</span><span class="o">.</span><span class="n">pagingEnabled</span> <span class="o">=</span> <span class="kc">true</span>
+    <span class="n">scrollView</span><span class="o">.</span><span class="n">bounces</span> <span class="o">=</span> <span class="kc">false</span>
+    <span class="n">scrollView</span><span class="o">.</span><span class="n">showsHorizontalScrollIndicator</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="p">}</span></code></pre></figure>
 
 <p>Run the app for the last time.</p>
 

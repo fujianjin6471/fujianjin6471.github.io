@@ -70,20 +70,21 @@
 
 <p>Firstly, we should know where to put the data we will create. Add this method to <strong>ViewController.swift</strong>:</p>
 
-<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">func</span> <span class="n">dataFilePath</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">String</span> <span class="p">{</span>
-    <span class="k">let</span> <span class="n">paths</span> <span class="o">=</span> <span class="n">NSSearchPathForDirectoriesInDomains</span><span class="p">(.</span><span class="n">DocumentDirectory</span><span class="p">,</span> <span class="p">.</span><span class="n">UserDomainMask</span><span class="p">,</span> <span class="nb">true</span><span class="p">)</span> <span class="kt">as</span><span class="o">!</span> <span class="p">[</span><span class="n">String</span><span class="p">]</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">paths</span><span class="p">[</span><span class="mi">0</span><span class="p">]).</span><span class="n">stringByAppendingPathComponent</span><span class="p">(</span><span class="s">&quot;TextField.plist&quot;</span><span class="p">)</span>
-<span class="p">}]</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">func</span> <span class="nf">dataFilePath</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">paths</span> <span class="o">=</span> <span class="kt">NSSearchPathForDirectoriesInDomains</span><span class="p">(</span><span class="o">.</span><span class="kt">DocumentDirectory</span><span class="p">,</span> <span class="o">.</span><span class="kt">UserDomainMask</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span> <span class="k">as!</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span>
+    <span class="nf">return</span> <span class="p">(</span><span class="n">paths</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="nf">stringByAppendingPathComponent</span><span class="p">(</span><span class="s">"TextField.plist"</span><span class="p">)</span>
+<span class="p">}]</span></code></pre></figure>
 
 <p>How to save the text? add a method to do this:</p>
 
-<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">func</span> <span class="nf">saveText</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">let</span> <span class="n">data</span> <span class="o">=</span> <span class="bp">NSMutableData</span><span class="p">()</span>
-    <span class="k">let</span> <span class="n">archiver</span> <span class="o">=</span> <span class="bp">NSKeyedArchiver</span><span class="p">(</span><span class="nl">forWritingWithMutableData</span><span class="p">:</span> <span class="n">data</span><span class="p">)</span>
-    <span class="n">archiver</span><span class="p">.</span><span class="n">encodeObject</span><span class="p">(</span><span class="n">textField</span><span class="p">.</span><span class="n">text</span><span class="p">,</span> <span class="nl">forKey</span><span class="p">:</span> <span class="s">&quot;FieldText&quot;</span><span class="p">)</span>
-    <span class="n">archiver</span><span class="p">.</span><span class="n">finishEncoding</span><span class="p">()</span>
-    <span class="n">data</span><span class="p">.</span><span class="n">writeToFile</span><span class="p">(</span><span class="n">dataFilePath</span><span class="p">(),</span> <span class="nl">atomically</span><span class="p">:</span> <span class="nb">true</span><span class="p">)</span>
-<span class="p">}</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">func</span> <span class="nf">saveText</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">data</span> <span class="o">=</span> <span class="kt">NSMutableData</span><span class="p">()</span>
+    <span class="k">let</span> <span class="nv">archiver</span> <span class="o">=</span> <span class="kt">NSKeyedArchiver</span><span class="p">(</span><span class="nv">forWritingWithMutableData</span><span class="p">:</span> <span class="n">data</span><span class="p">)</span>
+    <span class="n">archiver</span><span class="o">.</span><span class="nf">encodeObject</span><span class="p">(</span><span class="n">textField</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="nv">forKey</span><span class="p">:</span> <span class="s">"FieldText"</span><span class="p">)</span>
+    <span class="n">archiver</span><span class="o">.</span><span class="nf">finishEncoding</span><span class="p">()</span>
+    <span class="n">data</span><span class="o">.</span><span class="nf">writeToFile</span><span class="p">(</span><span class="nf">dataFilePath</span><span class="p">(),</span> <span class="nv">atomically</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span>
+<span class="p">}</span>
+    </code></pre></figure>
 
 <p>Two steps included:</p>
 
@@ -94,26 +95,27 @@
 
 <p>We just call <em>saveText()</em> when the button is pressed for the sack of simplicity. If you want to save the text every time you change it automatically, make the view controller conforms to <em>UITextFieldDelegate</em> (don’t forget to make view controller be text field’s delegate) and implement <em>textField(_:shouldChangeCharactersInRange:replacementString:)</em> like this:</p>
 
-<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">func</span> <span class="n">textField</span><span class="p">(</span><span class="nl">textField</span><span class="p">:</span> <span class="bp">UITextField</span><span class="p">,</span> <span class="n">shouldChangeCharactersInRange</span> <span class="nl">range</span><span class="p">:</span> <span class="n">NSRange</span><span class="p">,</span> <span class="n">replacementString</span> <span class="nl">string</span><span class="p">:</span> <span class="n">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Bool</span> <span class="p">{</span>
-    <span class="k">let</span> <span class="n">formerText</span> <span class="o">=</span> <span class="n">textField</span><span class="p">.</span><span class="n">text</span> <span class="kt">as</span> <span class="bp">NSString</span>
-    <span class="n">textField</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">formerText</span><span class="p">.</span><span class="n">stringByReplacingCharactersInRange</span><span class="p">(</span><span class="n">range</span><span class="p">,</span> <span class="nl">withString</span><span class="p">:</span> <span class="n">string</span><span class="p">)</span>
-    <span class="n">saveText</span><span class="p">()</span>
-    <span class="n">textField</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">formerText</span> <span class="kt">as</span> <span class="n">String</span>
-    <span class="k">return</span> <span class="nb">true</span>
-<span class="p">}</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">func</span> <span class="nf">textField</span><span class="p">(</span><span class="nv">textField</span><span class="p">:</span> <span class="kt">UITextField</span><span class="p">,</span> <span class="n">shouldChangeCharactersInRange</span> <span class="nv">range</span><span class="p">:</span> <span class="kt">NSRange</span><span class="p">,</span> <span class="n">replacementString</span> <span class="nv">string</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">formerText</span> <span class="o">=</span> <span class="n">textField</span><span class="o">.</span><span class="n">text</span> <span class="k">as</span> <span class="kt">NSString</span>
+    <span class="n">textField</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">formerText</span><span class="o">.</span><span class="nf">stringByReplacingCharactersInRange</span><span class="p">(</span><span class="n">range</span><span class="p">,</span> <span class="nv">withString</span><span class="p">:</span> <span class="n">string</span><span class="p">)</span>
+    <span class="nf">saveText</span><span class="p">()</span>
+    <span class="n">textField</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">formerText</span> <span class="k">as</span> <span class="kt">String</span>
+    <span class="k">return</span> <span class="kc">true</span>
+<span class="p">}</span>
+    </code></pre></figure>
 
 <p>Then we are going to implement loading text, add the following method:</p>
 
-<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">func</span> <span class="nf">loadText</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">let</span> <span class="n">path</span> <span class="o">=</span> <span class="n">dataFilePath</span><span class="p">()</span>
-    <span class="k">if</span> <span class="bp">NSFileManager</span><span class="p">.</span><span class="n">defaultManager</span><span class="p">().</span><span class="n">fileExistsAtPath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="k">let</span> <span class="n">data</span> <span class="o">=</span> <span class="bp">NSData</span><span class="p">(</span><span class="nl">contentsOfFile</span><span class="p">:</span> <span class="n">path</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">let</span> <span class="n">unarchiver</span> <span class="o">=</span> <span class="bp">NSKeyedUnarchiver</span><span class="p">(</span><span class="nl">forReadingWithData</span><span class="p">:</span> <span class="n">data</span><span class="p">)</span>
-            <span class="n">textField</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">unarchiver</span><span class="p">.</span><span class="n">decodeObjectForKey</span><span class="p">(</span><span class="s">&quot;FieldText&quot;</span><span class="p">)</span> <span class="kt">as</span><span class="o">!</span> <span class="n">String</span>
-            <span class="n">unarchiver</span><span class="p">.</span><span class="n">finishDecoding</span><span class="p">()</span>
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">func</span> <span class="nf">loadText</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">path</span> <span class="o">=</span> <span class="nf">dataFilePath</span><span class="p">()</span>
+    <span class="k">if</span> <span class="kt">NSFileManager</span><span class="o">.</span><span class="nf">defaultManager</span><span class="p">()</span><span class="o">.</span><span class="nf">fileExistsAtPath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="k">let</span> <span class="nv">data</span> <span class="o">=</span> <span class="kt">NSData</span><span class="p">(</span><span class="nv">contentsOfFile</span><span class="p">:</span> <span class="n">path</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">let</span> <span class="nv">unarchiver</span> <span class="o">=</span> <span class="kt">NSKeyedUnarchiver</span><span class="p">(</span><span class="nv">forReadingWithData</span><span class="p">:</span> <span class="n">data</span><span class="p">)</span>
+            <span class="n">textField</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">unarchiver</span><span class="o">.</span><span class="nf">decodeObjectForKey</span><span class="p">(</span><span class="s">"FieldText"</span><span class="p">)</span> <span class="k">as!</span> <span class="kt">String</span>
+            <span class="n">unarchiver</span><span class="o">.</span><span class="nf">finishDecoding</span><span class="p">()</span>
         <span class="p">}</span>
     <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span></code></pre></figure>
 
 <p>Call it at the bottom in <em>viewDidLoad()</em>.</p>
 
@@ -121,63 +123,64 @@
 
 <p><strong>String</strong> is one of the built-in types of Swift, we save and load it using the aforementioned method. What if you want to save and load an object of your own? For consistency, we create a class containing only a <strong>String</strong> property as below:</p>
 
-<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">class</span> <span class="nl">CustomClass</span><span class="p">:</span> <span class="bp">NSObject</span> <span class="p">{</span>
-    <span class="k">var</span> <span class="n">text</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
-<span class="p">}</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">CustomClass</span><span class="p">:</span> <span class="kt">NSObject</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">text</span> <span class="o">=</span> <span class="s">""</span>
+<span class="p">}</span></code></pre></figure>
 
 <p>Then embed the view controller in a tab bar controller and create another view controller called <strong>ViewController2</strong>, as the second scene of the tab bar controller. <strong>ViewController2</strong> is almost the same as <strong>ViewController</strong>.</p>
 
-<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">import</span> <span class="n">UIKit</span>
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">import</span> <span class="kt">UIKit</span>
 
-<span class="k">class</span> <span class="nl">ViewController2</span><span class="p">:</span> <span class="bp">UIViewController</span> <span class="p">{</span>
-    <span class="p">@</span><span class="kt">IBOutlet</span> <span class="k">weak</span> <span class="k">var</span> <span class="nl">textField</span><span class="p">:</span> <span class="bp">UITextField</span><span class="o">!</span>
-    <span class="k">var</span> <span class="n">onlyText</span> <span class="o">=</span> <span class="n">CustomClass</span><span class="p">()</span>
+<span class="kd">class</span> <span class="kt">ViewController2</span><span class="p">:</span> <span class="kt">UIViewController</span> <span class="p">{</span>
+    <span class="kd">@IBOutlet</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">textField</span><span class="p">:</span> <span class="kt">UITextField</span><span class="o">!</span>
+    <span class="k">var</span> <span class="nv">onlyText</span> <span class="o">=</span> <span class="kt">CustomClass</span><span class="p">()</span>
 
-    <span class="kr">override</span> <span class="k">func</span> <span class="n">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nb">super</span><span class="p">.</span><span class="n">viewDidLoad</span><span class="p">()</span>
+    <span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">super</span><span class="o">.</span><span class="nf">viewDidLoad</span><span class="p">()</span>
         
-        <span class="n">loadCustomObject</span><span class="p">()</span>
-        <span class="n">textField</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">onlyText</span><span class="p">.</span><span class="n">text</span>
+        <span class="nf">loadCustomObject</span><span class="p">()</span>
+        <span class="n">textField</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">onlyText</span><span class="o">.</span><span class="n">text</span>
     <span class="p">}</span>
     
-    <span class="kr">override</span> <span class="k">func</span> <span class="n">didReceiveMemoryWarning</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nb">super</span><span class="p">.</span><span class="n">didReceiveMemoryWarning</span><span class="p">()</span>
+    <span class="k">override</span> <span class="kd">func</span> <span class="nf">didReceiveMemoryWarning</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">super</span><span class="o">.</span><span class="nf">didReceiveMemoryWarning</span><span class="p">()</span>
     <span class="p">}</span>
     
-    <span class="k">func</span> <span class="n">dataFilePath</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">String</span> <span class="p">{</span>
-        <span class="k">let</span> <span class="n">paths</span> <span class="o">=</span> <span class="n">NSSearchPathForDirectoriesInDomains</span><span class="p">(.</span><span class="n">DocumentDirectory</span><span class="p">,</span> <span class="p">.</span><span class="n">UserDomainMask</span><span class="p">,</span> <span class="nb">true</span><span class="p">)</span> <span class="kt">as</span><span class="o">!</span> <span class="p">[</span><span class="n">String</span><span class="p">]</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">paths</span><span class="p">[</span><span class="mi">0</span><span class="p">]).</span><span class="n">stringByAppendingPathComponent</span><span class="p">(</span><span class="s">&quot;Object.plist&quot;</span><span class="p">)</span>
+    <span class="kd">func</span> <span class="nf">dataFilePath</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">paths</span> <span class="o">=</span> <span class="kt">NSSearchPathForDirectoriesInDomains</span><span class="p">(</span><span class="o">.</span><span class="kt">DocumentDirectory</span><span class="p">,</span> <span class="o">.</span><span class="kt">UserDomainMask</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span> <span class="k">as!</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span>
+        <span class="nf">return</span> <span class="p">(</span><span class="n">paths</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="nf">stringByAppendingPathComponent</span><span class="p">(</span><span class="s">"Object.plist"</span><span class="p">)</span>
     <span class="p">}</span>
     
-    <span class="k">func</span> <span class="n">saveCustomObject</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">onlyText</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">textField</span><span class="p">.</span><span class="n">text</span>
+    <span class="kd">func</span> <span class="nf">saveCustomObject</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">onlyText</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">textField</span><span class="o">.</span><span class="n">text</span>
         
-        <span class="k">let</span> <span class="n">data</span> <span class="o">=</span> <span class="bp">NSMutableData</span><span class="p">()</span>
-        <span class="k">let</span> <span class="n">archiver</span> <span class="o">=</span> <span class="bp">NSKeyedArchiver</span><span class="p">(</span><span class="nl">forWritingWithMutableData</span><span class="p">:</span> <span class="n">data</span><span class="p">)</span>
-        <span class="n">archiver</span><span class="p">.</span><span class="n">encodeObject</span><span class="p">(</span><span class="n">onlyText</span><span class="p">,</span> <span class="nl">forKey</span><span class="p">:</span> <span class="s">&quot;CustomObject&quot;</span><span class="p">)</span>
-        <span class="n">archiver</span><span class="p">.</span><span class="n">finishEncoding</span><span class="p">()</span>
-        <span class="n">data</span><span class="p">.</span><span class="n">writeToFile</span><span class="p">(</span><span class="n">dataFilePath</span><span class="p">(),</span> <span class="nl">atomically</span><span class="p">:</span> <span class="nb">true</span><span class="p">)</span>
+        <span class="k">let</span> <span class="nv">data</span> <span class="o">=</span> <span class="kt">NSMutableData</span><span class="p">()</span>
+        <span class="k">let</span> <span class="nv">archiver</span> <span class="o">=</span> <span class="kt">NSKeyedArchiver</span><span class="p">(</span><span class="nv">forWritingWithMutableData</span><span class="p">:</span> <span class="n">data</span><span class="p">)</span>
+        <span class="n">archiver</span><span class="o">.</span><span class="nf">encodeObject</span><span class="p">(</span><span class="n">onlyText</span><span class="p">,</span> <span class="nv">forKey</span><span class="p">:</span> <span class="s">"CustomObject"</span><span class="p">)</span>
+        <span class="n">archiver</span><span class="o">.</span><span class="nf">finishEncoding</span><span class="p">()</span>
+        <span class="n">data</span><span class="o">.</span><span class="nf">writeToFile</span><span class="p">(</span><span class="nf">dataFilePath</span><span class="p">(),</span> <span class="nv">atomically</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span>
     <span class="p">}</span>
     
-    <span class="k">func</span> <span class="n">loadCustomObject</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">let</span> <span class="n">path</span> <span class="o">=</span> <span class="n">dataFilePath</span><span class="p">()</span>
-        <span class="k">if</span> <span class="bp">NSFileManager</span><span class="p">.</span><span class="n">defaultManager</span><span class="p">().</span><span class="n">fileExistsAtPath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="k">let</span> <span class="n">data</span> <span class="o">=</span> <span class="bp">NSData</span><span class="p">(</span><span class="nl">contentsOfFile</span><span class="p">:</span> <span class="n">path</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">let</span> <span class="n">unarchiver</span> <span class="o">=</span> <span class="bp">NSKeyedUnarchiver</span><span class="p">(</span><span class="nl">forReadingWithData</span><span class="p">:</span> <span class="n">data</span><span class="p">)</span>
-                <span class="n">onlyText</span> <span class="o">=</span> <span class="n">unarchiver</span><span class="p">.</span><span class="n">decodeObjectForKey</span><span class="p">(</span><span class="s">&quot;CustomObject&quot;</span><span class="p">)</span> <span class="kt">as</span><span class="o">!</span> <span class="n">CustomClass</span>
-                <span class="n">unarchiver</span><span class="p">.</span><span class="n">finishDecoding</span><span class="p">()</span>
+    <span class="kd">func</span> <span class="nf">loadCustomObject</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">path</span> <span class="o">=</span> <span class="nf">dataFilePath</span><span class="p">()</span>
+        <span class="k">if</span> <span class="kt">NSFileManager</span><span class="o">.</span><span class="nf">defaultManager</span><span class="p">()</span><span class="o">.</span><span class="nf">fileExistsAtPath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="k">let</span> <span class="nv">data</span> <span class="o">=</span> <span class="kt">NSData</span><span class="p">(</span><span class="nv">contentsOfFile</span><span class="p">:</span> <span class="n">path</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">let</span> <span class="nv">unarchiver</span> <span class="o">=</span> <span class="kt">NSKeyedUnarchiver</span><span class="p">(</span><span class="nv">forReadingWithData</span><span class="p">:</span> <span class="n">data</span><span class="p">)</span>
+                <span class="n">onlyText</span> <span class="o">=</span> <span class="n">unarchiver</span><span class="o">.</span><span class="nf">decodeObjectForKey</span><span class="p">(</span><span class="s">"CustomObject"</span><span class="p">)</span> <span class="k">as!</span> <span class="kt">CustomClass</span>
+                <span class="n">unarchiver</span><span class="o">.</span><span class="nf">finishDecoding</span><span class="p">()</span>
             <span class="p">}</span>
         <span class="p">}</span>
     <span class="p">}</span>
 
-    <span class="p">@</span><span class="kt">IBAction</span> <span class="k">func</span> <span class="n">saveAction</span><span class="p">(</span><span class="nl">sender</span><span class="p">:</span> <span class="n">AnyObject</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">saveCustomObject</span><span class="p">()</span>
-        <span class="k">let</span> <span class="n">alert</span> <span class="o">=</span> <span class="n">UIAlertController</span><span class="p">(</span><span class="nl">title</span><span class="p">:</span> <span class="s">&quot;Prompt&quot;</span><span class="p">,</span> <span class="nl">message</span><span class="p">:</span> <span class="s">&quot;Data saved!&quot;</span><span class="p">,</span> <span class="nl">preferredStyle</span><span class="p">:</span> <span class="p">.</span><span class="n">Alert</span><span class="p">)</span>
-        <span class="k">let</span> <span class="n">firstAction</span> <span class="o">=</span> <span class="n">UIAlertAction</span><span class="p">(</span><span class="nl">title</span><span class="p">:</span> <span class="s">&quot;OK&quot;</span><span class="p">,</span> <span class="nl">style</span><span class="p">:</span> <span class="n">UIAlertActionStyle</span><span class="p">.</span><span class="n">Default</span><span class="p">,</span> <span class="nl">handler</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span>
-        <span class="n">alert</span><span class="p">.</span><span class="n">addAction</span><span class="p">(</span><span class="n">firstAction</span><span class="p">)</span>
-        <span class="n">presentViewController</span><span class="p">(</span><span class="n">alert</span><span class="p">,</span> <span class="nl">animated</span><span class="p">:</span> <span class="nb">true</span><span class="p">,</span> <span class="nl">completion</span><span class="p">:</span> <span class="nb">nil</span><span class="p">)</span>
+    <span class="kd">@IBAction</span> <span class="kd">func</span> <span class="nf">saveAction</span><span class="p">(</span><span class="nv">sender</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nf">saveCustomObject</span><span class="p">()</span>
+        <span class="k">let</span> <span class="nv">alert</span> <span class="o">=</span> <span class="kt">UIAlertController</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Prompt"</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"Data saved!"</span><span class="p">,</span> <span class="nv">preferredStyle</span><span class="p">:</span> <span class="o">.</span><span class="kt">Alert</span><span class="p">)</span>
+        <span class="k">let</span> <span class="nv">firstAction</span> <span class="o">=</span> <span class="kt">UIAlertAction</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"OK"</span><span class="p">,</span> <span class="nv">style</span><span class="p">:</span> <span class="kt">UIAlertActionStyle</span><span class="o">.</span><span class="kt">Default</span><span class="p">,</span> <span class="nv">handler</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+        <span class="n">alert</span><span class="o">.</span><span class="nf">addAction</span><span class="p">(</span><span class="n">firstAction</span><span class="p">)</span>
+        <span class="nf">presentViewController</span><span class="p">(</span><span class="n">alert</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
     <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+    </code></pre></figure>
 
 <p>Run the app, type something and press <strong>Save</strong> button, it crashes! But we don’t know the reason from the default prompt of Xcode, let’s do it manually. Add Exception Breakpoint and repeat behavior before, you will get this:</p>
 
@@ -185,20 +188,20 @@
 
 <p>This line of code cause the crash:</p>
 
-<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="n">archiver</span><span class="p">.</span><span class="n">encodeObject</span><span class="p">(</span><span class="n">onlyText</span><span class="p">,</span> <span class="nl">forKey</span><span class="p">:</span> <span class="s">&quot;CustomObject&quot;</span><span class="p">)</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="n">archiver</span><span class="o">.</span><span class="nf">encodeObject</span><span class="p">(</span><span class="n">onlyText</span><span class="p">,</span> <span class="nv">forKey</span><span class="p">:</span> <span class="s">"CustomObject"</span><span class="p">)</span></code></pre></figure>
 
 <p>And the Console says <em>encodeWithCoder</em> is an unrecognized selector for <strong>CustomClass</strong>. This always happens when we try to use a method but the implementation is missing.</p>
 
 <p><em>encodeWithCoder</em> is a method of <strong>NSCoding</strong> protocol, so let’s make <strong>CustomClass</strong> conform to <strong>NSCoding</strong> and implement two required method of it like this:</p>
 
-<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">func</span> <span class="nf">encodeWithCoder</span><span class="p">(</span><span class="nl">aCoder</span><span class="p">:</span> <span class="bp">NSCoder</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">aCoder</span><span class="p">.</span><span class="n">encodeObject</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="nl">forKey</span><span class="p">:</span> <span class="s">&quot;Text&quot;</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">func</span> <span class="nf">encodeWithCoder</span><span class="p">(</span><span class="nv">aCoder</span><span class="p">:</span> <span class="kt">NSCoder</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">aCoder</span><span class="o">.</span><span class="nf">encodeObject</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="nv">forKey</span><span class="p">:</span> <span class="s">"Text"</span><span class="p">)</span>
 <span class="p">}</span>
 
-<span class="n">required</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="n">coder</span> <span class="nl">aDecoder</span><span class="p">:</span> <span class="bp">NSCoder</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nb">self</span><span class="p">.</span><span class="k">init</span><span class="p">()</span>	
-    <span class="n">text</span> <span class="o">=</span> <span class="n">aDecoder</span><span class="p">.</span><span class="n">decodeObjectForKey</span><span class="p">(</span><span class="s">&quot;Text&quot;</span><span class="p">)</span> <span class="kt">as</span><span class="o">!</span> <span class="n">String</span>
-<span class="p">}</span></code></pre></div>
+<span class="kd">required</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="n">coder</span> <span class="nv">aDecoder</span><span class="p">:</span> <span class="kt">NSCoder</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">self</span><span class="o">.</span><span class="nf">init</span><span class="p">()</span>	
+    <span class="n">text</span> <span class="o">=</span> <span class="n">aDecoder</span><span class="o">.</span><span class="nf">decodeObjectForKey</span><span class="p">(</span><span class="s">"Text"</span><span class="p">)</span> <span class="k">as!</span> <span class="kt">String</span>
+<span class="p">}</span></code></pre></figure>
 
 <p>Run the app again, it works just as you expect.</p>
 

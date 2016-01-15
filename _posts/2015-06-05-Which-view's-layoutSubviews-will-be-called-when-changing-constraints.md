@@ -71,7 +71,7 @@ This time, the relevant position between first and second view changes, along wi
 
 What can we conclude from above? **When we change a constraint, a view's `layoutSubviews` will be called if any of its subview whose frame is influenced by the constraint**.
 
-However, there is still a doubt in the way, which is reflected by the first condition we considered before. When we change the width constraint of the third view, only the the third view's width is changed, so as we expect, only `layoutSubviews` of third view's super view (second view) will be called. But the third view's `layoutSubviews` is also called! I have done some more experiments, I'm not sure I get the answer, but I make a guess: **When we change a constraint and it influences a  view which doesn't have any subviews, both the view and its super view's `layoutSubviews` will be called**. If someone know why, please tell me, thanks in advance.
+However, there is still a doubt in the way, which is reflected by the first condition we considered before. When we change the width constraint of the third view, only the the third view's width is changed, so as we expect, only `layoutSubviews` of third view's super view (second view) will be called. But the third view's `layoutSubviews` is also called! I have done some more experiments, I'm not sure I get the answer, but I make a guess: **When we change a constraint and it influences a  view which doesn't have any subviews, both the view and its super view's `layoutSubviews` will be called**. If someone knows why, please tell me, thanks in advance.
 
 
 

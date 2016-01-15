@@ -70,20 +70,20 @@
 
 <p>Time for some code now, in TableViewController.swift</p>
 
-<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kr">override</span> <span class="k">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nb">super</span><span class="p">.</span><span class="n">viewDidLoad</span><span class="p">()</span>
-    <span class="n">refreshControl</span> <span class="o">=</span> <span class="bp">UIRefreshControl</span><span class="p">()</span>
-    <span class="n">configureRefreshControl</span><span class="p">()</span>
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">super</span><span class="o">.</span><span class="nf">viewDidLoad</span><span class="p">()</span>
+    <span class="n">refreshControl</span> <span class="o">=</span> <span class="kt">UIRefreshControl</span><span class="p">()</span>
+    <span class="nf">configureRefreshControl</span><span class="p">()</span>
 <span class="p">}</span>
     
-<span class="k">func</span> <span class="nf">configureRefreshControl</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">refreshControl</span><span class="o">?</span><span class="p">.</span><span class="n">addTarget</span><span class="p">(</span><span class="nb">self</span><span class="p">,</span> <span class="nl">action</span><span class="p">:</span> <span class="s">&quot;refreshEffect&quot;</span><span class="p">,</span> <span class="nl">forControlEvents</span><span class="p">:</span> <span class="p">.</span><span class="n">ValueChanged</span><span class="p">)</span>
+<span class="kd">func</span> <span class="nf">configureRefreshControl</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">refreshControl</span><span class="p">?</span><span class="o">.</span><span class="nf">addTarget</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="nv">action</span><span class="p">:</span> <span class="s">"refreshEffect"</span><span class="p">,</span> <span class="nv">forControlEvents</span><span class="p">:</span> <span class="o">.</span><span class="kt">ValueChanged</span><span class="p">)</span>
 <span class="p">}</span>
     
-<span class="k">func</span> <span class="nf">refreshEffect</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">println</span><span class="p">(</span><span class="s">&quot;Refresh!&quot;</span><span class="p">)</span>
-    <span class="n">refreshControl</span><span class="o">?</span><span class="p">.</span><span class="n">endRefreshing</span><span class="p">()</span>
-<span class="p">}</span></code></pre></div>
+<span class="kd">func</span> <span class="nf">refreshEffect</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nf">println</span><span class="p">(</span><span class="s">"Refresh!"</span><span class="p">)</span>
+    <span class="n">refreshControl</span><span class="p">?</span><span class="o">.</span><span class="nf">endRefreshing</span><span class="p">()</span>
+<span class="p">}</span></code></pre></figure>
 
 <p>Run the app.</p>
 
@@ -93,25 +93,25 @@
 
 <p>Embed View Controller into a tab view controller. Drag a table view onto View Controller, then ctrl-drag it to the code part to create an IBOutlet, just name it tableView. After that, add a property below IBOutlet.</p>
 
-<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="p">@</span><span class="kt">IBOutlet</span> <span class="k">weak</span> <span class="k">var</span> <span class="nl">tableView</span><span class="p">:</span> <span class="bp">UITableView</span><span class="o">!</span>
-<span class="k">let</span> <span class="n">refreshControl</span> <span class="o">=</span> <span class="bp">UIRefreshControl</span><span class="p">()</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">@IBOutlet</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">tableView</span><span class="p">:</span> <span class="kt">UITableView</span><span class="o">!</span>
+<span class="k">let</span> <span class="nv">refreshControl</span> <span class="o">=</span> <span class="kt">UIRefreshControl</span><span class="p">()</span></code></pre></figure>
 
 <p>The rest is almost the same as before.</p>
 
-<div class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kr">override</span> <span class="k">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nb">super</span><span class="p">.</span><span class="n">viewDidLoad</span><span class="p">()</span>
-    <span class="n">configureRefreshControl</span><span class="p">()</span>
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">super</span><span class="o">.</span><span class="nf">viewDidLoad</span><span class="p">()</span>
+    <span class="nf">configureRefreshControl</span><span class="p">()</span>
 <span class="p">}</span>
 
-<span class="k">func</span> <span class="nf">configureRefreshControl</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">refreshControl</span><span class="p">.</span><span class="n">addTarget</span><span class="p">(</span><span class="nb">self</span><span class="p">,</span> <span class="nl">action</span><span class="p">:</span> <span class="s">&quot;refreshEffect&quot;</span><span class="p">,</span> <span class="nl">forControlEvents</span><span class="p">:</span> <span class="p">.</span><span class="n">ValueChanged</span><span class="p">)</span>
-    <span class="n">tableView</span><span class="p">.</span><span class="n">insertSubview</span><span class="p">(</span><span class="n">refreshControl</span><span class="p">,</span> <span class="nl">atIndex</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span>
+<span class="kd">func</span> <span class="nf">configureRefreshControl</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">refreshControl</span><span class="o">.</span><span class="nf">addTarget</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="nv">action</span><span class="p">:</span> <span class="s">"refreshEffect"</span><span class="p">,</span> <span class="nv">forControlEvents</span><span class="p">:</span> <span class="o">.</span><span class="kt">ValueChanged</span><span class="p">)</span>
+    <span class="n">tableView</span><span class="o">.</span><span class="nf">insertSubview</span><span class="p">(</span><span class="n">refreshControl</span><span class="p">,</span> <span class="nv">atIndex</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span>
 <span class="p">}</span>
     
-<span class="k">func</span> <span class="nf">refreshEffect</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">println</span><span class="p">(</span><span class="s">&quot;Refresh!&quot;</span><span class="p">)</span>
-    <span class="n">refreshControl</span><span class="p">.</span><span class="n">endRefreshing</span><span class="p">()</span>
-<span class="p">}</span></code></pre></div>
+<span class="kd">func</span> <span class="nf">refreshEffect</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nf">println</span><span class="p">(</span><span class="s">"Refresh!"</span><span class="p">)</span>
+    <span class="n">refreshControl</span><span class="o">.</span><span class="nf">endRefreshing</span><span class="p">()</span>
+<span class="p">}</span></code></pre></figure>
 
 <p>Don’t forget to set constraints for table view to make it the same size as its super view, or you will see the activity indicator not in the center of the screen after you pull down the table view.</p>
 
