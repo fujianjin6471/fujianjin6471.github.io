@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>How to use custom presentation</title>
+  <meta name="description" content="When UIAlertController is not enough to show what you want but you still need the modal style, it is up to UIPresentationController and its siblings.">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://127.0.0.1:4000/2016/08/11/how-to-use-custom-presentation.html">
+  <link rel="alternate" type="application/rss+xml" title="blog.fujianjin6471.com" href="http://127.0.0.1:4000/feed.xml" />
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">blog.fujianjin6471.com</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">How to use custom presentation</h1>
+    <p class="post-meta">Aug 11, 2016</p>
+  </header>
+
+  <article class="post-content">
+    <p>When <code class="highlighter-rouge">UIAlertController</code> is not enough to show what you want but you still need the modal style, it is up to <code class="highlighter-rouge">UIPresentationController</code> and its siblings.</p>
+
+<p>Let’s begin with a single view application. In our case, the existing view controller will be the <em>presenting view controller</em>, responsible for presenting another view controller. Besides, we need a <em>presented view controller</em>, a <em>transitioning delegate</em>, a <em>presentation controller</em> and an <em>animation controller</em>. Sounds a little complicated? Let’s go through them one by one.</p>
+
+<h1 id="presented-view-controller">Presented View Controller</h1>
+
+<p>Presented view controller is the controller presented by presenting view controller. It’s just an ordinary view controller. The only additional thing to do is to set its <code class="highlighter-rouge">modalPresentationStyle</code> be <code class="highlighter-rouge">UIModalPresentationCustom</code> before presentation. And <strong>don’t forget to set Storyboard ID if you use storyboard to configure presented view controller</strong>. I set it “<strong>PresentedVC</strong>”.</p>
+
+<h1 id="transitioning-delegate">Transitioning Delegate</h1>
+
+<p>Presented view controller has a property <code class="highlighter-rouge">transitioningDelegate</code>. It’s responsible for <strong>providing presentation controller and animation controller</strong>, we set it before the presentation.</p>
+
+<h1 id="presentation-controller">Presentation Controller</h1>
+
+<p>Presentation controller is responsible for <strong>defining the frame of the presented view</strong> and <strong>customizing the dimming view</strong> during the presentation. We create a class <code class="highlighter-rouge">PresentationController</code> which is a subclass of <code class="highlighter-rouge">UIPresentationController</code> for it.</p>
+
+<h2 id="defining-the-frame-of-the-presented-view">Defining the Frame of the Presented View</h2>
+
+<p>Both <strong>size</strong> and <strong>position</strong> information of the presented view should be provided. Override these two methods:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">override</span> <span class="kd">func</span> <span class="nf">frameOfPresentedViewInContainerView</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">CGRect</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">presentedViewFrame</span> <span class="o">=</span> <span class="kt">CGRectZero</span>
+    <span class="k">let</span> <span class="nv">containerBounds</span> <span class="o">=</span> <span class="n">containerView</span><span class="o">!.</span><span class="n">bounds</span>
+    <span class="n">presentedViewFrame</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="nf">sizeForChildContentContainer</span><span class="p">(</span><span class="n">presentedViewController</span><span class="p">,</span> <span class="nv">withParentContainerSize</span><span class="p">:</span> <span class="n">containerBounds</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+    <span class="n">presentedViewFrame</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">containerBounds</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">width</span> <span class="o">-</span> <span class="n">presentedViewFrame</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">width</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="n">presentedViewFrame</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">containerBounds</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">height</span> <span class="o">-</span> <span class="n">presentedViewFrame</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">height</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="n">presentedViewFrame</span>
+<span class="p">}</span>
+
+<span class="k">override</span> <span class="kd">func</span> <span class="nf">sizeForChildContentContainer</span><span class="p">(</span><span class="nv">container</span><span class="p">:</span> <span class="kt">UIContentContainer</span><span class="p">,</span> <span class="n">withParentContainerSize</span> <span class="nv">parentSize</span><span class="p">:</span> <span class="kt">CGSize</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">CGSize</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kt">CGSizeMake</span><span class="p">(</span><span class="n">parentSize</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="mf">1.5</span><span class="p">,</span> <span class="n">parentSize</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Of course you can adjust the frame as you need.</p>
+
+<h2 id="customizing-the-dimming-view">Customizing the Dimming View</h2>
+
+<p>This part contains creating and animating the dimming view. First, we need to create the dimming view and set it up:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">var</span> <span class="nv">dimmingView</span><span class="p">:</span> <span class="kt">UIView</span> <span class="o">=</span> <span class="kt">UIView</span><span class="p">()</span>
+
+<span class="k">override</span> <span class="nf">init</span><span class="p">(</span><span class="nv">presentedViewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span> <span class="nv">presentingViewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">presentedViewController</span><span class="p">:</span> <span class="n">presentedViewController</span><span class="p">,</span> <span class="nv">presentingViewController</span><span class="p">:</span> <span class="n">presentingViewController</span><span class="p">)</span>
+    <span class="nf">setupDimmingView</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">setupDimmingView</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">dimmingView</span><span class="o">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="p">(</span><span class="nv">white</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">alpha</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">)</span>
+    <span class="k">let</span> <span class="nv">tap</span> <span class="o">=</span> <span class="kt">UITapGestureRecognizer</span><span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="k">self</span><span class="p">,</span> <span class="nv">action</span><span class="p">:</span> <span class="err">#</span><span class="nf">selector</span><span class="p">(</span><span class="nf">dimmingViewTapped</span><span class="p">(</span><span class="nv">_</span><span class="p">:)))</span>
+    <span class="n">dimmingView</span><span class="o">.</span><span class="nf">addGestureRecognizer</span><span class="p">(</span><span class="n">tap</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">dimmingViewTapped</span><span class="p">(</span><span class="nv">gesture</span><span class="p">:</span> <span class="kt">UIGestureRecognizer</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">gesture</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="kt">UIGestureRecognizerState</span><span class="o">.</span><span class="kt">Ended</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">presentingViewController</span><span class="o">.</span><span class="nf">dismissViewControllerAnimated</span><span class="p">(</span><span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Then implement animating the dimming view for presentation and dismissal:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">override</span> <span class="kd">func</span> <span class="nf">presentationTransitionWillBegin</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">dimmingView</span><span class="o">.</span><span class="n">frame</span> <span class="o">=</span> <span class="k">self</span><span class="o">.</span><span class="n">containerView</span><span class="o">!.</span><span class="n">bounds</span>
+    <span class="n">dimmingView</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">containerView</span><span class="o">!.</span><span class="nf">insertSubview</span><span class="p">(</span><span class="n">dimmingView</span><span class="p">,</span> <span class="nv">atIndex</span><span class="p">:</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">let</span> <span class="nv">coordinator</span> <span class="o">=</span> <span class="n">presentedViewController</span><span class="o">.</span><span class="nf">transitionCoordinator</span><span class="p">()</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">coordinator</span> <span class="o">!=</span> <span class="kc">nil</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">coordinator</span><span class="o">!.</span><span class="nf">animateAlongsideTransition</span><span class="p">({</span>
+            <span class="p">(</span><span class="nv">context</span><span class="p">:</span><span class="kt">UIViewControllerTransitionCoordinatorContext</span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="k">in</span>
+            <span class="k">self</span><span class="o">.</span><span class="n">dimmingView</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.0</span>
+            <span class="p">},</span> <span class="nv">completion</span><span class="p">:</span><span class="kc">nil</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="n">dimmingView</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">override</span> <span class="kd">func</span> <span class="nf">dismissalTransitionWillBegin</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">coordinator</span> <span class="o">=</span> <span class="n">presentedViewController</span><span class="o">.</span><span class="nf">transitionCoordinator</span><span class="p">()</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">coordinator</span> <span class="o">!=</span> <span class="kc">nil</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">coordinator</span><span class="o">!.</span><span class="nf">animateAlongsideTransition</span><span class="p">({</span>
+            <span class="p">(</span><span class="nv">context</span><span class="p">:</span><span class="kt">UIViewControllerTransitionCoordinatorContext</span><span class="o">!</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="k">in</span>
+            <span class="k">self</span><span class="o">.</span><span class="n">dimmingView</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="p">},</span> <span class="nv">completion</span><span class="p">:</span><span class="kc">nil</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="n">dimmingView</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<h2 id="deal-with-rotation">Deal With Rotation</h2>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">override</span> <span class="kd">func</span> <span class="nf">containerViewWillLayoutSubviews</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">dimmingView</span><span class="o">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">containerView</span><span class="o">!.</span><span class="n">bounds</span>
+    <span class="nf">presentedView</span><span class="p">()</span><span class="o">!.</span><span class="n">frame</span> <span class="o">=</span> <span class="nf">frameOfPresentedViewInContainerView</span><span class="p">()</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Without this method, when you rotate the device, just see it by yourself…</p>
+
+<h1 id="animation-controller">Animation Controller</h1>
+
+<p>Animation controller is also called <em>animator object</em>, it is responsible for <strong>creating the animations for transitioning a view controller on or off screen in a fixed amount of time</strong>. Usually, we create a presentation animator object and a dismissal animator object respectively in one file. Both animator object need to implement <code class="highlighter-rouge">transitionDuration(_:)</code> to set a fixed time and <code class="highlighter-rouge">animateTransition(_:)</code> to control the animation of transition.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">PresentationAnimatedTransitioning</span><span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">UIViewControllerAnimatedTransitioning</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">transitionDuration</span><span class="p">(</span><span class="nv">transitionContext</span><span class="p">:</span> <span class="kt">UIViewControllerContextTransitioning</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">NSTimeInterval</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mf">0.5</span>
+    <span class="p">}</span>
+    
+    <span class="kd">func</span> <span class="nf">animateTransition</span><span class="p">(</span><span class="nv">transitionContext</span><span class="p">:</span> <span class="kt">UIViewControllerContextTransitioning</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">toVC</span> <span class="o">=</span> <span class="n">transitionContext</span><span class="o">.</span><span class="nf">viewControllerForKey</span><span class="p">(</span><span class="kt">UITransitionContextToViewControllerKey</span><span class="p">)</span>
+        <span class="k">let</span> <span class="nv">toView</span> <span class="o">=</span> <span class="n">toVC</span><span class="p">?</span><span class="o">.</span><span class="n">view</span>
+        <span class="k">let</span> <span class="nv">containerView</span> <span class="o">=</span> <span class="n">transitionContext</span><span class="o">.</span><span class="nf">containerView</span><span class="p">()</span>
+        
+        <span class="n">containerView</span><span class="o">!.</span><span class="nf">addSubview</span><span class="p">(</span><span class="n">toView</span><span class="o">!</span><span class="p">)</span>
+        
+        <span class="k">let</span> <span class="nv">finalFrame</span> <span class="o">=</span> <span class="n">transitionContext</span><span class="o">.</span><span class="nf">finalFrameForViewController</span><span class="p">(</span><span class="n">toVC</span><span class="o">!</span><span class="p">)</span>
+        <span class="k">var</span> <span class="nv">initialFrame</span> <span class="o">=</span> <span class="n">finalFrame</span>
+        <span class="n">initialFrame</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">containerView</span><span class="o">!.</span><span class="n">frame</span><span class="o">.</span><span class="n">width</span>
+        
+        <span class="n">toView</span><span class="p">?</span><span class="o">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">initialFrame</span>
+        
+        <span class="kt">UIView</span><span class="o">.</span><span class="nf">animateWithDuration</span><span class="p">(</span><span class="nf">transitionDuration</span><span class="p">(</span><span class="n">transitionContext</span><span class="p">),</span> <span class="nv">animations</span><span class="p">:</span> <span class="p">{</span>
+            <span class="n">toView</span><span class="p">?</span><span class="o">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">finalFrame</span>
+            <span class="p">},</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">{</span> <span class="n">finished</span> <span class="k">in</span>
+                <span class="n">transitionContext</span><span class="o">.</span><span class="nf">completeTransition</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+        <span class="p">})</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">DismissalAnimatedTransitioning</span><span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">UIViewControllerAnimatedTransitioning</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">transitionDuration</span><span class="p">(</span><span class="nv">transitionContext</span><span class="p">:</span> <span class="kt">UIViewControllerContextTransitioning</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">NSTimeInterval</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="mf">0.5</span>
+    <span class="p">}</span>
+    
+    <span class="kd">func</span> <span class="nf">animateTransition</span><span class="p">(</span><span class="nv">transitionContext</span><span class="p">:</span> <span class="kt">UIViewControllerContextTransitioning</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">fromVC</span> <span class="o">=</span> <span class="n">transitionContext</span><span class="o">.</span><span class="nf">viewControllerForKey</span><span class="p">(</span><span class="kt">UITransitionContextFromViewControllerKey</span><span class="p">)</span>
+        <span class="k">let</span> <span class="nv">fromView</span> <span class="o">=</span> <span class="n">fromVC</span><span class="p">?</span><span class="o">.</span><span class="n">view</span>
+        <span class="k">let</span> <span class="nv">containerView</span> <span class="o">=</span> <span class="n">transitionContext</span><span class="o">.</span><span class="nf">containerView</span><span class="p">()</span>
+        
+        <span class="k">let</span> <span class="nv">initialFrame</span> <span class="o">=</span> <span class="n">transitionContext</span><span class="o">.</span><span class="nf">initialFrameForViewController</span><span class="p">(</span><span class="n">fromVC</span><span class="o">!</span><span class="p">)</span>
+        <span class="k">var</span> <span class="nv">finalFrame</span> <span class="o">=</span> <span class="n">initialFrame</span>
+        <span class="n">finalFrame</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">containerView</span><span class="o">!.</span><span class="n">frame</span><span class="o">.</span><span class="n">width</span>
+        
+        <span class="n">fromView</span><span class="p">?</span><span class="o">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">initialFrame</span>
+        
+        <span class="kt">UIView</span><span class="o">.</span><span class="nf">animateWithDuration</span><span class="p">(</span><span class="nf">transitionDuration</span><span class="p">(</span><span class="n">transitionContext</span><span class="p">),</span> <span class="nv">animations</span><span class="p">:</span> <span class="p">{</span>
+            <span class="n">fromView</span><span class="p">?</span><span class="o">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">finalFrame</span>
+            <span class="p">},</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">{</span> <span class="n">finished</span> <span class="k">in</span>
+                <span class="n">fromView</span><span class="p">?</span><span class="o">.</span><span class="nf">removeFromSuperview</span><span class="p">()</span>
+                <span class="n">transitionContext</span><span class="o">.</span><span class="nf">completeTransition</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+        <span class="p">})</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>There are several points need to mention:</p>
+
+<ol>
+  <li><code class="highlighter-rouge">transitionContext</code> is the context object containing information about the transition. For examples, the presenting view controller and the presented view controller, the container view.</li>
+  <li>In the transition of presentation, we get the ending frame rectangle for presented view controller. Why do we know that? Because we set it in presentation controller.</li>
+  <li>In the transition of dismissal, we get the starting frame rectangle for presented view controller in the same way as before.</li>
+  <li>The container view is always an ancestor of the presented view controller’s view. We add presented view controller’s view to it before animation of presentation and remove presented view controller’s view from it after animation of dismissal.</li>
+</ol>
+
+<h1 id="back-to-transitioning-delegate">Back to Transitioning Delegate</h1>
+
+<p>Now that we have <code class="highlighter-rouge">PresentationController</code>, <code class="highlighter-rouge">PresentationAnimatedTransitioning</code> and <code class="highlighter-rouge">DismissalAnimatedTransitioning</code>, the transitioning delegate is very straightforward:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">import</span> <span class="kt">UIKit</span>
+
+<span class="kd">class</span> <span class="kt">TransitioningDelegate</span><span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">UIViewControllerTransitioningDelegate</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">presentationControllerForPresentedViewController</span><span class="p">(</span><span class="nv">presented</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span> <span class="n">presentingViewController</span> <span class="nv">presenting</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span> <span class="n">sourceViewController</span> <span class="nv">source</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UIPresentationController</span><span class="p">?</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">presentationController</span> <span class="o">=</span> <span class="kt">PresentationController</span><span class="p">(</span><span class="nv">presentedViewController</span><span class="p">:</span> <span class="n">presented</span><span class="p">,</span> <span class="nv">presentingViewController</span><span class="p">:</span> <span class="n">presenting</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">presentationController</span>
+    <span class="p">}</span>
+    
+    <span class="kd">func</span> <span class="nf">animationControllerForPresentedController</span><span class="p">(</span><span class="nv">presented</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span> <span class="n">presentingController</span> <span class="nv">presenting</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span> <span class="n">sourceController</span> <span class="nv">source</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UIViewControllerAnimatedTransitioning</span><span class="p">?</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">animationController</span> <span class="o">=</span> <span class="kt">PresentationAnimatedTransitioning</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">animationController</span>
+    <span class="p">}</span>
+    
+    <span class="kd">func</span> <span class="nf">animationControllerForDismissedController</span><span class="p">(</span><span class="nv">dismissed</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UIViewControllerAnimatedTransitioning</span><span class="p">?</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">animationController</span> <span class="o">=</span> <span class="kt">DismissalAnimatedTransitioning</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">animationController</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<h1 id="time-to-present">Time to Present</h1>
+
+<p>We have all the components ready for the presentation, time to present now:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">import</span> <span class="kt">UIKit</span>
+
+<span class="kd">class</span> <span class="kt">ViewController</span><span class="p">:</span> <span class="kt">UIViewController</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">customTransitioningDelegate</span> <span class="o">=</span> <span class="kt">TransitioningDelegate</span><span class="p">()</span>
+    <span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">super</span><span class="o">.</span><span class="nf">viewDidLoad</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="kd">@IBAction</span> <span class="kd">func</span> <span class="nf">presentAction</span><span class="p">(</span><span class="nv">sender</span><span class="p">:</span> <span class="kt">UIButton</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">presentedVC</span> <span class="o">=</span> <span class="n">storyboard</span><span class="p">?</span><span class="o">.</span><span class="nf">instantiateViewControllerWithIdentifier</span><span class="p">(</span><span class="s">"PresentedVC"</span><span class="p">)</span> <span class="k">as!</span> <span class="kt">PresentedVC</span>
+        <span class="n">presentedVC</span><span class="o">.</span><span class="n">transitioningDelegate</span> <span class="o">=</span> <span class="n">customTransitioningDelegate</span>
+        <span class="n">presentedVC</span><span class="o">.</span><span class="n">modalPresentationStyle</span> <span class="o">=</span> <span class="o">.</span><span class="kt">Custom</span>
+        <span class="nf">presentViewController</span><span class="p">(</span><span class="n">presentedVC</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>The effect is as below:</p>
+
+<div style="text-align:center">
+  <p><img src="http://127.0.0.1:4000/images/2016-8-11/CustomPresentationEffect.gif" alt="image" /></p>
+</div>
+
+<p>The demo project is <a href="https://github.com/fujianjin6471/DemosForBlog/tree/master/CustomPresentation">here</a>.</p>
+
+  </article>
+
+   <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'fujianjin6471'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Contact Information</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="contact-list">
+          <!--<li>blog.fujianjin6471.com</li>-->
+          <li><a href="mailto:fujianjin6471@yeah.net">fujianjin6471@yeah.net</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/fujianjin6471">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">fujianjin6471</span>
+            </a>
+          </li>
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text">Write something really helpful to me, hope the same to others.
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
