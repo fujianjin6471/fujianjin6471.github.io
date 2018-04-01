@@ -8,7 +8,7 @@ Look at a simple class like this:
 {% highlight swift %}
 class SomeClass {
     class func generate() -> SomeClass {
-        return self()
+        return self.init()
     }
 }
 {% endhighlight %}
